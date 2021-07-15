@@ -1,16 +1,9 @@
 import { InvestigationEntity } from '../prescription/entities/investigation.entity';
 import { HxEntity } from '../prescription/hx.entity';
 import { PxEntity } from '..//prescription/px.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PrescriptionEntity } from '../prescription/prescription.entity';
+import { DxEntity } from '../prescription/entities/dx.entity';
 
 @Entity('patient')
 export class PatientEntity {
@@ -43,17 +36,17 @@ export class PatientEntity {
   @Column()
   code: string;
 
-  @Column()
-  dx: string;
-
   @OneToMany(() => HxEntity, (hxEntity) => hxEntity.patient)
   hx?: HxEntity[];
+
+  @OneToMany(() => DxEntity, (hxEntity) => hxEntity.patient)
+  dx?: DxEntity[];
 
   @OneToMany(() => PxEntity, (pxEntity) => pxEntity.patient)
   px?: PxEntity[];
 
-  @ManyToOne(() => InvestigationEntity, (ix) => ix.patient)
-  ix: InvestigationEntity;
+  @OneToMany(() => InvestigationEntity, (ix) => ix.patient)
+  ix?: InvestigationEntity[];
 
   @OneToMany(
     () => PrescriptionEntity,

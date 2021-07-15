@@ -17,6 +17,7 @@ import { UrineEntity } from '../entities/urine.entity';
 import { DrugsService } from '../../drugs/services/drugs.service';
 import { Drug } from '../../drugs/drug.interface';
 import { getManager } from 'typeorm';
+import { DxEntity } from '../entities/dx.entity';
 
 @Injectable()
 export class PrescriptionService {
@@ -31,6 +32,9 @@ export class PrescriptionService {
     private readonly hxRepo: Repository<HxEntity>,
     @InjectRepository(PxEntity)
     private readonly pxRepo: Repository<PxEntity>,
+
+    @InjectRepository(DxEntity)
+    private readonly dxRepo: Repository<DxEntity>,
 
     @InjectRepository(InvestigationEntity)
     private readonly investigationRepo: Repository<InvestigationEntity>,
@@ -56,9 +60,10 @@ export class PrescriptionService {
     prescription: Prescription,
   ): Promise<PrescriptionEntity> {
     const { dose, drug, frequency, route, takein } = prescription;
-    const { age, fathername, dx, grandfathername, name, phone, sex, weight } =
+    const { age, fathername, grandfathername, name, phone, sex, weight } =
       prescription.patient;
     const { cc, hpi } = prescription.patient.hx;
+    const { diagnosis } = prescription.patient.dx;
     const { abd, bp, cvs, ga, heent, lgs, pr, rr, rs, temp } =
       prescription.patient.px;
 
@@ -71,6 +76,16 @@ export class PrescriptionService {
     console.log('====================================');
     console.log(patient_code);
     console.log('====================================');
+    const patient = await this.patientRepo.save({
+      name,
+      age,
+      fathername,
+      grandfathername,
+      phone,
+      sex,
+      weight,
+      code: patient_code,
+    });
     let investigation = null;
     if (prescription.patient.ix != null) {
       const {
@@ -253,21 +268,13 @@ export class PrescriptionService {
         endo,
         sero,
         uri,
+        patient,
       });
     }
+    console.log('=patient===================================');
+    console.log(investigation);
+    console.log('====================================');
 
-    const patient = await this.patientRepo.save({
-      name,
-      age,
-      fathername,
-      grandfathername,
-      phone,
-      sex,
-      weight,
-      dx,
-      code: patient_code,
-      ix: investigation,
-    });
     const pres = await this.prescriptionRepo.save({
       code,
       dose,
@@ -280,6 +287,11 @@ export class PrescriptionService {
     this.hxRepo.save({
       cc,
       hpi,
+      patient,
+    });
+
+    this.dxRepo.save({
+      diagnosis,
       patient,
     });
 

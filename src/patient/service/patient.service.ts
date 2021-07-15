@@ -13,7 +13,7 @@ export class PatientService {
   ) {}
 
   createPatient(patient: Patient): Observable<PatientEntity> {
-    const { name, fathername, grandfathername, age, weight, sex, dx, phone } =
+    const { name, fathername, grandfathername, age, weight, sex, phone } =
       patient;
     return from(
       this.patientRepo.save({
@@ -24,7 +24,6 @@ export class PatientService {
         age,
         sex,
         weight,
-        dx,
       }),
     );
   }
@@ -32,7 +31,7 @@ export class PatientService {
   findAllPatients(): Observable<PatientEntity[]> {
     return from(
       this.patientRepo.find({
-        relations: ['ix', 'hx', 'px'],
+        relations: ['ix', 'hx', 'px', 'dx'],
       }),
     );
   }
@@ -54,13 +53,12 @@ export class PatientService {
   //   }
 
   updatePatient(id: number, patient: Patient): Observable<UpdateResult> {
-    const { name, fathername, grandfathername, age, weight, sex, dx, phone } =
+    const { name, fathername, grandfathername, age, weight, sex, phone } =
       patient;
     return from(
       this.patientRepo.update(id, {
         name,
         age,
-        dx,
         fathername,
         grandfathername,
         phone,

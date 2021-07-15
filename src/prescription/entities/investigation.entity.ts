@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToOne,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { ChemistryEntity } from './chemistry.entity';
 import { EndocrinologyEntity } from './endocrinology.entity';
@@ -50,6 +51,6 @@ export class InvestigationEntity {
   @JoinColumn()
   urine?: UrineEntity[];
 
-  @OneToMany(() => PatientEntity, (prescriptionEntity) => prescriptionEntity.ix)
+  @ManyToOne(() => PatientEntity, (prescriptionEntity) => prescriptionEntity.ix)
   patient?: PatientEntity;
 }

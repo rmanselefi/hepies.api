@@ -15,6 +15,7 @@ import { SerologyEntity } from './entities/serology.entity';
 import { DrugsService } from '../drugs/services/drugs.service';
 import { DrugEntity } from '../drugs/drugs.entity';
 import { DrugsModule } from '../drugs/drugs.module';
+import { DxEntity } from './entities/dx.entity';
 
 @Module({
   imports: [
@@ -30,9 +31,9 @@ import { DrugsModule } from '../drugs/drugs.module';
       UrineEntity,
       SerologyEntity,
       DrugEntity,
+      DxEntity,
     ]),
     DrugsModule,
-
   ],
   providers: [PrescriptionService],
   controllers: [PrescriptionController],

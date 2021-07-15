@@ -6,22 +6,36 @@ export class DrugEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   name: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   strength: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   unit: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   category: string;
 
   @Column({
-    length: '1000', 
+    nullable: true,
   })
-  description: string;
+  route: string;
+
+  @Column({
+    length: '10000',
+    nullable: true,
+  })
+  about: string;
 
   @OneToMany(() => PrescriptionEntity, (presEntity) => presEntity.drug)
   prescription?: PrescriptionEntity[];

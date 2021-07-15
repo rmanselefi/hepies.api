@@ -20,7 +20,7 @@ export class PrescriptionEntity {
   takein: string;
 
   @Column()
-  frequency: string;
+  frequency: string;  
 
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription)
   drug: DrugEntity;

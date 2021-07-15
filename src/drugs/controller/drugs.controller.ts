@@ -18,7 +18,7 @@ import { DrugsService } from '../services/drugs.service';
 export class DrugsController {
   constructor(private drugService: DrugsService) {}
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Post()
   create(@Body() drug: Drug) {
     return this.drugService.createDrug(drug);
