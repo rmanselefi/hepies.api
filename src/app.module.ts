@@ -32,9 +32,9 @@ import { RolesModule } from './roles/roles.module';
         : '',
       autoLoadEntities: true,
       synchronize: true,
-      // ssl: {
-      //   rejectUnauthorized: false,
-      // },
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
     AuthModule,
     UsersModule,
