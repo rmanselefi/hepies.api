@@ -77,11 +77,9 @@ export class PrescriptionService {
     const { abd, bp, cvs, ga, heent, lgs, pr, rr, rs, temp } = px;
 
     const code = await crypto.randomBytes(6).toString('hex');
-    const entityManager = getManager();
-    const someQuery = await entityManager.query(
-      ` SELECT nextval('patient_code'); `,
-    );
-    const patient_code = 'PATIENT' + someQuery[0].nextval;
+    const patient_cod = await crypto.randomBytes(4).toString('hex');
+
+    const patient_code = 'PATIENT' + patient_cod;
     const patient = await this.patientRepo.save({
       name,
       age,
