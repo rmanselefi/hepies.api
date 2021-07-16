@@ -10,7 +10,6 @@ import { DrugsModule } from './drugs/drugs.module';
 import { PointsModule } from './points/points.module';
 import { LookupModule } from './lookup/lookup.module';
 import { RolesModule } from './roles/roles.module';
-import { Client } from 'pg';
 
 @Module({
   imports: [
@@ -33,7 +32,9 @@ import { Client } from 'pg';
         : '',
       autoLoadEntities: true,
       synchronize: true,
-      ssl: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
     AuthModule,
     UsersModule,
