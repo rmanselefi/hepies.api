@@ -10,6 +10,7 @@ import { DrugsModule } from './drugs/drugs.module';
 import { PointsModule } from './points/points.module';
 import { LookupModule } from './lookup/lookup.module';
 import { RolesModule } from './roles/roles.module';
+import { Client } from 'pg';
 
 @Module({
   imports: [
@@ -17,12 +18,19 @@ import { RolesModule } from './roles/roles.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
+      url: process.env.DATABASE_URL ? process.env.DATABASE_URL : '',
       type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: parseInt(<string>process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DATABASE,
+      host: process.env.POSTGRES_HOST ? process.env.POSTGRES_HOST : '',
+      port: process.env.POSTGRES_PORT
+        ? parseInt(<string>process.env.POSTGRES_PORT)
+        : null,
+      username: process.env.POSTGRES_USER ? process.env.POSTGRES_USER : '',
+      password: process.env.POSTGRES_PASSWORD
+        ? process.env.POSTGRES_PASSWORD
+        : '',
+      database: process.env.POSTGRES_DATABASE
+        ? process.env.POSTGRES_DATABASE
+        : '',
       autoLoadEntities: true,
       synchronize: true,
     }),
