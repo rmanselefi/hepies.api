@@ -33,6 +33,7 @@ import { Client } from 'pg';
         : '',
       autoLoadEntities: true,
       synchronize: true,
+      ssl: true,
     }),
     AuthModule,
     UsersModule,
