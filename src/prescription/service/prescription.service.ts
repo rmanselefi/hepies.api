@@ -60,12 +60,21 @@ export class PrescriptionService {
     prescription: Prescription,
   ): Promise<PrescriptionEntity> {
     const { dose, drug, frequency, route, takein } = prescription;
-    const { age, fathername, grandfathername, name, phone, sex, weight } =
-      prescription.patient;
-    const { cc, hpi } = prescription.patient.hx;
-    const { diagnosis } = prescription.patient.dx;
-    const { abd, bp, cvs, ga, heent, lgs, pr, rr, rs, temp } =
-      prescription.patient.px;
+    const {
+      age,
+      fathername,
+      grandfathername,
+      name,
+      phone,
+      sex,
+      weight,
+      hx,
+      dx,
+      px,
+    } = prescription.patient;
+    const { cc, hpi } = hx;
+    const { diagnosis } = dx;
+    const { abd, bp, cvs, ga, heent, lgs, pr, rr, rs, temp } = px;
 
     const code = await crypto.randomBytes(6).toString('hex');
     const entityManager = getManager();
@@ -73,9 +82,6 @@ export class PrescriptionService {
       ` SELECT nextval('patient_code'); `,
     );
     const patient_code = 'PATIENT' + someQuery[0].nextval;
-    console.log('====================================');
-    console.log(patient_code);
-    console.log('====================================');
     const patient = await this.patientRepo.save({
       name,
       age,
@@ -271,9 +277,6 @@ export class PrescriptionService {
         patient,
       });
     }
-    console.log('=patient===================================');
-    console.log(investigation);
-    console.log('====================================');
 
     const pres = await this.prescriptionRepo.save({
       code,
