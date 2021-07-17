@@ -24,6 +24,23 @@ export class DrugsController {
     return this.drugService.createDrug(drug);
   }
 
+  @Post()
+  migrate(@Body() drugs: any[]) {
+    for (let index = 0; index < drugs.length; index++) {
+      const drug = drugs[index];
+      const drg: Drug = {
+        name: drug.DrugName,
+        about: drug.about,
+        strength: drug.Common_strength,
+        unit: drug.Unit,
+        route: drug.Common_route,
+        category: '',
+      };
+      this.drugService.createDrug(drg);
+    }
+    return true;
+  }
+
   @Get()
   getPosts(): Observable<Drug[]> {
     return this.drugService.findAllDrugs();
@@ -33,7 +50,6 @@ export class DrugsController {
   getDrugById(@Param('id') id: number): Promise<Drug[]> {
     return this.drugService.findDrug(id);
   }
-
 
   @Put(':id')
   updatePost(
