@@ -24,7 +24,7 @@ export class DrugsController {
     return this.drugService.createDrug(drug);
   }
 
-  @Post()
+  @Post('migrate')
   migrate(@Body() drugs: any[]) {
     for (let index = 0; index < drugs.length; index++) {
       const drug = drugs[index];
