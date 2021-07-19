@@ -6,8 +6,6 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { JwtGuard } from './guards/jwt.guard';
 import { User } from './user.interface';
@@ -22,11 +20,9 @@ export class AuthController {
   // }
 
   @Post('login')
-  async login(@Body() user: User): Promise<{ token: string }> {
+  async login(@Body() user: User): Promise<User> {
     const res = await this.authservice.login(user);
-    return {
-      token: res,
-    };
+    return res;
   }
 
   @UseGuards(JwtGuard)

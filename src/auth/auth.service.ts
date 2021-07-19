@@ -49,7 +49,7 @@ export class AuthService {
     const user = await this.userRepo.findOne(
       { username },
       {
-        relations: ['role'],
+        relations: ['role', 'profession'],
       },
     );
     const isValid = await bcrypt.compare(pass, user.password);
@@ -61,13 +61,15 @@ export class AuthService {
     }
   }
 
-  async login(usere: User): Promise<string> {
+  async login(usere: User): Promise<User> {
     const { username, password } = usere;
     const user = await this.validateUser(username, password);
     if (user) {
-      return this.jwtservice.signAsync({ user });
+      const token = await this.jwtservice.signAsync({ user });
+      user.token = token;
+      return user;
     }
-    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN); 
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
   async findUserById(id: number): Promise<User> {
     const user = await this.userRepo.findOne({

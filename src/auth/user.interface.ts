@@ -6,5 +6,6 @@ export interface User {
   password?: string;
   active?: string;
   roleId?: number;
+  token?: string;
   role?: Role;
 }
