@@ -23,7 +23,11 @@ export class ConsultingService {
   }
 
   findAllPosts(): Observable<Consult[]> {
-    return from(this.consultRepo.find());
+    return from(
+      this.consultRepo.find({
+        relations: ['author'],
+      }),
+    );
   }
 
   findPost(id: number): Observable<Consult[]> {

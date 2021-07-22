@@ -52,12 +52,14 @@ export class AuthService {
         relations: ['role', 'profession'],
       },
     );
-    const isValid = await bcrypt.compare(pass, user.password);
-    const isAuthorized = user.role.name === 'admin';
+    if (user != null) {
+      const isValid = await bcrypt.compare(pass, user.password);
+      const isAuthorized = user.role.name === 'admin';
 
-    if (isValid && isAuthorized) {
-      delete user.password;
-      return user;
+      if (isValid && isAuthorized) {
+        delete user.password;
+        return user;
+      }
     }
   }
 
