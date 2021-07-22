@@ -18,6 +18,9 @@ export class ConsultingService {
   ) {}
 
   createPost(user: User, feedPost: Consult): Observable<Consult> {
+    console.log('====================================');
+    console.log(user);
+    console.log('====================================');
     feedPost.authorId = user;
     return from(this.consultRepo.save(feedPost));
   }
