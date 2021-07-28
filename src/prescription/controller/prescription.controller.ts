@@ -29,8 +29,11 @@ export class PrescriptionController {
   }
 
   @Post('write')
-  register(@Body() pres: Prescription): Promise<PrescriptionEntity> {
-    return this.prescriptionService.registerPrescription(pres);
+  register(@Body() pres: Prescription[]): Promise<PrescriptionEntity> {
+    for (let index = 0; index < pres.length; index++) {
+      const presc = pres[index];
+      return this.prescriptionService.registerPrescription(presc);
+    }
   }
 
   @Get('most/prescribed')

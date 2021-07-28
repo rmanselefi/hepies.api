@@ -7,6 +7,10 @@ export interface Prescription {
   route: string;
   takein: string;
   frequency: string;
+  remark: string;
+  ampule: string;
+  strength: string;
+  unit: string;
   patient: Patient;
   drug: Drug;
 }

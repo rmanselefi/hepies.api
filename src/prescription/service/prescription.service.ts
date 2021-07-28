@@ -59,7 +59,17 @@ export class PrescriptionService {
   async registerPrescription(
     prescription: Prescription,
   ): Promise<PrescriptionEntity> {
-    const { dose, drug, frequency, route, takein } = prescription;
+    const {
+      dose,
+      drug,
+      frequency,
+      route,
+      takein,
+      ampule,
+      unit,
+      strength,
+      remark,
+    } = prescription;
     const {
       age,
       fathername,
@@ -284,6 +294,10 @@ export class PrescriptionService {
       drug,
       takein,
       patient,
+      ampule,
+      unit,
+      strength,
+      remark,
     });
     this.hxRepo.save({
       cc,
