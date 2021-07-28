@@ -49,7 +49,7 @@ export class AuthService {
     const user = await this.userRepo.findOne(
       { username },
       {
-        relations: ['role'],
+        relations: ['role', 'profession'],
       },
     );
     if (user != null) {
