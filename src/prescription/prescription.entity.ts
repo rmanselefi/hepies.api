@@ -10,13 +10,19 @@ export class PrescriptionEntity {
   @Column()
   code: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   strength: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   unit: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   route: string;
 
   @Column({
@@ -34,7 +40,9 @@ export class PrescriptionEntity {
   })
   frequency: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   remark: string;
 
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription)
