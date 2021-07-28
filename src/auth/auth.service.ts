@@ -67,7 +67,12 @@ export class AuthService {
     const { username, password } = usere;
     const user = await this.validateUser(username, password);
     if (user) {
-      const token = await this.jwtservice.signAsync({ user });
+      const token = await this.jwtservice.signAsync(
+        { user },
+        {
+          expiresIn: '9999 years',
+        },
+      );
       user.token = token;
       return user;
     }
