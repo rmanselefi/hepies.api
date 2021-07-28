@@ -29,6 +29,9 @@ export class ConsultingService {
     return from(
       this.consultRepo.find({
         relations: ['author'],
+        order:{
+          createdAt: 'DESC',
+        }
       }),
     );
   }
