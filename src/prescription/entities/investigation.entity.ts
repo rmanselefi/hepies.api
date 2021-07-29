@@ -1,18 +1,5 @@
 import { PatientEntity } from '../../patient/patient.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  JoinColumn,
-  OneToOne,
-  OneToMany,
-  ManyToOne,
-} from 'typeorm';
-import { ChemistryEntity } from './chemistry.entity';
-import { EndocrinologyEntity } from './endocrinology.entity';
-import { HemathologyEntity } from './hemathology.entity';
-import { SerologyEntity } from './serology.entity';
-import { UrineEntity } from './urine.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity('investigation')
 export class InvestigationEntity {
@@ -31,25 +18,35 @@ export class InvestigationEntity {
   @Column()
   others: string;
 
-  @OneToOne(() => HemathologyEntity)
-  @JoinColumn()
-  hemathology?: HemathologyEntity[];
+  @Column({
+    type: 'json',
+    nullable: true,
+  })
+  hehemathology;
 
-  @OneToOne(() => ChemistryEntity)
-  @JoinColumn()
-  chemistry?: ChemistryEntity[];
+  @Column({
+    type: 'json',
+    nullable: true,
+  })
+  chemistry;
 
-  @OneToOne(() => SerologyEntity)
-  @JoinColumn()
-  serology?: SerologyEntity[];
+  @Column({
+    type: 'json',
+    nullable: true,
+  })
+  serology;
 
-  @OneToOne(() => EndocrinologyEntity)
-  @JoinColumn()
-  endocrinology?: EndocrinologyEntity[];
+  @Column({
+    type: 'json',
+    nullable: true,
+  })
+  endocrinology;
 
-  @OneToOne(() => UrineEntity)
-  @JoinColumn()
-  urine?: UrineEntity[];
+  @Column({
+    type: 'json',
+    nullable: true,
+  })
+  urine;
 
   @ManyToOne(() => PatientEntity, (prescriptionEntity) => prescriptionEntity.ix)
   patient?: PatientEntity;

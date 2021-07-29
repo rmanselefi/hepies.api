@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('serology')
 export class SerologyEntity {
   @PrimaryGeneratedColumn()
   id: number;
