@@ -39,20 +39,6 @@ export class PrescriptionService {
     @InjectRepository(InvestigationEntity)
     private readonly investigationRepo: Repository<InvestigationEntity>,
 
-    @InjectRepository(HemathologyEntity)
-    private readonly hemaRepo: Repository<HemathologyEntity>,
-
-    @InjectRepository(ChemistryEntity)
-    private readonly chemistryRepo: Repository<ChemistryEntity>,
-
-    @InjectRepository(EndocrinologyEntity)
-    private readonly endoRepo: Repository<EndocrinologyEntity>,
-
-    @InjectRepository(SerologyEntity)
-    private readonly serologyRepo: Repository<SerologyEntity>,
-
-    @InjectRepository(UrineEntity)
-    private readonly urineRepo: Repository<UrineEntity>,
     private drugService: DrugsService,
   ) {}
 
