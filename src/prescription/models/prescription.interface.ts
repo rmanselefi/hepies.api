@@ -13,7 +13,7 @@ export interface Prescription {
   unit: string;
   material_name: string;
   size: string;
-  isInstrument: boolean;
+  type: string;
   patient: Patient;
   drug: Drug;
 }
