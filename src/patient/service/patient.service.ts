@@ -44,6 +44,15 @@ export class PatientService {
     );
   }
 
+  findPatient(phone: string): Observable<PatientEntity[]> {
+    return from(
+      this.patientRepo.find({
+        where: { phone },
+        relations: ['prescription', 'hx', 'dx', 'px', 'ix'],
+      }),
+    );
+  }
+
   //   async findDrugs(take = 10, skip = 0): Promise<Drug[]> {
   //     const drugs = this.drugRepo.findAndCount({
   //       take,

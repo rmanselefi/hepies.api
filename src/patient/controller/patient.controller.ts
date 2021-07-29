@@ -30,6 +30,11 @@ export class PatientController {
     return this.patientService.findAllPatients();
   }
 
+  @Get('medicalrecord/:phone')
+  getPatient(@Param('phone') phone: string): Observable<PatientEntity[]> {
+    return this.patientService.findPatient(phone);
+  }
+
   //   @Get('paginate')
   //   getSelected(
   //     @Query('take') take = 1,
