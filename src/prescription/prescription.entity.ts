@@ -11,17 +11,17 @@ export class PrescriptionEntity {
   code: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   strength: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   unit: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   route: string;
 
@@ -41,9 +41,24 @@ export class PrescriptionEntity {
   frequency: string;
 
   @Column({
-    nullable:true
+    nullable: true,
+  })
+  material_name: string;
+
+  @Column({
+    nullable: true,
+  })
+  size: string;
+
+  @Column({
+    nullable: true,
   })
   remark: string;
+
+  @Column({
+    nullable: true,
+  })
+  isinstrument: boolean;
 
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription)
   drug: DrugEntity;

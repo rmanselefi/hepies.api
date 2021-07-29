@@ -11,6 +11,9 @@ export interface Prescription {
   ampule: string;
   strength: string;
   unit: string;
+  material_name: string;
+  size: string;
+  isInstrument: boolean;
   patient: Patient;
   drug: Drug;
 }

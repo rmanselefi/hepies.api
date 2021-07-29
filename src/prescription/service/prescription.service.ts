@@ -55,6 +55,9 @@ export class PrescriptionService {
       unit,
       strength,
       remark,
+      material_name,
+      size,
+      isInstrument,
     } = prescription;
     const {
       age,
@@ -284,6 +287,9 @@ export class PrescriptionService {
       unit,
       strength,
       remark,
+      material_name,
+      size,
+      isInstrument,
     });
     this.hxRepo.save({
       cc,
