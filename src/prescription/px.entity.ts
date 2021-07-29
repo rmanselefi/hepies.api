@@ -6,34 +6,54 @@ export class PxEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   ga: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   pr: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   rr: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   bp: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   temp: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   heent: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   lgs: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   rs: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   cvs: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   abd: string;
 
   @ManyToOne(() => PatientEntity, (patient) => patient.px)

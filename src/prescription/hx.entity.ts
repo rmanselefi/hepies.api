@@ -6,10 +6,14 @@ export class HxEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   cc: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   hpi: string;
 
   @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.hx)
