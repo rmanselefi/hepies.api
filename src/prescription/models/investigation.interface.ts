@@ -10,9 +10,9 @@ export interface Investigation {
   pathologyindex: string;
   radiologyindex: string;
   others: string;
-  hemathology: Hemathology;
-  chemistry: Chemistry;
-  serology: Serology;
-  endocrinology: Endocrinology;
-  urine: Urine;
+  hemathology: any;
+  chemistry: any;
+  serology: any;
+  endocrinology: any;
+  urine: any;
 }
