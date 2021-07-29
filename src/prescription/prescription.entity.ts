@@ -58,7 +58,7 @@ export class PrescriptionEntity {
   @Column({
     nullable: true,
   })
-  isinstrument: boolean;
+  type: string;
 
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription)
   drug: DrugEntity;
