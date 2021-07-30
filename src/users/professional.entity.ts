@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -65,6 +66,10 @@ export class ProffesionalEntity {
     nullable: true,
   })
   interests: string;
+
+  
+  @CreateDateColumn()
+  createdAt;
 
   @ManyToOne(() => UserEntity, (user) => user.profession)
   user: UserEntity;

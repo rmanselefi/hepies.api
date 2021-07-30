@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { DrugEntity } from '../drugs/drugs.entity';
 import { PatientEntity } from '../patient/patient.entity';
 
@@ -59,6 +59,10 @@ export class PrescriptionEntity {
     nullable: true,
   })
   type: string;
+
+  
+  @CreateDateColumn()
+  createdAt;
 
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription)
   drug: DrugEntity;

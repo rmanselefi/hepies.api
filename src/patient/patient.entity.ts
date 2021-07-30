@@ -1,7 +1,7 @@
 import { InvestigationEntity } from '../prescription/entities/investigation.entity';
 import { HxEntity } from '../prescription/hx.entity';
 import { PxEntity } from '..//prescription/px.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 import { PrescriptionEntity } from '../prescription/prescription.entity';
 import { DxEntity } from '../prescription/entities/dx.entity';
 
@@ -35,6 +35,9 @@ export class PatientEntity {
 
   @Column()
   code: string;
+
+  @CreateDateColumn()
+  createdAt;
 
   @OneToMany(() => HxEntity, (hxEntity) => hxEntity.patient)
   hx?: HxEntity[];

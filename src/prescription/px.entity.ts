@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PatientEntity } from '../patient/patient.entity';
 
 @Entity('px')
@@ -55,6 +55,10 @@ export class PxEntity {
     nullable:true
   })
   abd: string;
+
+  
+  @CreateDateColumn()
+  createdAt;
 
   @ManyToOne(() => PatientEntity, (patient) => patient.px)
   patient: PatientEntity;
