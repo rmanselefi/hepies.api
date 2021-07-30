@@ -1,5 +1,5 @@
 import { PatientEntity } from '../../patient/patient.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('dx')
 export class DxEntity {
@@ -8,6 +8,10 @@ export class DxEntity {
 
   @Column()
   diagnosis: string;
+
+  
+  @CreateDateColumn()
+  createdAt;
 
   @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.dx)
   patient: PatientEntity;
