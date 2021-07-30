@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { PatientEntity } from '../patient/patient.entity';
 
 @Entity('px')
@@ -7,59 +13,60 @@ export class PxEntity {
   id: number;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   ga: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   pr: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   rr: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   bp: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   temp: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   heent: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   lgs: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   rs: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   cvs: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   abd: string;
 
-  
   @CreateDateColumn()
   createdAt;
 
-  @ManyToOne(() => PatientEntity, (patient) => patient.px)
+  @ManyToOne(() => PatientEntity, (patient) => patient.px, {
+    cascade: true,
+  })
   patient: PatientEntity;
 }

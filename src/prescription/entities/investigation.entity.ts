@@ -1,5 +1,11 @@
 import { PatientEntity } from '../../patient/patient.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity('investigation')
 export class InvestigationEntity {
@@ -47,10 +53,16 @@ export class InvestigationEntity {
     nullable: true,
   })
   urine;
-  
+
   @CreateDateColumn()
   createdAt;
 
-  @ManyToOne(() => PatientEntity, (prescriptionEntity) => prescriptionEntity.ix)
+  @ManyToOne(
+    () => PatientEntity,
+    (prescriptionEntity) => prescriptionEntity.ix,
+    {
+      cascade: true,
+    },
+  )
   patient?: PatientEntity;
 }

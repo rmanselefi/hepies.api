@@ -1,5 +1,11 @@
 import { PatientEntity } from '../patient/patient.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('hx')
 export class HxEntity {
@@ -7,19 +13,20 @@ export class HxEntity {
   id: number;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   cc: string;
 
   @Column({
-    nullable:true
+    nullable: true,
   })
   hpi: string;
 
-  
   @CreateDateColumn()
   createdAt;
 
-  @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.hx)
+  @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.hx, {
+    cascade: true,
+  })
   patient: PatientEntity;
 }
