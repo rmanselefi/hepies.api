@@ -17,7 +17,13 @@ export class DrugsService {
   }
 
   findAllDrugs(): Observable<Drug[]> {
-    return from(this.drugRepo.find());
+    return from(
+      this.drugRepo.find({
+        order: {
+          name: 'ASC',
+        },
+      }),
+    );
   }
 
   async findDrug(id: number): Promise<Drug[]> {
