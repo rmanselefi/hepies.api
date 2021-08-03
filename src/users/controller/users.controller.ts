@@ -55,7 +55,7 @@ export class UsersController {
     return this.userService.updateUser(id, user);
   }
 
-  @Put('profile/:id')
+  @Put('profile/update/:id')
   updateProfile(
     @Param('id') id: number,
     @Body() user: Proffesional,
