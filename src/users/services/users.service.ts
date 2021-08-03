@@ -136,6 +136,9 @@ export class UsersService {
       workplace,
     } = proffesional;
     const { username } = proffesional.user;
+    console.log('====================================');
+    console.log(username);
+    console.log('====================================');
     await this.userRepo.update(proffesional.user.id, {
       username,
     });
