@@ -51,6 +51,11 @@ export class DrugsController {
     return this.drugService.findDrug(id);
   }
 
+  @Get('find/:name')
+  getDrugByName(@Param('name') name: string): Promise<Drug[]> {
+    return this.drugService.findDrugByName(name);
+  }
+
   @Put(':id')
   updatePost(
     @Param('id') id: number,

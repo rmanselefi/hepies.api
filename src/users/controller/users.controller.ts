@@ -55,6 +55,14 @@ export class UsersController {
     return this.userService.updateUser(id, user);
   }
 
+  @Put('profile/:id')
+  updateProfile(
+    @Param('id') id: number,
+    @Body() user: Proffesional,
+  ): Promise<UpdateResult> {
+    return this.userService.updateUser(id, user);
+  }
+
   @Delete('delete/:id')
   deleteUser(@Param('id') id: number): Promise<DeleteResult> {
     return this.userService.deleteUser(id);

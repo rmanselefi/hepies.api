@@ -32,6 +32,12 @@ export class DrugsService {
     });
   }
 
+  async findDrugByName(name: string): Promise<Drug[]> {
+    return await this.drugRepo.find({
+      where: { name },
+    });
+  }
+
   //   async findDrugs(take = 10, skip = 0): Promise<Drug[]> {
   //     const drugs = this.drugRepo.findAndCount({
   //       take,

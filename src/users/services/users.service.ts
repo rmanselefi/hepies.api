@@ -117,6 +117,45 @@ export class UsersService {
     });
   }
 
+  async updateProfile(
+    id: number,
+    proffesional: Proffesional,
+  ): Promise<UpdateResult> {
+    const {
+      name,
+      fathername,
+      grandfathername,
+      phone,
+      proffesion,
+      profile,
+      license,
+      email,
+      interests,
+      points,
+      speciality,
+      workplace,
+    } = proffesional;
+    const { username } = proffesional.user;
+    await this.userRepo.update(proffesional.user.id, {
+      username,
+    });
+
+    return await this.professionalRepo.update(id, {
+      name,
+      fathername,
+      grandfathername,
+      phone,
+      proffesion,
+      profile,
+      license,
+      email,
+      interests,
+      points,
+      speciality,
+      workplace,
+    });
+  }
+
   async deleteUser(id: number): Promise<DeleteResult> {
     const res = await this.findUserById(id);
     await this.professionalRepo.delete(id);
