@@ -2,9 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserEntity } from '../auth/user.entity';
@@ -20,7 +18,9 @@ export class ProffesionalEntity {
   @Column()
   fathername: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   grandfathername: string;
 
   @Column()
@@ -67,7 +67,6 @@ export class ProffesionalEntity {
   })
   interests: string;
 
-  
   @CreateDateColumn()
   createdAt;
 
