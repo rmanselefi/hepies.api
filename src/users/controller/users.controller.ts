@@ -60,7 +60,7 @@ export class UsersController {
     @Param('id') id: number,
     @Body() user: Proffesional,
   ): Promise<UpdateResult> {
-    return this.userService.updateUser(id, user);
+    return this.userService.updateProfile(id, user);
   }
 
   @Delete('delete/:id')
