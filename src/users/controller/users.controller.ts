@@ -59,7 +59,7 @@ export class UsersController {
   updateProfile(
     @Param('id') id: number,
     @Body() user: Proffesional,
-  ): Promise<UpdateResult> {
+  ): Promise<Proffesional> {
     return this.userService.updateProfile(id, user);
   }
 
