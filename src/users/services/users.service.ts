@@ -120,7 +120,7 @@ export class UsersService {
   async updateProfile(
     id: number,
     proffesional: Proffesional,
-  ): Promise<UpdateResult> {
+  ): Promise<Proffesional> {
     const {
       name,
       fathername,
@@ -143,7 +143,7 @@ export class UsersService {
       username,
     });
 
-    return await this.professionalRepo.update(id, {
+    const result = await this.professionalRepo.update(id, {
       name,
       fathername,
       grandfathername,
@@ -157,6 +157,10 @@ export class UsersService {
       speciality,
       workplace,
     });
+    if (result.affected == 1) {
+      const profession = await this.findUserById(id);
+      return profession;
+    }
   }
 
   async deleteUser(id: number): Promise<DeleteResult> {
