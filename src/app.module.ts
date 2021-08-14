@@ -47,4 +47,4 @@ import { RolesModule } from './roles/roles.module';
     RolesModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -54,7 +54,10 @@ export class AuthService {
     );
     if (user != null) {
       const isValid = await bcrypt.compare(pass, user.password);
-      const isAuthorized = user.role.name === 'admin';
+      const isAuthorized =
+        user.role.name === 'admin' ||
+        user.role.name === 'doctor' ||
+        user.role.name === 'pharmacy';
 
       if (isValid && isAuthorized) {
         delete user.password;
@@ -66,17 +69,17 @@ export class AuthService {
   async login(usere: User): Promise<User> {
     const { username, password } = usere;
     const user = await this.validateUser(username, password);
-    if (user) {
-      const token = await this.jwtservice.signAsync(
-        { user },
-        {
-          expiresIn: '9999 years',
-        },
-      );
-      user.token = token;
-      return user;
+    if (!user) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    const token = await this.jwtservice.signAsync(
+      { user },
+      {
+        expiresIn: '9999 years',
+      },
+    );
+    user.token = token;
+    return user;
   }
   async findUserById(id: number): Promise<User> {
     const user = await this.userRepo.findOne({
