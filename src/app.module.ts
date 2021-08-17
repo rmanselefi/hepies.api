@@ -10,6 +10,7 @@ import { DrugsModule } from './drugs/drugs.module';
 import { PointsModule } from './points/points.module';
 import { LookupModule } from './lookup/lookup.module';
 import { RolesModule } from './roles/roles.module';
+import { GuidelinesModule } from './guidelines/guidelines.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { RolesModule } from './roles/roles.module';
     PointsModule,
     LookupModule,
     RolesModule,
+    GuidelinesModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}
