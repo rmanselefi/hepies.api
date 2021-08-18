@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Column,
   CreateDateColumn,
@@ -65,6 +66,12 @@ export class PrescriptionEntity {
     nullable: true,
   })
   type: string;
+
+  @Column({
+    nullable: true,
+  })
+  professional: string;
+
 
   @CreateDateColumn()
   createdAt;
