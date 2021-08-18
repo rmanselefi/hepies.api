@@ -52,6 +52,7 @@ export class PrescriptionService {
       material_name,
       size,
       type,
+      professional,
     } = prescription;
     const {
       age,
@@ -135,6 +136,7 @@ export class PrescriptionService {
       material_name,
       size,
       type,
+      professional
     });
     this.hxRepo.save({
       cc,
