@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { PatientEntity } from '../../patient/patient.entity';
 import {
   Entity,
@@ -12,16 +13,24 @@ export class InvestigationEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   microbiology: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   pathologyindex: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   radiologyindex: string;
 
-  @Column()
+  @Column({
+    nullable:true
+  })
   others: string;
 
   @Column({
