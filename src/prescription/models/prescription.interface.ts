@@ -4,7 +4,7 @@ import { Patient } from '../../patient/patient.interface';
 
 export interface Prescription {
   id: number;
-  dose: string;
+  drug_name: string;
   route: string;
   takein: string;
   frequency: string;

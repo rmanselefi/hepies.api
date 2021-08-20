@@ -20,6 +20,11 @@ export class PrescriptionEntity {
   @Column({
     nullable: true,
   })
+  drug_name: string;
+
+  @Column({
+    nullable: true,
+  })
   strength: string;
 
   @Column({

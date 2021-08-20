@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtGuard } from '../../auth/guards/jwt.guard';
@@ -5,6 +6,8 @@ import { Drug } from '../../drugs/drug.interface';
 import { Prescription } from '../models/prescription.interface';
 import { PrescriptionEntity } from '../prescription.entity';
 import { PrescriptionService } from '../service/prescription.service';
+import * as crypto from 'crypto';
+
 
 @Controller('prescription')
 export class PrescriptionController {
@@ -29,10 +32,12 @@ export class PrescriptionController {
   }
 
   @Post('write')
-  register(@Body() pres: Prescription[]): Promise<PrescriptionEntity> {
+  async register(@Body() pres: Prescription[]): Promise<PrescriptionEntity>  {
+    const code = await crypto.randomBytes(6).toString('hex');
+
     for (let index = 0; index < pres.length; index++) {
       const presc = pres[index];
-      return this.prescriptionService.registerPrescription(presc);
+      return this.prescriptionService.registerPrescription(presc,code);
     }
   }
 

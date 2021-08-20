@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PrescriptionEntity } from '../prescription/prescription.entity';
 

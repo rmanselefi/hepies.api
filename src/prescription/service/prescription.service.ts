@@ -39,6 +39,7 @@ export class PrescriptionService {
 
   async registerPrescription(
     prescription: Prescription,
+    code: string,
   ): Promise<PrescriptionEntity> {
     const {
       drug,
@@ -53,6 +54,7 @@ export class PrescriptionService {
       size,
       type,
       professional,
+      drug_name
     } = prescription;
     const {
       age,
@@ -70,7 +72,6 @@ export class PrescriptionService {
     const { diagnosis } = dx;
     const { abd, bp, cvs, ga, heent, lgs, pr, rr, rs, temp } = px;
 
-    const code = await crypto.randomBytes(6).toString('hex');
     const patient_cod = await crypto.randomBytes(4).toString('hex');
 
     const patient_code = 'PATIENT' + patient_cod;
@@ -124,8 +125,9 @@ export class PrescriptionService {
 
     const pres = await this.prescriptionRepo.save({
       code,
+      drug_name,
       frequency,
-      route,
+      route,    
       drug,
       takein,
       patient: patients,
@@ -136,7 +138,7 @@ export class PrescriptionService {
       material_name,
       size,
       type,
-      professional
+      professional,
     });
     this.hxRepo.save({
       cc,
