@@ -48,7 +48,7 @@ export class UsersController {
     return this.userService.enableDisableUser(id, user.active);
   }
 
-  @Post('cansee/:id')
+  @Post('cansee/grant/:id')
   canSee(
     @Param('id') id: number,
     @Body() user: User,
