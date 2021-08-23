@@ -29,6 +29,11 @@ export class UserEntity {
   })
   active: string;
 
+  @Column({
+    nullable: true,
+  })
+  isFit: string;
+
   @ManyToOne(() => RoleEntity, (role) => role.user)
   role: RoleEntity;
 

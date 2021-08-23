@@ -5,6 +5,7 @@ export interface User {
   username: string;
   password?: string;
   active?: string;
+  isFit?: string;
   roleId?: number;
   token?: string;
   role?: Role;

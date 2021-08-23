@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -45,6 +46,14 @@ export class UsersController {
     @Body() user: User,
   ): Observable<UpdateResult> {
     return this.userService.enableDisableUser(id, user.active);
+  }
+
+  @Post('cansee/:id')
+  canSee(
+    @Param('id') id: number,
+    @Body() user: User,
+  ): Observable<UpdateResult> {
+    return this.userService.canSee(id, user.isFit);
   }
 
   @Put('update/:id')

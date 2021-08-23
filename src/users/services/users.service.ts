@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { from, Observable } from 'rxjs';
 import { Proffesional } from '../professional.interface';
@@ -173,6 +174,14 @@ export class UsersService {
     return from(
       this.userRepo.update(id, {
         active,
+      }),
+    );
+  }
+
+  canSee(id: number, active: string): Observable<UpdateResult> {
+    return from(
+      this.userRepo.update(id, {
+        isFit: active,
       }),
     );
   }
