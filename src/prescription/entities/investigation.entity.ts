@@ -37,7 +37,7 @@ export class InvestigationEntity {
     type: 'json',
     nullable: true,
   })
-  hehemathology;
+  hemathology;
 
   @Column({
     type: 'json',
