@@ -32,13 +32,14 @@ export class PrescriptionController {
   }
 
   @Post('write')
-  async register(@Body() pres: Prescription[]): Promise<PrescriptionEntity>  {
+  async register(@Body() pres: Prescription[]): Promise<boolean>  {
     const code = await crypto.randomBytes(6).toString('hex');
 
     for (let index = 0; index < pres.length; index++) {
       const presc = pres[index];
-      return this.prescriptionService.registerPrescription(presc,code);
+      this.prescriptionService.registerPrescription(presc,code);
     }
+    return true;
   }
 
   @Get('most/prescribed')
