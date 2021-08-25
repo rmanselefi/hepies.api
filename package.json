@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": " node --max_old_space_size=2560 nest build",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node --max_old_space_size=2560 node dist/main.js",
     "start:dev": "nodemon --config nodemon.json",
