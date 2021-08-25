@@ -39,7 +39,7 @@ export class PrescriptionService {
 
   async registerPrescription(
     prescription: Prescription,
-    code: string,
+    code: string, 
   ): Promise<PrescriptionEntity> {
     const {
       drug,
