@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
@@ -16,8 +18,8 @@ export class PointsService {
     return from(this.pointsRepo.save(patient));
   }
 
-  findAllPoints(): Observable<Points[]> {
-    return from(this.pointsRepo.find());
+  async findAllPoints(): Promise<Points[]> {
+    return this.pointsRepo.find();
   }
 
   findPoint(id: number): Observable<Points[]> {

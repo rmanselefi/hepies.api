@@ -25,7 +25,7 @@ export class PointsController {
   }
 
   @Get()
-  getPosts(): Observable<Points[]> {
+  getPosts(): Promise<Points[]> {
     return this.pointsService.findAllPoints();
   }
 

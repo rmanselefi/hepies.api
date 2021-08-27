@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
@@ -7,7 +8,8 @@ import { Prescription } from '../models/prescription.interface';
 import { PrescriptionEntity } from '../prescription.entity';
 import { PrescriptionService } from '../service/prescription.service';
 import * as crypto from 'crypto';
-
+const path =require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 @Controller('prescription')
 export class PrescriptionController {
@@ -32,14 +34,33 @@ export class PrescriptionController {
   }
 
   @Post('write')
-  async register(@Body() pres: Prescription[]): Promise<boolean>  {
-    const code = await crypto.randomBytes(6).toString('hex');
+  async register(@Body() pres: Prescription[]): Promise<boolean> {
+    try {
+      const code = await crypto.randomBytes(6).toString('hex');
+      const phone = pres[0].patient.phone;
+      for (let index = 0; index < pres.length; index++) {
+        const presc = pres[index];
+        this.prescriptionService.registerPrescription(presc, code);
+      }
+      // require the Twilio module and create a REST client
+      const client = require('twilio')(
+        process.env.TWILIO_ACCOUNT_SID,
+        process.env.TWILIO_TOKEN,
+      );
+      client.messages
+        .create({
+          to: phone,
+          from: '+12692318349',
+          body:
+            'This is your prescription code please go to nearby pharmacy and purchase your prescription--' +
+            code,
+        })
+        .then((message) => console.log(message.sid));
 
-    for (let index = 0; index < pres.length; index++) {
-      const presc = pres[index];
-      this.prescriptionService.registerPrescription(presc,code);
+      return true;
+    } catch (err) {
+      console.log(err);
     }
-    return true;
   }
 
   @Get('most/prescribed')
