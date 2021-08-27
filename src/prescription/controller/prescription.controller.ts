@@ -36,6 +36,8 @@ export class PrescriptionController {
   @Post('write')
   async register(@Body() pres: Prescription[]): Promise<boolean> {
     try {
+      console.log("=======>",process.env.TWILIO_ACCOUNT_SID);
+      
       const code = await crypto.randomBytes(6).toString('hex');
       const phone = pres[0].patient.phone;
       for (let index = 0; index < pres.length; index++) {
@@ -50,7 +52,7 @@ export class PrescriptionController {
       client.messages
         .create({
           to: phone,
-          from: '+12692318349',
+          from: process.env.TWILIO_NUMBER,
           body:
             'This is your prescription code please go to nearby pharmacy and purchase your prescription--' +
             code,
