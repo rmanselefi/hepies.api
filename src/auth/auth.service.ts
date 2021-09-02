@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -55,9 +56,7 @@ export class AuthService {
     if (user != null) {
       const isValid = await bcrypt.compare(pass, user.password);
       const isAuthorized =
-        user.role.name === 'admin' ||
-        user.role.name === 'doctor' ||
-        user.role.name === 'pharmacy';
+        user.role.name === 'doctor' || user.role.name === 'pharmacy';
 
       if (isValid && isAuthorized) {
         delete user.password;
