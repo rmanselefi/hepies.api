@@ -62,6 +62,9 @@ export class AuthService {
         delete user.password;
         return user;
       }
+      else{
+        return null;
+      }
     }
   }
 
