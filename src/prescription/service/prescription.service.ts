@@ -185,9 +185,9 @@ export class PrescriptionService {
     );
   }
 
-  findPrescriptionByCode(code: string): Observable<PrescriptionEntity> {
+  findPrescriptionByCode(code: string): Observable<PrescriptionEntity[]> {
     return from(
-      this.prescriptionRepo.findOne({
+      this.prescriptionRepo.find({
         where: { code },
         relations: ['drug', 'patient'],
       }),
