@@ -8,7 +8,8 @@ import { Prescription } from '../models/prescription.interface';
 import { PrescriptionEntity } from '../prescription.entity';
 import { PrescriptionService } from '../service/prescription.service';
 import * as crypto from 'crypto';
-const path =require('path');
+import { UpdateResult } from 'typeorm';
+const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 @Controller('prescription')
@@ -36,8 +37,8 @@ export class PrescriptionController {
   @Post('write')
   async register(@Body() pres: Prescription[]): Promise<boolean> {
     try {
-      console.log("=======>",process.env.TWILIO_ACCOUNT_SID,);
-      
+      console.log('=======>', process.env.TWILIO_ACCOUNT_SID);
+
       const code = await crypto.randomBytes(6).toString('hex');
       const phone = pres[0].patient.phone;
       for (let index = 0; index < pres.length; index++) {
@@ -73,5 +74,17 @@ export class PrescriptionController {
   @Get('all/prescribed')
   getAllPrescribed(): Promise<Drug[]> {
     return this.prescriptionService.findAllPrescribed();
+  }
+
+  @Post('accept')
+  async acceptPrescription(@Body() pres: number[]): Promise<boolean> {
+    try {
+      for (let index = 0; index < pres.length; index++) {
+        this.prescriptionService.acceptPrescription(pres[index]);
+      }
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }

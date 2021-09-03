@@ -81,6 +81,12 @@ export class PrescriptionEntity {
   @CreateDateColumn()
   createdAt;
 
+  @Column({
+    nullable: true,
+    default:'NotRead'
+  })
+  status: string;
+
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription, {
     cascade: true,
   })

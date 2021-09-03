@@ -3,7 +3,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
 import { PatientEntity } from '../../patient/patient.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { HxEntity } from '../hx.entity';
 import { Prescription } from '../models/prescription.interface';
 import { PrescriptionEntity } from '../prescription.entity';
@@ -234,5 +234,9 @@ export class PrescriptionService {
     return this.patientRepo.findOne({
       where: { phone: phone },
     });
+  }
+
+  acceptPrescription(id: number): Observable<UpdateResult> {
+    return from(this.prescriptionRepo.update(id, { status: 'Read' }));
   }
 }
