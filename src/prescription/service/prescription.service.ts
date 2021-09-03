@@ -187,7 +187,7 @@ export class PrescriptionService {
 
   async findPrescriptionByCode(code: string): Promise<PrescriptionEntity[]> {
     const result = await this.prescriptionRepo.find({
-      where: { code },
+      where: { code, status: 'NotRead' },
       relations: ['drug', 'patient'],
     });
     if (result.length == 0) {
