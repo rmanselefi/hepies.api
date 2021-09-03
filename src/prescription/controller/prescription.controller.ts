@@ -29,7 +29,7 @@ export class PrescriptionController {
   @Get('code/:code')
   getPrescriptionByCode(
     @Param('code') code: string,
-  ): Observable<PrescriptionEntity[]> {
+  ): Promise<PrescriptionEntity[]> {
     return this.prescriptionService.findPrescriptionByCode(code);
   }
 

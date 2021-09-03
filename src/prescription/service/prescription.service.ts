@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
 import { PatientEntity } from '../../patient/patient.entity';
@@ -39,7 +39,7 @@ export class PrescriptionService {
 
   async registerPrescription(
     prescription: Prescription,
-    code: string, 
+    code: string,
   ): Promise<PrescriptionEntity> {
     const {
       drug,
@@ -54,7 +54,7 @@ export class PrescriptionService {
       size,
       type,
       professional,
-      drug_name
+      drug_name,
     } = prescription;
     const {
       age,
@@ -127,7 +127,7 @@ export class PrescriptionService {
       code,
       drug_name,
       frequency,
-      route,    
+      route,
       drug,
       takein,
       patient: patients,
@@ -185,13 +185,15 @@ export class PrescriptionService {
     );
   }
 
-  findPrescriptionByCode(code: string): Observable<PrescriptionEntity[]> {
-    return from(
-      this.prescriptionRepo.find({
-        where: { code },
-        relations: ['drug', 'patient'],
-      }),
-    );
+  async findPrescriptionByCode(code: string): Promise<PrescriptionEntity[]> {
+    const result = await this.prescriptionRepo.find({
+      where: { code },
+      relations: ['drug', 'patient'],
+    });
+    if (result.length == 0) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+    return result;
   }
 
   async findMostPrescribed(): Promise<Drug[]> {
