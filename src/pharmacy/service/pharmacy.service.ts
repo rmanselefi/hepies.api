@@ -13,11 +13,12 @@ export class PharmacyService {
   ) {}
 
   create(pharmacy_drugs: Pharmacy): Observable<Pharmacy> {
-    const { drug_name, drug, professional } = pharmacy_drugs;
+    const { drug_name, drug, professional, price } = pharmacy_drugs;
 
     return from(
       this.lookupRepo.save({
         drug,
+        price,
         drug_name,
         professional,
       }),

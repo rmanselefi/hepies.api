@@ -11,6 +11,9 @@ export class PharmacyDrugsEntity {
   @Column()
   drug_name: string;
 
+  @Column()
+  price: string;
+
   @ManyToOne(() => DrugEntity, (profession) => profession.pharmacy)
   drug: DrugEntity;
 
