@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { PharmacyDrugsEntity } from '../pharmacy/pharmacy.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PrescriptionEntity } from '../prescription/prescription.entity';
 
@@ -40,4 +41,7 @@ export class DrugEntity {
 
   @OneToMany(() => PrescriptionEntity, (presEntity) => presEntity.drug)
   prescription?: PrescriptionEntity[];
+
+  @OneToMany(() => PharmacyDrugsEntity, (pharmacy) => pharmacy.drug)
+  pharmacy?: PharmacyDrugsEntity[];
 }

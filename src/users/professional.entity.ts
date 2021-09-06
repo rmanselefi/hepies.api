@@ -1,8 +1,11 @@
+/* eslint-disable prettier/prettier */
+import { PharmacyDrugsEntity } from '../pharmacy/pharmacy.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserEntity } from '../auth/user.entity';
@@ -72,4 +75,7 @@ export class ProffesionalEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.profession)
   user: UserEntity;
+
+  @OneToMany(() => PharmacyDrugsEntity, (pharmacy) => pharmacy.profession)
+  pharmacy: PharmacyDrugsEntity;
 }

@@ -12,6 +12,7 @@ import { PointsModule } from './points/points.module';
 import { LookupModule } from './lookup/lookup.module';
 import { RolesModule } from './roles/roles.module';
 import { GuidelinesModule } from './guidelines/guidelines.module';
+import { PharmacyModule } from './pharmacy/pharmacy.module';
 
 @Module({
   imports: [
@@ -34,9 +35,9 @@ import { GuidelinesModule } from './guidelines/guidelines.module';
         : '',
       autoLoadEntities: true,
       synchronize: true,
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      // ssl: {
+      //   rejectUnauthorized: false,
+      // },
     }),
     AuthModule,
     UsersModule,
@@ -48,6 +49,7 @@ import { GuidelinesModule } from './guidelines/guidelines.module';
     LookupModule,
     RolesModule,
     GuidelinesModule,
+    PharmacyModule,
   ],
 })
 export class AppModule {}

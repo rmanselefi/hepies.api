@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from '../auth/user.interface';
 
 export interface Proffesional {
