@@ -12,7 +12,9 @@ export class PharmacyService {
     private readonly lookupRepo: Repository<PharmacyDrugsEntity>,
   ) {}
 
-  create(pharmacy_drugs: Pharmacy): Observable<Pharmacy> {
+  create(pharmacy_drugs: Pharmacy): Observable<PharmacyDrugsEntity> {
+    console.log(pharmacy_drugs);
+
     const { drug_name, drug, professional, price } = pharmacy_drugs;
 
     return from(
@@ -20,7 +22,7 @@ export class PharmacyService {
         drug,
         price,
         drug_name,
-        professional,
+        profession: professional,
       }),
     );
   }
