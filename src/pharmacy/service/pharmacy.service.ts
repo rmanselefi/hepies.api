@@ -34,7 +34,7 @@ export class PharmacyService {
   find(id: number): Observable<PharmacyDrugsEntity[]> {
     return from(
       this.lookupRepo.find({
-        where: { id },
+        where: { profession: id },
       }),
     );
   }

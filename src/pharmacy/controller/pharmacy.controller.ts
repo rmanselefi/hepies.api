@@ -26,8 +26,15 @@ export class PharmacyController {
   }
 
   @Get()
-  getPosts(): Observable<PharmacyDrugsEntity[]> {
+  getPharmacyDrugs(): Observable<PharmacyDrugsEntity[]> {
     return this.pharmacyService.findAll();
+  }
+
+  @Get(':id')
+  getPharmacyDrugById(
+    @Param('id') id: number,
+  ): Observable<PharmacyDrugsEntity[]> {
+    return this.pharmacyService.find(id);
   }
 
   @Put(':id')
