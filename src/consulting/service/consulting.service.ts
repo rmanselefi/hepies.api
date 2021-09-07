@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
@@ -7,6 +8,7 @@ import { CommentEntity } from '../comment.entity';
 import { Comment } from '../comment.interface';
 import { Consult } from '../consult.interface';
 import { ConsultingEntity } from '../consulting.entity';
+import { LikeEntity } from '../like.entity';
 
 @Injectable()
 export class ConsultingService {
@@ -15,6 +17,9 @@ export class ConsultingService {
     private readonly consultRepo: Repository<ConsultingEntity>,
     @InjectRepository(CommentEntity)
     private readonly commentRepo: Repository<CommentEntity>,
+
+    @InjectRepository(LikeEntity)
+    private readonly likeRepo: Repository<LikeEntity>,
   ) {}
 
   createPost(user: User, feedPost: Consult): Observable<Consult> {
@@ -29,9 +34,9 @@ export class ConsultingService {
     return from(
       this.consultRepo.find({
         relations: ['author'],
-        order:{
+        order: {
           createdAt: 'DESC',
-        }
+        },
       }),
     );
   }
@@ -72,6 +77,13 @@ export class ConsultingService {
   ): Promise<CommentEntity> {
     return await this.commentRepo.save({
       comment: comment.comment,
+      user: user,
+      consult: consult,
+    });
+  }
+
+  async likePost(user: User, consult: Consult): Promise<LikeEntity> {
+    return await this.likeRepo.save({     
       user: user,
       consult: consult,
     });

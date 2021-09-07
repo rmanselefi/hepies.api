@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { UserEntity } from '../auth/user.entity';
 import { CommentEntity } from './comment.entity';
+import { LikeEntity } from './like.entity';
 
 @Entity('consults')
 export class ConsultingEntity {
@@ -20,7 +21,7 @@ export class ConsultingEntity {
   topic: string;
 
   @Column({
-    nullable: true, 
+    nullable: true,
   })
   image: string;
 
@@ -32,4 +33,7 @@ export class ConsultingEntity {
 
   @OneToMany(() => CommentEntity, (commentEntity) => commentEntity.consult)
   comment: CommentEntity[];
+
+  @OneToMany(() => LikeEntity, (likeEntity) => likeEntity.consult)
+  like: LikeEntity[];
 }

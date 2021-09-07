@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -68,4 +69,15 @@ export class ConsultingController {
   async findComment(@Param(':id') id: number): Promise<CommentEntity[]> {
     return await this.consultingService.findComment(id);
   }
+
+
+  @UseGuards(JwtGuard)
+  @Post('like/:id')
+  likePost(@Param('id') id: number, @Request() req) {
+    const consult = {
+      id,
+    };
+    return this.consultingService.likePost(req.user, consult);
+  }
+
 }

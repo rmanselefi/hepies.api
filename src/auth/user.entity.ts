@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { CommentEntity } from '../consulting/comment.entity';
 import {
   Column,
@@ -12,6 +13,7 @@ import {
 import { ConsultingEntity } from '../consulting/consulting.entity';
 import { RoleEntity } from './role.entity';
 import { ProffesionalEntity } from '../users/professional.entity';
+import { LikeEntity } from '../consulting/like.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -45,4 +47,7 @@ export class UserEntity {
 
   @OneToMany(() => ProffesionalEntity, (profession) => profession.user)
   profession: ProffesionalEntity;
+
+  @OneToMany(() => LikeEntity, (likeEntity) => likeEntity.user)
+  like: LikeEntity[];
 }
