@@ -66,7 +66,7 @@ export class ConsultingController {
   }
 
   @Get('comment/:id')
-  async findComment(@Param(':id') id: number): Promise<CommentEntity[]> {
+  async findComment(@Param('id') id: number): Promise<CommentEntity[]> {
     return await this.consultingService.findComment(id);
   }
 
