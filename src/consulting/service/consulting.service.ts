@@ -90,6 +90,9 @@ export class ConsultingService {
   }
 
   async findComment(consultid: number): Promise<CommentEntity[]> {
+    console.log('====================================');
+    console.log(consultid);
+    console.log('====================================');
     const comment = await this.commentRepo.find({
       where: { consult: consultid },
     });
