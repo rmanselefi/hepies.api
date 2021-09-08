@@ -94,7 +94,7 @@ export class ConsultingController {
     return length;
   }
 
-  @Get('like/:id')
+  @Post('like/:id')
   async findLikeForUser(@Param('id') id: number,@Request() req): Promise<boolean> {
     const found = await (await this.consultingService.findLike(id,req.user));
     return found;
