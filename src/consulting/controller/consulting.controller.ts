@@ -99,4 +99,10 @@ export class ConsultingController {
     const found = await (await this.consultingService.findLike(id,req.user));
     return found;
   }
+
+  @Get('likes/:id')
+  async findLikesForConsult(@Param('id') id: number): Promise<number> {
+    const length = await (await this.consultingService.findLikeForConsult(id));
+    return length;
+  }
 }
