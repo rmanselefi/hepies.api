@@ -70,7 +70,6 @@ export class ConsultingController {
     return await this.consultingService.findComment(id);
   }
 
-
   @UseGuards(JwtGuard)
   @Post('like/:id')
   likePost(@Param('id') id: number, @Request() req) {
@@ -80,4 +79,18 @@ export class ConsultingController {
     return this.consultingService.likePost(req.user, consult);
   }
 
+  @UseGuards(JwtGuard)
+  @Post('unlike/:id')
+  unlikePost(@Param('id') id: number, @Request() req) {
+    const consult = {
+      id,
+    };
+    return this.consultingService.unLikePost(req.user, consult);
+  }
+
+  @Get('comments/:id')
+  async findCommentLength(@Param('id') id: number): Promise<number> {
+    const length = await (await this.consultingService.findComment(id)).length;
+    return length;
+  }
 }

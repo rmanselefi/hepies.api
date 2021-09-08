@@ -83,7 +83,14 @@ export class ConsultingService {
   }
 
   async likePost(user: User, consult: Consult): Promise<LikeEntity> {
-    return await this.likeRepo.save({     
+    return await this.likeRepo.save({
+      user: user,
+      consult: consult,
+    });
+  }
+
+  async unLikePost(user: User, consult: Consult): Promise<DeleteResult> {
+    return await this.likeRepo.delete({
       user: user,
       consult: consult,
     });
