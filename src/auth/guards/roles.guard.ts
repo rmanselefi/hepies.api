@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
@@ -16,14 +17,14 @@ export class RolesGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    if (!requiredRoles) {
-      return true;
-    }
-
     const { user }: { user: User } = context.switchToHttp().getRequest();
     console.log('====================================');
     console.log(user);
     console.log('====================================');
+
+    if (!requiredRoles) {
+      return true;
+    }
 
     return requiredRoles.some((role) => user.role.name?.includes(role));
   }
