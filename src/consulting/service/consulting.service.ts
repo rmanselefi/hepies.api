@@ -110,18 +110,14 @@ export class ConsultingService {
     return comment;
   }
 
-  async findLike(consultid: number, user: User): Promise<boolean> {
+  async findLike(consultid: number, user: User): Promise<number> {
     console.log('================like====================');
     console.log(consultid);
     console.log('==================like==================');
     const comment = await this.likeRepo.find({
       where: { consult: consultid, user: user.id },
     });
-    if (comment == null) {
-      return false;
-    } else {
-      return true;
-    }
+    return comment.length;
   }
 
   async findLikeForConsult(consultid: number): Promise<number> {
