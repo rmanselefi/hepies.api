@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
 import { User } from 'src/auth/user.interface';
@@ -83,6 +83,10 @@ export class ConsultingService {
   }
 
   async likePost(user: User, consult: Consult): Promise<LikeEntity> {
+    const found = await this.findLike(consult.id, user.id);
+    if (found) {
+      throw new HttpException('FOUND', HttpStatus.FOUND);
+    }
     return await this.likeRepo.save({
       user: user,
       consult: consult,
@@ -104,5 +108,19 @@ export class ConsultingService {
       where: { consult: consultid },
     });
     return comment;
+  }
+
+  async findLike(consultid: number, user: number): Promise<boolean> {
+    console.log('====================================');
+    console.log(consultid);
+    console.log('====================================');
+    const comment = await this.likeRepo.find({
+      where: { consult: consultid, user: user },
+    });
+    if (comment == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
