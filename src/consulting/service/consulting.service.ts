@@ -23,9 +23,6 @@ export class ConsultingService {
   ) {}
 
   createPost(user: User, feedPost: Consult): Observable<Consult> {
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
     feedPost.authorId = user;
     return from(this.consultRepo.save(feedPost));
   }
@@ -94,16 +91,17 @@ export class ConsultingService {
   }
 
   async unLikePost(user: User, consult: Consult): Promise<DeleteResult> {
+    const usr = {
+      id: user.id,
+    };
+
     return await this.likeRepo.delete({
-      user: user,
+      user: usr,
       consult: consult,
     });
   }
 
   async findComment(consultid: number): Promise<CommentEntity[]> {
-    console.log('====================================');
-    console.log(consultid);
-    console.log('====================================');
     const comment = await this.commentRepo.find({
       where: { consult: consultid },
     });
@@ -111,9 +109,6 @@ export class ConsultingService {
   }
 
   async findLike(consultid: number, user: User): Promise<number> {
-    console.log('================like====================');
-    console.log(consultid);
-    console.log('==================like==================');
     const comment = await this.likeRepo.find({
       where: { consult: consultid, user: user.id },
     });
@@ -121,9 +116,6 @@ export class ConsultingService {
   }
 
   async findLikeForConsult(consultid: number): Promise<number> {
-    console.log('====================================');
-    console.log(consultid);
-    console.log('====================================');
     const comment = await this.likeRepo.find({
       where: { consult: consultid },
     });
