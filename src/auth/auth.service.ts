@@ -24,27 +24,6 @@ export class AuthService {
     return from(bcrypt.hash(password, 12));
   }
 
-  // registerUser(user: User): Observable<User> {
-  //   const { name, fathername, grandfathername, email, password } = user;
-  //   return this.hashPassword(password).pipe(
-  //     switchMap((hashedPass: string) => {
-  //       return from(
-  //         this.userRepo.save({
-  //           name,
-  //           fathername,
-  //           grandfathername,
-  //           email,
-  //           password: hashedPass,
-  //         }),
-  //       ).pipe(
-  //         map((user: User) => {
-  //           delete user.password;
-  //           return user;
-  //         }),
-  //       );
-  //     }),
-  //   );
-  // }
 
   async validateUser(username: string, pass: string): Promise<User> {
     const user = await this.userRepo.findOne(
@@ -54,10 +33,7 @@ export class AuthService {
       },
     );
     if (user != null) {
-      const isValid = await bcrypt.compare(pass, user.password);
-      console.log('====================================');
-      console.log(user);
-      console.log('====================================');
+      const isValid = await bcrypt.compare(pass, user.password);     
       const isAuthorized =
         user.role.name === 'doctor' || user.role.name === 'pharmacy';
 
