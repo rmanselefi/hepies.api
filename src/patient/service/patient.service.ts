@@ -1,15 +1,20 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
+import { PrescriptionEntity } from '../../prescription/prescription.entity';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { PatientEntity } from '../patient.entity';
 import { Patient } from '../patient.interface';
+import { getConnection } from 'typeorm';
 
 @Injectable()
 export class PatientService {
   constructor(
     @InjectRepository(PatientEntity)
     private readonly patientRepo: Repository<PatientEntity>,
+    @InjectRepository(PatientEntity)
+    private readonly presRepo: Repository<PrescriptionEntity>,
   ) {}
 
   createPatient(patient: Patient): Observable<PatientEntity> {
@@ -44,13 +49,27 @@ export class PatientService {
     );
   }
 
-  findPatient(phone: string): Observable<PatientEntity[]> {
-    return from(
-      this.patientRepo.find({
-        where: { phone },
-        relations: ['prescription', 'hx', 'dx', 'px', 'ix'],
-      }),
-    );
+  async findPatient(phone: string): Promise<any[]> {
+    const patient = await this.patientRepo.findOne({
+      where: { phone },
+    });
+    const patient_id = patient.id;
+    const patint = {
+      id: patient_id,
+    };
+    const pres = await getConnection()
+      .getRepository(PrescriptionEntity)
+      .createQueryBuilder('prescription')
+      .where('prescription.patientid = :id', { id: patient_id })
+      .groupBy('prescription.code')
+      .execute();
+    console.log('====================================');
+    console.log(pres);
+    console.log('====================================');
+    const prescription = await this.presRepo.find({
+      where: { patient: patint },
+    });
+    return prescription;
   }
 
   //   async findDrugs(take = 10, skip = 0): Promise<Drug[]> {

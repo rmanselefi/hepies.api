@@ -32,7 +32,7 @@ export class PatientController {
   }
 
   @Get('medicalrecord/:phone')
-  getPatient(@Param('phone') phone: string): Observable<PatientEntity[]> {
+  getPatient(@Param('phone') phone: string): Promise<PatientEntity[]> {
     return this.patientService.findPatient(phone);
   }
 
