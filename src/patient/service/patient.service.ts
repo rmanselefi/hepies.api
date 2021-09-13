@@ -61,17 +61,17 @@ export class PatientService {
       .getRepository(PrescriptionEntity)
       .createQueryBuilder('prescription')
       .select("MAX(prescription.id)", "max")
-      .select("prescription.code")
+      .select("prescription.code,prescription.route,prescription.takein,prescription.frequency,prescription.strength,prescription.unit")
       .where('prescription.patientId = :id', { id: patient_id })
       .groupBy('prescription.code')
       .execute();
     console.log('====================================');
     console.log(pres);
     console.log('====================================');
-    const prescription = await this.presRepo.find({
-      where: { patientId: patint },
-    });
-    return prescription;
+    // const prescription = await this.presRepo.find({
+    //   where: { patientId: patint },
+    // });
+    return pres;
   }
 
   //   async findDrugs(take = 10, skip = 0): Promise<Drug[]> {
