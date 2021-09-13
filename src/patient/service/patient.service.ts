@@ -60,7 +60,7 @@ export class PatientService {
     const pres = await getConnection()
       .getRepository(PrescriptionEntity)
       .createQueryBuilder('prescription')
-      .select('COUNT(prescription.id),prescription.code,prescription.id')
+      .select('prescription.code,prescription.id')
       .where('prescription.patientId = :id', { id: patient_id })
       .groupBy('prescription.code')
       .execute();
