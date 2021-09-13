@@ -60,7 +60,7 @@ export class PatientService {
     const pres = await getConnection()
       .getRepository(PrescriptionEntity)
       .createQueryBuilder('prescription')
-      .select("MAX(prescription.id)", "max")
+      .select("MAX(prescription.id),MAX(prescription.route),MAX(prescription.takein),MAX(prescription.frequency),MAX(prescription.strength),MAX(prescription.unit)", "max")
       .select("prescription.code,prescription.route,prescription.takein,prescription.frequency,prescription.strength,prescription.unit")
       .where('prescription.patientId = :id', { id: patient_id })
       .groupBy('prescription.code')
