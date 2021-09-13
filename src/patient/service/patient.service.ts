@@ -61,6 +61,7 @@ export class PatientService {
       .getRepository(PrescriptionEntity)
       .createQueryBuilder('prescription')
       .select("MAX(prescription.id)", "max")
+      .select("prescription.code")
       .where('prescription.patientId = :id', { id: patient_id })
       .groupBy('prescription.code')
       .execute();
@@ -68,7 +69,7 @@ export class PatientService {
     console.log(pres);
     console.log('====================================');
     const prescription = await this.presRepo.find({
-      where: { patient: patint },
+      where: { patientId: patint },
     });
     return prescription;
   }
