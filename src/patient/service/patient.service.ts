@@ -71,7 +71,7 @@ export class PatientService {
     const last_pres = [];
     for (let i = 0; i < pres.length; i++) {
       const prescription = await this.presRepo.findOne({
-        where: { id: pres[i].id },
+        where: { code: pres[i].prescription_code },
         relations: ['drug', 'patient'],
       });
       last_pres.push(prescription);
