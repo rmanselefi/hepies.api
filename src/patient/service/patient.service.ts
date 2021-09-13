@@ -60,18 +60,26 @@ export class PatientService {
     const pres = await getConnection()
       .getRepository(PrescriptionEntity)
       .createQueryBuilder('prescription')
-      .select("MAX(prescription.id),MAX(prescription.route),MAX(prescription.takein),MAX(prescription.frequency),MAX(prescription.strength),MAX(prescription.unit)", "max")
-      .select("prescription.code,prescription.route,prescription.takein,prescription.frequency,prescription.strength,prescription.unit")
+      .select('MAX(prescription.id),', 'max')
+      .select('prescription.code,prescription.id')
       .where('prescription.patientId = :id', { id: patient_id })
       .groupBy('prescription.code')
       .execute();
     console.log('====================================');
     console.log(pres);
     console.log('====================================');
+    const last_pres = [];
+    for (let i = 0; i < pres.length; i++) {
+      const prescription = await this.presRepo.findOne({
+        where: { id: pres[i].id },
+        relations: ['drug', 'patient'],
+      });
+      last_pres.push(prescription);
+    }
     // const prescription = await this.presRepo.find({
     //   where: { patientId: patint },
     // });
-    return pres;
+    return last_pres;
   }
 
   //   async findDrugs(take = 10, skip = 0): Promise<Drug[]> {
