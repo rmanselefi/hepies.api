@@ -31,6 +31,11 @@ export class PatientController {
     return this.patientService.findAllPatients();
   }
 
+  @Get(':id')
+  getPatientById(@Param('id') id: number): Promise<PatientEntity> {
+    return this.patientService.getPatientById(id);
+  }
+
   @Get('medicalrecord/:phone')
   getPatient(@Param('phone') phone: string): Promise<PatientEntity[]> {
     return this.patientService.findPatient(phone);

@@ -35,9 +35,9 @@ import { PharmacyModule } from './pharmacy/pharmacy.module';
         : '',
       autoLoadEntities: true,
       synchronize: true,
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      // ssl: {
+      //   rejectUnauthorized: false,
+      // },
     }),
     AuthModule,
     UsersModule,

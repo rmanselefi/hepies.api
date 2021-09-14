@@ -41,12 +41,11 @@ export class PatientService {
     );
   }
 
-  findDrug(id: number): Observable<PatientEntity[]> {
-    return from(
-      this.patientRepo.find({
-        where: { id },
-      }),
-    );
+  async getPatientById(id: number): Promise<PatientEntity> {
+    return await this.patientRepo.findOne({
+      where: { id },
+      relations: ['ix', 'px', 'dx', 'hx'],
+    });
   }
 
   async getPatient(phone: string): Promise<PatientEntity> {
