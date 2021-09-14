@@ -28,11 +28,13 @@ export class UserEntity {
 
   @Column({
     nullable: true,
+    default:"true"
   })
   active: string;
 
   @Column({
     nullable: true,
+    default:"true"
   })
   isFit: string;
 

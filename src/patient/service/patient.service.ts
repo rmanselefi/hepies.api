@@ -13,7 +13,7 @@ export class PatientService {
   constructor(
     @InjectRepository(PatientEntity)
     private readonly patientRepo: Repository<PatientEntity>,
-    @InjectRepository(PatientEntity)
+    @InjectRepository(PrescriptionEntity)
     private readonly presRepo: Repository<PrescriptionEntity>,
   ) {}
 
@@ -61,34 +61,23 @@ export class PatientService {
       .getRepository(PrescriptionEntity)
       .createQueryBuilder('prescription')
       .select('MAX(prescription.id),prescription.code', 'code')
-      
       .where('prescription.patientId = :id', { id: patient_id })
       .groupBy('prescription.code')
       .execute();
-    console.log('====================================');
-    console.log(pres);
-    console.log('====================================');
+
     const last_pres = [];
     for (let i = 0; i < pres.length; i++) {
-      const prescription = await this.presRepo.find({
-        where: { code: pres[i].code },
-        relations: ['drug', 'patient'],
+      const prescription = await this.presRepo.findOne({
+        where: {
+          code: pres[i].code,
+        },
+        relations: ['patient', 'drug'],
       });
       last_pres.push(prescription);
     }
-    // const prescription = await this.presRepo.find({
-    //   where: { patientId: patint },
-    // });
+
     return last_pres;
   }
-
-  //   async findDrugs(take = 10, skip = 0): Promise<Drug[]> {
-  //     const drugs = this.drugRepo.findAndCount({
-  //       take,
-  //       skip,
-  //     });
-  //     return <Drug[]>drugs;
-  //   }
 
   updatePatient(id: number, patient: Patient): Observable<UpdateResult> {
     const { name, fathername, grandfathername, age, weight, sex, phone } =

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -29,11 +30,11 @@ export class DrugsController {
     for (let index = 0; index < drugs.length; index++) {
       const drug = drugs[index];
       const drg: Drug = {
-        name: drug.DrugName,
-        about: drug.about,
-        strength: drug.Common_strength,
-        unit: drug.Unit,
-        route: drug.Common_route,
+        name: drug.B,
+        about: drug.F,
+        strength: drug.D,
+        unit: drug.E,
+        route: drug.C,
         category: '',
       };
       this.drugService.createDrug(drg);
