@@ -36,14 +36,10 @@ export class PatientController {
     return this.patientService.findPatient(phone);
   }
 
-  //   @Get('paginate')
-  //   getSelected(
-  //     @Query('take') take = 1,
-  //     @Query('skip') skip = 1,
-  //   ): Observable<Consult[]> {
-  //     take = take > 20 ? 20 : take;
-  //     return this.drugService.findPosts(take, skip);
-  //   }
+  @Get('patient/:phone')
+  getPatientByPhone(@Param('phone') phone: string): Promise<PatientEntity> {
+    return this.patientService.getPatient(phone);
+  }
 
   @Put(':id')
   updatePost(

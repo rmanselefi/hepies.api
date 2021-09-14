@@ -49,6 +49,13 @@ export class PatientService {
     );
   }
 
+  async getPatient(phone: string): Promise<PatientEntity> {
+    const patient = await this.patientRepo.findOne({
+      where: { phone },
+    });
+    return patient;
+  }
+
   async findPatient(phone: string): Promise<any[]> {
     const patient = await this.patientRepo.findOne({
       where: { phone },
