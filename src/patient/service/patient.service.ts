@@ -69,7 +69,6 @@ export class PatientService {
       .select('MAX(prescription.id),prescription.code', 'code')
       .where('prescription.patientId = :id', { id: patient_id })
       .groupBy('prescription.code')
-      .orderBy('prescription.createdAt','DESC')
       .execute();
 
     const last_pres = [];
