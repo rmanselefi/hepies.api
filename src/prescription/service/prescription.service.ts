@@ -4,12 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
 import { PatientEntity } from '../../patient/patient.entity';
 import { Repository, UpdateResult } from 'typeorm';
-import { HxEntity } from '../hx.entity';
 import { Prescription } from '../models/prescription.interface';
 import { PrescriptionEntity } from '../prescription.entity';
-import { PxEntity } from '../px.entity';
 import * as crypto from 'crypto';
-import { InvestigationEntity } from '../entities/investigation.entity';
 import { DrugsService } from '../../drugs/services/drugs.service';
 import { Drug } from '../../drugs/drug.interface';
 import { DxEntity } from '../entities/dx.entity';
@@ -23,16 +20,8 @@ export class PrescriptionService {
     @InjectRepository(PatientEntity)
     private readonly patientRepo: Repository<PatientEntity>,
 
-    @InjectRepository(HxEntity)
-    private readonly hxRepo: Repository<HxEntity>,
-    @InjectRepository(PxEntity)
-    private readonly pxRepo: Repository<PxEntity>,
-
     @InjectRepository(DxEntity)
-    private readonly dxRepo: Repository<DxEntity>,
-
-    @InjectRepository(InvestigationEntity)
-    private readonly investigationRepo: Repository<InvestigationEntity>,
+    private readonly dxRepo: Repository<DxEntity>,   
 
     private drugService: DrugsService,
   ) {}
@@ -64,13 +53,10 @@ export class PrescriptionService {
       phone,
       sex,
       weight,
-      hx,
       dx,
-      px,
     } = prescription.patient;
-    const { cc, hpi } = hx;
+
     const { diagnosis } = dx;
-    const { abd, bp, cvs, ga, heent, lgs, pr, rr, rs, temp } = px;
 
     const patient_cod = await crypto.randomBytes(4).toString('hex');
 
@@ -92,37 +78,6 @@ export class PrescriptionService {
     }
     const patients = patient_find == null ? patient : patient_find;
 
-    if (prescription.patient.ix != null) {
-      const {
-        microbiology,
-        pathologyindex,
-        radiologyindex,
-        others,
-        chemistry,
-        endocrinology,
-        hemathology,
-        serology,
-        urine,
-      } = prescription.patient.ix;
-
-      console.log('====================================');
-      console.log(patients);
-      console.log('====================================');
-
-      await this.investigationRepo.save({
-        microbiology,
-        pathologyindex,
-        radiologyindex,
-        others,
-        chemistry,
-        hemathology,
-        endocrinology,
-        serology,
-        urine,
-        patient: patients,
-      });
-    }
-
     const pres = await this.prescriptionRepo.save({
       code,
       drug_name,
@@ -140,28 +95,9 @@ export class PrescriptionService {
       type,
       professional,
     });
-    this.hxRepo.save({
-      cc,
-      hpi,
-      patient: patients,
-    });
 
     this.dxRepo.save({
       diagnosis,
-      patient: patients,
-    });
-
-    this.pxRepo.save({
-      abd,
-      bp,
-      cvs,
-      ga,
-      heent,
-      lgs,
-      pr,
-      rr,
-      rs,
-      temp,
       patient: patients,
     });
 
