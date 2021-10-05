@@ -34,7 +34,7 @@ export class AuthService {
     );
     if (user != null) {
       const isValid = await bcrypt.compare(pass, user.password);     
-      const isAuthorized =
+      const isAuthorized = user.role.name==='admin'||
         user.role.name === 'doctor' || user.role.name === 'pharmacy';
 
       if (isValid && isAuthorized) {

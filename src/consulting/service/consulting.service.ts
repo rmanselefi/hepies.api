@@ -23,7 +23,7 @@ export class ConsultingService {
   ) {}
 
   createPost(user: User, feedPost: Consult): Observable<Consult> {
-    feedPost.authorId = user;
+    feedPost.author = user;
     return from(this.consultRepo.save(feedPost));
   }
 
