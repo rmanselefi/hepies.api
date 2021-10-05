@@ -92,4 +92,9 @@ export class UsersController {
   ): Promise<UpdateResult> {
     return this.userService.rewardPoint(id, user.points);
   }
+
+  @Put('change/password/:id')
+  changePassword(@Param('id') id: number, @Body() user: User): Promise<string> {
+    return this.userService.changePassword(id, user.password);
+  }
 }
