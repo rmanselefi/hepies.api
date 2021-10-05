@@ -29,6 +29,11 @@ export class ConsultingEntity {
   @CreateDateColumn()
   createdAt: Date;
 
+  @Column({
+    nullable: true,
+  })
+  user: string;
+
   @ManyToOne(() => UserEntity, (userEntity) => userEntity.consult)
   author: UserEntity;
 

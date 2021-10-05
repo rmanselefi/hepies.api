@@ -1,3 +1,4 @@
+import { Proffesional } from 'src/users/professional.interface';
 import { Role } from './role.interface';
 
 export interface User {
@@ -8,5 +9,6 @@ export interface User {
   isFit?: string;
   roleId?: number;
   token?: string;
+  profession?: Proffesional;
   role?: Role;
 }

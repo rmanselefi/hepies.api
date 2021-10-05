@@ -23,7 +23,10 @@ export class ConsultingService {
   ) {}
 
   createPost(user: User, feedPost: Consult): Observable<Consult> {
+    
+    const name = user.profession[0].name +" "+ user.profession[0].fathername;
     feedPost.author = user;
+    feedPost.user = name;
     return from(this.consultRepo.save(feedPost));
   }
 

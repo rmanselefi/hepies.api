@@ -5,5 +5,6 @@ export interface Consult {
   topic?: string;
   image?: string;
   createdAt?: Date;
+  user?: string;
   author?: User;
 }
