@@ -120,7 +120,7 @@ export class ConsultingService {
     });
     return {
       length: comment.length,
-      likes,
+      likes:likes.length
     };
   }
 
