@@ -146,6 +146,20 @@ export class PrescriptionService {
     }
   }
 
+
+  async findPrescriptionByPhone(phone: string): Promise<PatientEntity[]> {
+    const result = await this.patientRepo.find({
+      where: { phone, },
+      relations: ['prescription'],
+    });
+    if (result.length == 0) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+    return result;
+  }
+
+  
+
   async findAllPrescribed(): Promise<Drug[]> {
     const pres = await this.prescriptionRepo
       .createQueryBuilder('prescription')

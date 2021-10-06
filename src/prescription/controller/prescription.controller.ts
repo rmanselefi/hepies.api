@@ -9,6 +9,7 @@ import { PrescriptionEntity } from '../prescription.entity';
 import { PrescriptionService } from '../service/prescription.service';
 import * as crypto from 'crypto';
 import { UpdateResult } from 'typeorm';
+import { PatientEntity } from 'src/patient/patient.entity';
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
@@ -32,6 +33,14 @@ export class PrescriptionController {
     @Param('code') code: string,
   ): Promise<PrescriptionEntity[]> {
     return this.prescriptionService.findPrescriptionByCode(code);
+  }
+
+
+  @Get('phone/:phone')
+  getPrescriptionByPhone(
+    @Param('phone') phone: string,
+  ): Promise<PatientEntity[]> {
+    return this.prescriptionService.findPrescriptionByPhone(phone);
   }
 
   @Post('write')
