@@ -23,8 +23,7 @@ export class ConsultingService {
   ) {}
 
   createPost(user: User, feedPost: Consult): Observable<Consult> {
-    
-    const name = user.profession[0].name +" "+ user.profession[0].fathername;
+    const name = user.profession[0].name + ' ' + user.profession[0].fathername;
     feedPost.author = user;
     feedPost.user = name;
     return from(this.consultRepo.save(feedPost));
@@ -112,11 +111,17 @@ export class ConsultingService {
     return comment;
   }
 
-  async findLike(consultid: number, user: User): Promise<number> {
+  async findLike(consultid: number, user: User): Promise<any> {
     const comment = await this.likeRepo.find({
       where: { consult: consultid, user: user.id },
     });
-    return comment.length;
+    const likes = await this.likeRepo.find({
+      where: { consult: consultid },
+    });
+    return {
+      length: comment.length,
+      likes,
+    };
   }
 
   async findLikeForConsult(consultid: number): Promise<number> {
