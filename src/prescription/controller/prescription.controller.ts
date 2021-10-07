@@ -55,7 +55,7 @@ export class PrescriptionController {
       const patient = pres.patient[0];
       const phone = patient.phone;
       for (let index = 0; index < pres.prescription.length; index++) {
-        const presc = pres[index];
+        const presc = pres.prescription[index];
 
         this.prescriptionService.registerPrescription(presc, patient, code);
       }
