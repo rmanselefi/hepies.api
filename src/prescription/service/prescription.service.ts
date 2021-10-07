@@ -27,7 +27,8 @@ export class PrescriptionService {
   ) {}
 
   async registerPrescription(
-    prescription: Prescription,
+    prescription: any,
+    patientt:any,
     code: string,
   ): Promise<PrescriptionEntity> {
     const {
@@ -44,6 +45,7 @@ export class PrescriptionService {
       type,
       professional,
       drug_name,
+      dx
     } = prescription;
     const {
       age,
@@ -53,8 +55,7 @@ export class PrescriptionService {
       phone,
       sex,
       weight,
-      dx,
-    } = prescription.patient;
+    } = patientt;
 
     const { diagnosis } = dx;
 

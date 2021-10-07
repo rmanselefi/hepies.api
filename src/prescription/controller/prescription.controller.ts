@@ -4,11 +4,9 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtGuard } from '../../auth/guards/jwt.guard';
 import { Drug } from '../../drugs/drug.interface';
-import { Prescription } from '../models/prescription.interface';
 import { PrescriptionEntity } from '../prescription.entity';
 import { PrescriptionService } from '../service/prescription.service';
 import * as crypto from 'crypto';
-import { UpdateResult } from 'typeorm';
 import { PatientEntity } from 'src/patient/patient.entity';
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
@@ -35,7 +33,6 @@ export class PrescriptionController {
     return this.prescriptionService.findPrescriptionByCode(code);
   }
 
-
   @Get('phone/:phone')
   getPrescriptionByPhone(
     @Param('phone') phone: string,
@@ -44,15 +41,16 @@ export class PrescriptionController {
   }
 
   @Post('write')
-  async register(@Body() pres: Prescription[]): Promise<boolean> {
+  async register(@Body() pres: any): Promise<boolean> {
     try {
       console.log('=======>', process.env.TWILIO_ACCOUNT_SID);
 
       const code = await crypto.randomBytes(6).toString('hex');
-      const phone = pres[0].patient.phone;
-      for (let index = 0; index < pres.length; index++) {
+      const patient = pres.patient[0];
+      const phone = patient.phone;
+      for (let index = 0; index < pres.prescription.length; index++) {
         const presc = pres[index];
-        this.prescriptionService.registerPrescription(presc, code);
+        this.prescriptionService.registerPrescription(presc, patient, code);
       }
       // require the Twilio module and create a REST client
       const client = require('twilio')(
