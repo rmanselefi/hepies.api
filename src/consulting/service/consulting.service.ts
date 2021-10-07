@@ -82,8 +82,8 @@ export class ConsultingService {
   }
 
   async likePost(user: User, consult: Consult): Promise<LikeEntity> {
-    const found = await this.findLike(consult.id, user);
-    if (found) {
+    const found = await this.getLike(consult.id, user);
+    if (found!=null) {
       throw new HttpException('FOUND', HttpStatus.FOUND);
     }
     return await this.likeRepo.save({
@@ -123,6 +123,16 @@ export class ConsultingService {
       likes:likes.length
     };
   }
+
+  async getLike(consultid: number, user: User): Promise<any> {
+    const comment = await this.likeRepo.find({
+      where: { consult: consultid, user: user.id },
+    });
+   
+    return comment;
+  }
+
+
 
   async findLikeForConsult(consultid: number): Promise<number> {
     const comment = await this.likeRepo.find({
