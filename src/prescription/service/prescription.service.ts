@@ -21,43 +21,18 @@ export class PrescriptionService {
     private readonly patientRepo: Repository<PatientEntity>,
 
     @InjectRepository(DxEntity)
-    private readonly dxRepo: Repository<DxEntity>,   
+    private readonly dxRepo: Repository<DxEntity>,
 
     private drugService: DrugsService,
   ) {}
 
   async registerPrescription(
     prescription: any,
-    patientt:any,
+    patientt: any,
     code: string,
   ): Promise<PrescriptionEntity> {
-    const {
-      drug,
-      frequency,
-      route,
-      takein,
-      ampule,
-      unit,
-      strength,
-      remark,
-      material_name,
-      size,
-      type,
-      professional,
-      drug_name,
-      dx
-    } = prescription;
-    const {
-      age,
-      fathername,
-      grandfathername,
-      name,
-      phone,
-      sex,
-      weight,
-    } = patientt;
-
-    const { diagnosis } = dx;
+    const { age, fathername, grandfathername, name, phone, sex, weight } =
+      patientt;
 
     const patient_cod = await crypto.randomBytes(4).toString('hex');
 
@@ -78,30 +53,49 @@ export class PrescriptionService {
       });
     }
     const patients = patient_find == null ? patient : patient_find;
+    let pres = null;
+    for (let index = 0; index < prescription.length; index++) {
+      const presc = prescription[index];
+      const {
+        drug,
+        frequency,
+        route,
+        takein,
+        ampule,
+        unit,
+        strength,
+        remark,
+        material_name,
+        size,
+        type,
+        professional,
+        drug_name,
+        dx,
+      } = presc;
+      pres = await this.prescriptionRepo.save({
+        code,
+        drug_name,
+        frequency,
+        route,
+        drug,
+        takein,
+        patient: patients,
+        ampule,
+        unit,
+        strength,
+        remark,
+        material_name,
+        size,
+        type,
+        professional,
+      });
+      const { diagnosis } = dx;
 
-    const pres = await this.prescriptionRepo.save({
-      code,
-      drug_name,
-      frequency,
-      route,
-      drug,
-      takein,
-      patient: patients,
-      ampule,
-      unit,
-      strength,
-      remark,
-      material_name,
-      size,
-      type,
-      professional,
-    });
-
-    this.dxRepo.save({
-      diagnosis,
-      patient: patients,
-    });
-
+      this.dxRepo.save({
+        diagnosis,
+        patient: patients,
+      });
+    }
     return pres;
   }
 
@@ -147,10 +141,9 @@ export class PrescriptionService {
     }
   }
 
-
   async findPrescriptionByPhone(phone: string): Promise<PatientEntity[]> {
     const result = await this.patientRepo.find({
-      where: { phone, },
+      where: { phone },
       relations: ['prescription'],
     });
     if (result.length == 0) {
@@ -158,8 +151,6 @@ export class PrescriptionService {
     }
     return result;
   }
-
-  
 
   async findAllPrescribed(): Promise<Drug[]> {
     const pres = await this.prescriptionRepo
