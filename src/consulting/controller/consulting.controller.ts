@@ -76,6 +76,9 @@ export class ConsultingController {
     const consult = {
       id,
     };
+    console.log('====================================');
+    console.log(consult);
+    console.log('====================================');
     return this.consultingService.likePost(req.user, consult);
   }
 
