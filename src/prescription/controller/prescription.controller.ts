@@ -50,6 +50,9 @@ export class PrescriptionController {
       const phone = patient.phone;
       for (let index = 0; index < pres.prescription.length; index++) {
         const presc = pres[index];
+        console.log('====================================');
+        console.log(presc);
+        console.log('====================================');
         this.prescriptionService.registerPrescription(presc, patient, code);
       }
       // require the Twilio module and create a REST client
