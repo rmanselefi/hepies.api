@@ -34,7 +34,7 @@ export class UserEntity {
 
   @Column({
     nullable: true,
-    default:"true"
+    default:"false"
   })
   isFit: string;
 
