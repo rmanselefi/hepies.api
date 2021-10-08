@@ -82,11 +82,8 @@ export class ConsultingService {
   }
 
   async likePost(user: User, consult: Consult): Promise<LikeEntity> {
-    const found = await this.getLike(consult.id, user);
-    console.log('====================================');
-    console.log(found);
-    console.log('====================================');
-    if (found!=null) {
+    const found = await this.getLike(consult.id, user);   
+    if (found.length == 0) {
       throw new HttpException('FOUND', HttpStatus.FOUND);
     }
     return await this.likeRepo.save({
