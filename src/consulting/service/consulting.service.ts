@@ -83,6 +83,9 @@ export class ConsultingService {
 
   async likePost(user: User, consult: Consult): Promise<LikeEntity> {
     const found = await this.getLike(consult.id, user);
+    console.log('====================================');
+    console.log(found);
+    console.log('====================================');
     if (found!=null) {
       throw new HttpException('FOUND', HttpStatus.FOUND);
     }
