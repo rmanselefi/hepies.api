@@ -16,6 +16,11 @@ export class CommentEntity {
   })
   image: string;
 
+  @Column({
+    nullable: true,
+  })
+  author: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

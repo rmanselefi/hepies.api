@@ -74,15 +74,17 @@ export class ConsultingService {
     consult: Consult,
     comment: Comment,
   ): Promise<CommentEntity> {
+    const name = user.profession[0].name + ' ' + user.profession[0].fathername;
     return await this.commentRepo.save({
       comment: comment.comment,
+      author: name,
       user: user,
       consult: consult,
     });
   }
 
   async likePost(user: User, consult: Consult): Promise<LikeEntity> {
-    const found = await this.getLike(consult.id, user);   
+    const found = await this.getLike(consult.id, user);
     if (found.length != 0) {
       throw new HttpException('FOUND', HttpStatus.FOUND);
     }
@@ -120,7 +122,7 @@ export class ConsultingService {
     });
     return {
       length: comment.length,
-      likes:likes.length
+      likes: likes.length,
     };
   }
 
@@ -128,11 +130,9 @@ export class ConsultingService {
     const comment = await this.likeRepo.find({
       where: { consult: consultid, user: user.id },
     });
-   
+
     return comment;
   }
-
-
 
   async findLikeForConsult(consultid: number): Promise<number> {
     const comment = await this.likeRepo.find({
