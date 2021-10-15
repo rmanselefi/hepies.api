@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtGuard } from '../../auth/guards/jwt.guard';
 import { Drug } from '../../drugs/drug.interface';
@@ -92,11 +100,15 @@ export class PrescriptionController {
     return this.prescriptionService.findAllPrescribed();
   }
 
+  @UseGuards(JwtGuard)
   @Post('accept')
-  async acceptPrescription(@Body() pres: number[]): Promise<boolean> {
+  async acceptPrescription(
+    @Body() pres: number[],
+    @Request() req,
+  ): Promise<boolean> {
     try {
       for (let index = 0; index < pres.length; index++) {
-        this.prescriptionService.acceptPrescription(pres[index]);
+        this.prescriptionService.acceptPrescription(pres[index], req.user);
       }
       return true;
     } catch (error) {

@@ -10,6 +10,7 @@ import * as crypto from 'crypto';
 import { DrugsService } from '../../drugs/services/drugs.service';
 import { Drug } from '../../drugs/drug.interface';
 import { DxEntity } from '../entities/dx.entity';
+import { User } from 'src/auth/user.interface';
 
 @Injectable()
 export class PrescriptionService {
@@ -116,17 +117,6 @@ export class PrescriptionService {
     );
   }
 
-  async findPrescriptionByCode(code: string): Promise<PrescriptionEntity[]> {
-    const result = await this.prescriptionRepo.find({
-      where: { code, status: 'NotRead' },
-      relations: ['drug', 'patient'],
-    });
-    if (result.length == 0) {
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-    }
-    return result;
-  }
-
   async findMostPrescribed(): Promise<Drug[]> {
     const pres = await this.prescriptionRepo
       .createQueryBuilder('prescription')
@@ -145,6 +135,17 @@ export class PrescriptionService {
     const result = await this.patientRepo.find({
       where: { phone },
       relations: ['prescription'],
+    });
+    if (result.length == 0) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+    return result;
+  }
+
+  async findPrescriptionByCode(code: string): Promise<PrescriptionEntity[]> {
+    const result = await this.prescriptionRepo.find({
+      where: { code, status: 'NotRead' },
+      relations: ['drug', 'patient'],
     });
     if (result.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -178,7 +179,14 @@ export class PrescriptionService {
     });
   }
 
-  acceptPrescription(id: number): Observable<UpdateResult> {
-    return from(this.prescriptionRepo.update(id, { status: 'Read' }));
+  acceptPrescription(id: number, user: User): Observable<UpdateResult> {
+    const name = user.profession[0].name + ' ' + user.profession[0].fathername;
+    return from(
+      this.prescriptionRepo.update(id, {
+        status: 'Read',
+        readby: name,
+        readDate: new Date(),
+      }),
+    );
   }
 }
