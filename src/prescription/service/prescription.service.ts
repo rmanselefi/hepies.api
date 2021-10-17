@@ -181,10 +181,12 @@ export class PrescriptionService {
 
   acceptPrescription(id: number, user: User): Observable<UpdateResult> {
     const name = user.profession[0].name + ' ' + user.profession[0].fathername;
+    const user_id=user.id;
     return from(
       this.prescriptionRepo.update(id, {
         status: 'Read',
         readby: name,
+        readbyid:user_id,
         readDate: new Date(),
       }),
     );

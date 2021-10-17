@@ -95,7 +95,14 @@ export class PrescriptionEntity {
   @Column({
     nullable: true,
   })
+  readbyid: number;
+
+  @Column({
+    nullable: true,
+  })
   readDate: Date;
+
+
 
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription, {
     cascade: true,
