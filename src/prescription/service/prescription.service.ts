@@ -5,7 +5,7 @@ import { Observable, from } from 'rxjs';
 import { PatientEntity } from '../../patient/patient.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { Prescription } from '../models/prescription.interface';
-import { PrescriptionEntity } from '../prescription.entity';
+import { PrescriptionEntity, PrescriptionEntity } from '../prescription.entity';
 import * as crypto from 'crypto';
 import { DrugsService } from '../../drugs/services/drugs.service';
 import { Drug } from '../../drugs/drug.interface';
@@ -181,13 +181,23 @@ export class PrescriptionService {
 
   acceptPrescription(id: number, user: User): Observable<UpdateResult> {
     const name = user.profession[0].name + ' ' + user.profession[0].fathername;
-    const user_id=user.id;
+    const user_id = user.id;
     return from(
       this.prescriptionRepo.update(id, {
         status: 'Read',
         readby: name,
-        readbyid:user_id,
+        readbyid: user_id,
         readDate: new Date(),
+      }),
+    );
+  }
+
+  getReadBy(user: User): Observable<PrescriptionEntity[]> {
+    const user_id = user.id;
+    return from(
+      this.prescriptionRepo.find({
+        readbyid: user_id,
+        status: 'Read',
       }),
     );
   }

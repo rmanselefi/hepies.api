@@ -115,4 +115,16 @@ export class PrescriptionController {
       return false;
     }
   }
+
+  @UseGuards(JwtGuard)
+  @Get('readby')
+  async findReadById(@Request() req): Promise<boolean> {
+    try {
+      this.prescriptionService.getReadBy(req.user);
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
