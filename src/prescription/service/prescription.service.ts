@@ -192,13 +192,11 @@ export class PrescriptionService {
     );
   }
 
-  getReadBy(user: User): Observable<PrescriptionEntity[]> {
+  getReadBy(user: User): Promise<PrescriptionEntity[]> {
     const user_id = user.id;
-    return from(
-      this.prescriptionRepo.find({
-        readbyid: user_id,
-        status: 'Read',
-      }),
-    );
+    return this.prescriptionRepo.find({
+      readbyid: user_id,
+      status: 'Read',
+    });
   }
 }
