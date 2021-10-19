@@ -30,6 +30,12 @@ export class GuidelinesService {
     return this.pointsRepo.update(id, updateGuidelineDto);
   }
 
+  updateStatus(id: number): Promise<UpdateResult> {
+    return this.pointsRepo.update(id, {
+      status: 'downloaded',
+    });
+  }
+
   remove(id: number): Promise<DeleteResult> {
     return this.pointsRepo.delete(id);
   }

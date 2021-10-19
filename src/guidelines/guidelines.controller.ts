@@ -38,6 +38,11 @@ export class GuidelinesController {
     return this.guidelinesService.update(+id, updateGuidelineDto);
   }
 
+  @Patch('status/:id')
+  updateStatus(@Param('id') id: string) {
+    return this.guidelinesService.updateStatus(+id);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.guidelinesService.remove(+id);

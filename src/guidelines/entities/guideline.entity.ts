@@ -16,6 +16,9 @@ export class GuidelinesEntity {
   @Column({ nullable: true })
   url: string;
 
+  @Column({ nullable: true })
+  status: string;
+
   @CreateDateColumn()
   createdAt;
 }
