@@ -3,4 +3,5 @@ export class CreateGuidelineDto {
   name: string;
   url: string;
   status: string;
+  directory: string;
 }
