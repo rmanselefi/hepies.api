@@ -37,6 +37,7 @@ export class PrescriptionService {
   ): Promise<PrescriptionEntity> {
     const {
       age,
+      age_label,
       fathername,
       grandfathername,
       name,
@@ -56,6 +57,7 @@ export class PrescriptionService {
       patient = await this.patientRepo.save({
         name,
         age,
+        age_label,
         fathername,
         grandfathername,
         phone,
