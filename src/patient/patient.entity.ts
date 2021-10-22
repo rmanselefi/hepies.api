@@ -35,7 +35,7 @@ export class PatientEntity {
   age: string;
 
   @Column({
-    unique: true,
+    nullable: true,
   })
   age_label: string;
 
