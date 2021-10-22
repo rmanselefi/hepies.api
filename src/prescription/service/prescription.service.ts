@@ -212,17 +212,22 @@ export class PrescriptionService {
     });
   }
 
-  acceptPrescription(id: number, user: User): Observable<UpdateResult> {
+  async acceptPrescription(id: number, user: User): Promise<UpdateResult> {
     const name = user.profession[0].name + ' ' + user.profession[0].fathername;
+    const profession_id = user.profession[0].id;
     const user_id = user.id;
-    return from(
-      this.prescriptionRepo.update(id, {
-        status: 'Read',
-        readby: name,
-        readbyid: user_id,
-        readDate: new Date(),
-      }),
-    );
+    const pnt = await this.professionalRepo.findOne(profession_id);
+    const newPoint = Number(pnt.points) + Number(0.2);
+
+    this.professionalRepo.update(profession_id, {
+      points: newPoint.toString(),
+    });
+    return this.prescriptionRepo.update(id, {
+      status: 'Read',
+      readby: name,
+      readbyid: user_id,
+      readDate: new Date(),
+    });
   }
 
   getReadBy(user: User): Promise<PrescriptionEntity[]> {
