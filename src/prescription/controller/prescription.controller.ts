@@ -53,13 +53,7 @@ export class PrescriptionController {
     try {
       console.log('=======>', process.env.TWILIO_ACCOUNT_SID);
 
-      const code = await crypto.randomBytes(6).toString('hex');
-      console.log('====================================');
-      console.log(pres);
-      console.log('====================================');
-      console.log('====================================');
-      console.log(pres.prescription.length);
-      console.log('====================================');
+      const code = await crypto.randomBytes(6).toString('hex');     
       const patient = pres.patient[0];
       const phone = patient.phone;
 

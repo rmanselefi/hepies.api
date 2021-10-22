@@ -11,6 +11,7 @@ import { DrugsService } from '../../drugs/services/drugs.service';
 import { Drug } from '../../drugs/drug.interface';
 import { DxEntity } from '../entities/dx.entity';
 import { User } from 'src/auth/user.interface';
+import { ProffesionalEntity } from '../../users/professional.entity';
 
 @Injectable()
 export class PrescriptionService {
@@ -23,6 +24,8 @@ export class PrescriptionService {
 
     @InjectRepository(DxEntity)
     private readonly dxRepo: Repository<DxEntity>,
+    @InjectRepository(ProffesionalEntity)
+    private readonly professionalRepo: Repository<ProffesionalEntity>,
 
     private drugService: DrugsService,
   ) {}
@@ -32,8 +35,16 @@ export class PrescriptionService {
     patientt: any,
     code: string,
   ): Promise<PrescriptionEntity> {
-    const { age, fathername, grandfathername, name, phone, sex, weight } =
-      patientt;
+    const {
+      age,
+      fathername,
+      grandfathername,
+      name,
+      phone,
+      sex,
+      weight,
+      professionid,
+    } = patientt;
 
     const patient_cod = await crypto.randomBytes(4).toString('hex');
 
@@ -52,6 +63,19 @@ export class PrescriptionService {
         weight,
         code: patient_code,
       });
+    } else {
+      if (weight != null || weight != '') {
+        this.patientRepo.update(patient_find.id, {
+          weight,
+        });
+
+        const pnt = await this.professionalRepo.findOne(professionid);
+        const newPoint = Number(pnt.points) + Number(0.5);
+
+        await this.professionalRepo.update(professionid, {
+          points: newPoint.toString(),
+        });
+      }
     }
     const patients = patient_find == null ? patient : patient_find;
     let pres = null;
@@ -91,11 +115,18 @@ export class PrescriptionService {
         professional,
       });
       const { diagnosis } = dx;
+      if (dx != null || dx != '') {
+        this.dxRepo.save({
+          diagnosis,
+          patient: patients,
+        });
+        const pnt = await this.professionalRepo.findOne(professionid);
+        const newPoint = Number(pnt.points) + Number(0.5);
 
-      this.dxRepo.save({
-        diagnosis,
-        patient: patients,
-      });
+        await this.professionalRepo.update(professionid, {
+          points: newPoint.toString(),
+        });
+      }
     }
     return pres;
   }
