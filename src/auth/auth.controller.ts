@@ -21,16 +21,13 @@ export class AuthController {
   // }
 
   @Post('login')
-  async login(@Body() user: User): Promise<User> {
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
+  async login(@Body() user: User): Promise<User> {    
     const res = await this.authservice.login(user);
     return res;
   }
 
   @UseGuards(JwtGuard)
-  @Get('me')
+  @Post('me')
   async findUser(@Request() req): Promise<User> {
     const res = await this.authservice.findUserById(req.user.id);
     return res;
