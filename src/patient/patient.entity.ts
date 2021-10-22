@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { InvestigationEntity } from '../prescription/entities/investigation.entity';
 import { HxEntity } from '../prescription/hx.entity';
 import { PxEntity } from '..//prescription/px.entity';
@@ -33,7 +34,9 @@ export class PatientEntity {
   @Column()
   age: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   age_label: string;
 
   @Column()
