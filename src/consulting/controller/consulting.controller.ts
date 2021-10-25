@@ -116,7 +116,7 @@ export class ConsultingController {
 
   @Post('interest')
   addInterest(@Body() interest: any) {
-    return this.consultingService.addInterest(interest);
+    return this.consultingService.addInterest(interest.interest);
   }
 
   @Get('interests')
