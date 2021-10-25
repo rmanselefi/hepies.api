@@ -122,12 +122,14 @@ export class PrescriptionService {
           diagnosis,
           patient: patients,
         });
-        const pnt = await this.professionalRepo.findOne(professionid);
-        const newPoint = Number(pnt.points) + Number(0.5);
+        if (dx.length >= 3) {
+          const pnt = await this.professionalRepo.findOne(professionid);
+          const newPoint = Number(pnt.points) + Number(0.5);
 
-        await this.professionalRepo.update(professionid, {
-          points: newPoint.toString(),
-        });
+          await this.professionalRepo.update(professionid, {
+            points: newPoint.toString(),
+          });
+        }
       }
     }
     return pres;

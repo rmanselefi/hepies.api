@@ -6,10 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConsultingEntity } from './consulting.entity';
 import { CommentEntity } from './comment.entity';
 import { LikeEntity } from './like.entity';
+import { InterestEntity } from './interests.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ConsultingEntity, CommentEntity, LikeEntity]),
+    TypeOrmModule.forFeature([ConsultingEntity, CommentEntity, LikeEntity, InterestEntity]),
   ],
   controllers: [ConsultingController],
   providers: [ConsultingService],
