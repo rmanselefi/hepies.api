@@ -99,8 +99,8 @@ export class ConsultingController {
 
   @UseGuards(JwtGuard)
   @Post('like/find/:id')
-  async findLikeForUser(@Param('id') id: number, @Request() req): Promise<any> {    
-    const found = await (await this.consultingService.findLike(id,req.user));
+  async findLikeForUser(@Param('id') id: number, @Request() req): Promise<any> {
+    const found = await await this.consultingService.findLike(id, req.user);
     console.log('====================================');
     console.log(found);
     console.log('====================================');
@@ -109,7 +109,12 @@ export class ConsultingController {
 
   @Get('likes/:id')
   async findLikesForConsult(@Param('id') id: number): Promise<number> {
-    const length = await (await this.consultingService.findLikeForConsult(id));
+    const length = await await this.consultingService.findLikeForConsult(id);
     return length;
+  }
+
+  @Post('interest')
+  addInterest(@Body() interest: any) {
+    return this.consultingService.addInterest(interest);
   }
 }

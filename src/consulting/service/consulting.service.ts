@@ -8,6 +8,7 @@ import { CommentEntity } from '../comment.entity';
 import { Comment } from '../comment.interface';
 import { Consult } from '../consult.interface';
 import { ConsultingEntity } from '../consulting.entity';
+import { InterestEntity } from '../interests.entity';
 import { LikeEntity } from '../like.entity';
 
 @Injectable()
@@ -17,6 +18,8 @@ export class ConsultingService {
     private readonly consultRepo: Repository<ConsultingEntity>,
     @InjectRepository(CommentEntity)
     private readonly commentRepo: Repository<CommentEntity>,
+    @InjectRepository(InterestEntity)
+    private readonly interestRepo: Repository<InterestEntity>,
 
     @InjectRepository(LikeEntity)
     private readonly likeRepo: Repository<LikeEntity>,
@@ -139,5 +142,11 @@ export class ConsultingService {
       where: { consult: consultid },
     });
     return comment.length;
+  }
+
+  async addInterest(interest: any): Promise<InterestEntity> {
+    return await this.interestRepo.save({
+      interest: interest,
+    });
   }
 }
