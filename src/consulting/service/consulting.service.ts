@@ -149,4 +149,9 @@ export class ConsultingService {
       interest: interest,
     });
   }
+
+  async getAllInterests(): Promise<InterestEntity[]> {
+    const interests = await this.interestRepo.find();
+    return interests;
+  }
 }

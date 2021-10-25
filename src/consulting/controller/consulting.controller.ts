@@ -18,6 +18,7 @@ import { Consult } from '../consult.interface';
 import { ConsultingService } from '../service/consulting.service';
 import { Comment } from '../comment.interface';
 import { CommentEntity } from '../comment.entity';
+import { InterestEntity } from '../interests.entity';
 
 @Controller('consulting')
 export class ConsultingController {
@@ -116,5 +117,11 @@ export class ConsultingController {
   @Post('interest')
   addInterest(@Body() interest: any) {
     return this.consultingService.addInterest(interest);
+  }
+
+  @Get('interests')
+  async getAllInterests(): Promise<InterestEntity[]> {
+    const interests = await await this.consultingService.getAllInterests();
+    return interests;
   }
 }
