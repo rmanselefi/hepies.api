@@ -135,6 +135,8 @@ export class UsersService {
       points,
       speciality,
       workplace,
+      dob,
+      sex,
     } = proffesional;
     const { username } = proffesional.user;
     console.log('====================================');
@@ -157,6 +159,8 @@ export class UsersService {
       points,
       speciality,
       workplace,
+      dob,
+      sex,
     });
     if (result.affected == 1) {
       const profession = await this.findUserById(id);

@@ -14,6 +14,8 @@ export interface Proffesional {
   profile?: string;
   speciality?: string;
   workplace?: string;
+  sex?: string;
   interests?: string;
+  dob?: string;
   user?: User;
 }

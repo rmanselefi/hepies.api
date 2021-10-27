@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
 import { PatientEntity } from '../../patient/patient.entity';
 import { Repository, UpdateResult } from 'typeorm';
-import { Prescription } from '../models/prescription.interface';
 import { PrescriptionEntity } from '../prescription.entity';
 import * as crypto from 'crypto';
 import { DrugsService } from '../../drugs/services/drugs.service';

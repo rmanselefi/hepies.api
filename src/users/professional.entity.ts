@@ -68,6 +68,16 @@ export class ProffesionalEntity {
   @Column({
     nullable: true,
   })
+  dob: string;
+
+  @Column({
+    nullable: true,
+  })
+  sex: string;
+
+  @Column({
+    nullable: true,
+  })
   interests: string;
 
   @CreateDateColumn()
