@@ -74,18 +74,26 @@ export class PrescriptionService {
       }
     } else {
       if (weight != null || weight != '') {
+        console.log('==============patient_find======================');
+        console.log(patient_find);
+        console.log('===================patient_find=================');
         this.patientRepo.update(patient_find.id, {
           weight,
         });
 
         const pnt = await this.professionalRepo.findOne(professionid);
-        const point=pnt.points==null?0:pnt.points;
+        const point = pnt.points == null ? 0 : pnt.points;
         console.log('==============pnt======================');
         console.log(pnt);
         console.log('===================pnt=================');
         const newPoint = Number(point) + Number(0.5);
 
-        await this.professionalRepo.update(professionid, {
+
+        console.log('==============professionid======================');
+        console.log(professionid);
+        console.log('===================professionid=================');
+
+        this.professionalRepo.update(professionid, {
           points: newPoint.toString(),
         });
       }
@@ -138,7 +146,7 @@ export class PrescriptionService {
           console.log('==============diagnosis======================');
           console.log(pnt);
           console.log('===================diagnosis=================');
-          const point=pnt.points==null?0:pnt.points;
+          const point = pnt.points == null ? 0 : pnt.points;
           const newPoint = Number(point) + Number(0.5);
 
           await this.professionalRepo.update(professionid, {
