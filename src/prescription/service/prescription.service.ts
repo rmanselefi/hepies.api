@@ -90,10 +90,10 @@ export class PrescriptionService {
 
 
         console.log('==============professionid======================');
-        console.log(professionid);
+        console.log(pnt);
         console.log('===================professionid=================');
 
-        this.professionalRepo.update(professionid, {
+        this.professionalRepo.update(pnt.id, {
           points: newPoint.toString(),
         });
       }
@@ -149,7 +149,7 @@ export class PrescriptionService {
           const point = pnt.points == null ? 0 : pnt.points;
           const newPoint = Number(point) + Number(0.5);
 
-          await this.professionalRepo.update(professionid, {
+          await this.professionalRepo.update(pnt.id, {
             points: newPoint.toString(),
           });
         }
