@@ -79,10 +79,11 @@ export class PrescriptionService {
         });
 
         const pnt = await this.professionalRepo.findOne(professionid);
+        const point=pnt.points==null?0:pnt.points;
         console.log('==============pnt======================');
         console.log(pnt);
         console.log('===================pnt=================');
-        const newPoint = Number(pnt.points) + Number(0.5);
+        const newPoint = Number(point) + Number(0.5);
 
         await this.professionalRepo.update(professionid, {
           points: newPoint.toString(),
@@ -137,7 +138,8 @@ export class PrescriptionService {
           console.log('==============diagnosis======================');
           console.log(pnt);
           console.log('===================diagnosis=================');
-          const newPoint = Number(pnt.points) + Number(0.5);
+          const point=pnt.points==null?0:pnt.points;
+          const newPoint = Number(point) + Number(0.5);
 
           await this.professionalRepo.update(professionid, {
             points: newPoint.toString(),
