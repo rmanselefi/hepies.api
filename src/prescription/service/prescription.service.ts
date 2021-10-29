@@ -64,6 +64,14 @@ export class PrescriptionService {
         weight,
         code: patient_code,
       });
+      if (weight != null || weight != '') {
+        const pnt = await this.professionalRepo.findOne(professionid);
+        const newPoint = Number(pnt.points) + Number(0.5);
+
+        await this.professionalRepo.update(professionid, {
+          points: newPoint.toString(),
+        });
+      }
     } else {
       if (weight != null || weight != '') {
         this.patientRepo.update(patient_find.id, {
@@ -71,6 +79,9 @@ export class PrescriptionService {
         });
 
         const pnt = await this.professionalRepo.findOne(professionid);
+        console.log('==============pnt======================');
+        console.log(pnt);
+        console.log('===================pnt=================');
         const newPoint = Number(pnt.points) + Number(0.5);
 
         await this.professionalRepo.update(professionid, {
@@ -116,13 +127,16 @@ export class PrescriptionService {
         professional,
       });
       const { diagnosis } = dx;
-      if (dx != null || dx != '') {
+      if (diagnosis != null || diagnosis != '') {
         this.dxRepo.save({
           diagnosis,
           patient: patients,
         });
-        if (dx.length >= 3) {
+        if (diagnosis.length >= 3) {
           const pnt = await this.professionalRepo.findOne(professionid);
+          console.log('==============diagnosis======================');
+          console.log(pnt);
+          console.log('===================diagnosis=================');
           const newPoint = Number(pnt.points) + Number(0.5);
 
           await this.professionalRepo.update(professionid, {
