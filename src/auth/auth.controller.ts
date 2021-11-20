@@ -32,4 +32,12 @@ export class AuthController {
     const res = await this.authservice.findUserById(req.user.id);
     return res;
   }
+
+  @UseGuards(JwtGuard)
+  @Post('check')
+  async userExists(@Body() user: User): Promise<User> {
+    const res = await this.authservice.validateUser(user.username,user.password);
+    return res;
+  }
+
 }
