@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { from, Observable } from 'rxjs';
 import { Proffesional } from '../professional.interface';
 import * as bcrypt from 'bcrypt';
@@ -7,6 +7,7 @@ import { ProffesionalEntity } from '../professional.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from '../../auth/user.entity';
+import { User } from 'src/auth/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -210,12 +211,35 @@ export class UsersService {
     return result;
   }
 
-  async changePassword(id: number, password: string): Promise<string> {
-    const hashed_password = await this.hashPassword(password);
-    await this.userRepo.update(id, {
-      password: hashed_password,
-    });
+  async validateUser(username: string, pass: string): Promise<User> {
+    const user = await this.userRepo.findOne({ username });
+    if (user != null) {
+      const isValid = await bcrypt.compare(pass, user.password);
 
-    return 'Updated';
+      if (isValid) {
+        delete user.password;
+        return user;
+      } else {
+        return null;
+      }
+    }
+  }
+
+  async changePassword(
+    id: number,
+    password: string,
+    username: string,
+  ): Promise<string> {
+    const userExists = await this.validateUser(username, password);
+    if (userExists != null) {
+      const hashed_password = await this.hashPassword(password);
+      await this.userRepo.update(id, {
+        password: hashed_password,
+      });
+
+      return 'Updated';
+    } else {
+      throw new HttpException('Found', HttpStatus.FOUND);
+    }
   }
 }

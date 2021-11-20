@@ -95,6 +95,6 @@ export class UsersController {
 
   @Put('change/password/:id')
   changePassword(@Param('id') id: number, @Body() user: User): Promise<string> {
-    return this.userService.changePassword(id, user.password);
+    return this.userService.changePassword(id, user.password,user.username);
   }
 }
