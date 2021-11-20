@@ -229,8 +229,9 @@ export class UsersService {
     id: number,
     password: string,
     username: string,
+    oldpassword: string,
   ): Promise<string> {
-    const userExists = await this.validateUser(username, password);
+    const userExists = await this.validateUser(username, oldpassword);
     if (userExists != null) {
       const hashed_password = await this.hashPassword(password);
       await this.userRepo.update(id, {
