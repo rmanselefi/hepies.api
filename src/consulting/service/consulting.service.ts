@@ -72,7 +72,11 @@ export class ConsultingService {
   }
 
   deletePost(id: number): Observable<DeleteResult> {
-    return from(this.consultRepo.delete(id));
+    return from(
+      this.consultRepo.update(id, {
+        status: 'hide',
+      }),
+    );
   }
 
   async leaveComment(
