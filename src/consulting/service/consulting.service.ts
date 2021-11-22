@@ -35,6 +35,9 @@ export class ConsultingService {
   findAllPosts(): Observable<Consult[]> {
     return from(
       this.consultRepo.find({
+        where: {
+          status: 'show',
+        },
         relations: ['author'],
         order: {
           createdAt: 'DESC',

@@ -25,6 +25,11 @@ export class ConsultingEntity {
     nullable: true,
   })
   image: string;
+  @Column({
+    nullable: true,
+    default:"show"
+  })
+  status: string;
 
   @CreateDateColumn()
   createdAt: Date;
