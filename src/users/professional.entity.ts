@@ -36,6 +36,7 @@ export class ProffesionalEntity {
 
   @Column({
     nullable: true,
+    default: '0',
   })
   points: string;
 

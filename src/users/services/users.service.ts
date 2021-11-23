@@ -217,6 +217,9 @@ export class UsersService {
   ): Promise<UpdateResult> {
     const phone = professional.phone;
     const point = professional.points;
+    const tranPoint = user.profession[0].points;
+    const transId = user.profession[0].id;
+    const newTranPoint = Number(tranPoint) - Number(point);
     const pnt = await this.professionalRepo.findOne({
       where: { phone },
     });
@@ -225,9 +228,13 @@ export class UsersService {
     }
     const newPoint = Number(pnt.points) + Number(point);
 
+    await this.professionalRepo.update(transId, {
+      points: newTranPoint.toString(),
+    });
     const result = await this.professionalRepo.update(pnt.id, {
       points: newPoint.toString(),
     });
+
     return result;
   }
 
