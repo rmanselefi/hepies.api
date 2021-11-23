@@ -220,8 +220,9 @@ export class UsersService {
     console.log('====================================');
     const phone = professional.phone;
     const point = professional.points;
-    const tranPoint = user.profession[0].points;
     const transId = user.profession[0].id;
+    const transferPoint = await this.professionalRepo.findOne(transId);
+    const tranPoint = transferPoint.points;
     const newTranPoint = Number(tranPoint) - Number(point);
     const pnt = await this.professionalRepo.findOne({
       where: { phone },
