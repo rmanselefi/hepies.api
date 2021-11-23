@@ -99,6 +99,11 @@ export class PrescriptionEntity {
   @Column({
     nullable: true,
   })
+  diagnosis: string;
+
+  @Column({
+    nullable: true,
+  })
   readbyid: number;
 
   @Column({
