@@ -98,6 +98,16 @@ export class UsersController {
     console.log('====================================');
     console.log(user);
     console.log('====================================');
-    return this.userService.changePassword(id, user.password,user.username,user.oldpassword);
+    return this.userService.changePassword(
+      id,
+      user.password,
+      user.username,
+      user.oldpassword,
+    );
+  }
+
+  @Post('transfer')
+  transferPoint(@Body() user: Proffesional): Promise<UpdateResult> {
+    return this.userService.transferPoint(user);
   }
 }

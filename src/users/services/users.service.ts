@@ -211,6 +211,20 @@ export class UsersService {
     return result;
   }
 
+  async transferPoint(professional: Proffesional): Promise<UpdateResult> {
+    const phone = professional.phone;
+    const point = professional.points;
+    const pnt = await this.professionalRepo.findOne({
+      where: { phone },
+    });
+    const newPoint = Number(pnt.points) + Number(point);
+
+    const result = await this.professionalRepo.update(pnt.id, {
+      points: newPoint.toString(),
+    });
+    return result;
+  }
+
   async validateUser(username: string, pass: string): Promise<User> {
     const user = await this.userRepo.findOne({ username });
     if (user != null) {
