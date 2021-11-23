@@ -211,7 +211,10 @@ export class UsersService {
     return result;
   }
 
-  async transferPoint(professional: Proffesional): Promise<UpdateResult> {
+  async transferPoint(
+    user: User,
+    professional: Proffesional,
+  ): Promise<UpdateResult> {
     const phone = professional.phone;
     const point = professional.points;
     const pnt = await this.professionalRepo.findOne({

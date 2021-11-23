@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Roles } from '../../auth/decorators/roles.decorators';
@@ -94,7 +95,7 @@ export class UsersController {
   }
 
   @Put('change/password/:id')
-  changePassword(@Param('id') id: number, @Body() user: any): Promise<string> {   
+  changePassword(@Param('id') id: number, @Body() user: any): Promise<string> {
     return this.userService.changePassword(
       id,
       user.password,
@@ -104,7 +105,13 @@ export class UsersController {
   }
 
   @Post('transfer')
-  transferPoint(@Body() user: Proffesional): Promise<UpdateResult> {
-    return this.userService.transferPoint(user);
+  transferPoint(
+    @Request() req,
+    @Body() user: Proffesional,
+  ): Promise<UpdateResult> {
+    console.log('====================================');
+    console.log(req.user);
+    console.log('====================================');
+    return this.userService.transferPoint(req.user,user);
   }
 }
