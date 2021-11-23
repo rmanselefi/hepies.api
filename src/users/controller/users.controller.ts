@@ -104,6 +104,7 @@ export class UsersController {
     );
   }
 
+  @UseGuards(JwtGuard)
   @Post('transfer')
   transferPoint(
     @Request() req,
