@@ -217,6 +217,9 @@ export class UsersService {
     const pnt = await this.professionalRepo.findOne({
       where: { phone },
     });
+    if (pnt == null) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
     const newPoint = Number(pnt.points) + Number(point);
 
     const result = await this.professionalRepo.update(pnt.id, {
