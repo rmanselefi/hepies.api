@@ -74,25 +74,13 @@ export class PrescriptionService {
       }
     } else {
       if (weight != null || weight != '') {
-        console.log('==============patient_find======================');
-        console.log(patient_find);
-        console.log('===================patient_find=================');
         this.patientRepo.update(patient_find.id, {
           weight,
         });
 
         const pnt = await this.professionalRepo.findOne(professionid);
         const point = pnt.points == null ? 0 : pnt.points;
-        console.log('==============pnt======================');
-        console.log(pnt);
-        console.log('===================pnt=================');
         const newPoint = Number(point) + Number(0.5);
-
-
-        console.log('==============professionid======================');
-        console.log(newPoint);
-        console.log('===================professionid=================');
-
         this.professionalRepo.update(pnt.id, {
           points: newPoint.toString(),
         });
@@ -143,12 +131,8 @@ export class PrescriptionService {
         });
         if (diagnosis.length >= 3) {
           const pnt = await this.professionalRepo.findOne(professionid);
-         
           const point = pnt.points == null ? 0 : pnt.points;
           const newPoint = Number(point) + Number(0.5);
-          console.log('==============diagnosis======================');
-          console.log(newPoint);
-          console.log('===================diagnosis=================');
           await this.professionalRepo.update(pnt.id, {
             points: newPoint.toString(),
           });
@@ -237,22 +221,32 @@ export class PrescriptionService {
     });
   }
 
-  async acceptPrescription(id: number, user: User): Promise<UpdateResult> {
+  async acceptPrescription(id: number, user: User): Promise<string> {
     const name = user.profession[0].name + ' ' + user.profession[0].fathername;
     const profession_id = user.profession[0].id;
     const user_id = user.id;
     const pnt = await this.professionalRepo.findOne(profession_id);
     const newPoint = Number(pnt.points) + Number(0.2);
 
-    this.professionalRepo.update(profession_id, {
-      points: newPoint.toString(),
+    const pres = await this.prescriptionRepo.findOne({
+      where: { id },
+      relations: ['dx', 'patient'],
     });
-    return this.prescriptionRepo.update(id, {
-      status: 'Read',
-      readby: name,
-      readbyid: user_id,
-      readDate: new Date(),
-    });
+
+    console.log('====================================');
+    console.log(pres);
+    console.log('====================================');
+    // this.professionalRepo.update(profession_id, {
+    //   points: newPoint.toString(),
+    // });
+
+    return 'Updated';
+    // return this.prescriptionRepo.update(id, {
+    //   status: 'Read',
+    //   readby: name,
+    //   readbyid: user_id,
+    //   readDate: new Date(),
+    // });
   }
 
   getReadBy(user: User): Promise<PrescriptionEntity[]> {
