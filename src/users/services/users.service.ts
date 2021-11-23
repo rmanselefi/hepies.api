@@ -215,6 +215,9 @@ export class UsersService {
     user: User,
     professional: Proffesional,
   ): Promise<UpdateResult> {
+    console.log('====================================');
+    console.log(professional);
+    console.log('====================================');
     const phone = professional.phone;
     const point = professional.points;
     const tranPoint = user.profession[0].points;

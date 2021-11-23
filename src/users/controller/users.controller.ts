@@ -110,9 +110,9 @@ export class UsersController {
     @Request() req,
     @Body() user: Proffesional,
   ): Promise<UpdateResult> {
-    console.log('====================================');
-    console.log(req.user);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(req.user);
+    // console.log('====================================');
     return this.userService.transferPoint(req.user,user);
   }
 }
