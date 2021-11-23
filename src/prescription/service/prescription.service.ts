@@ -230,7 +230,7 @@ export class PrescriptionService {
 
     const pres = await this.prescriptionRepo.findOne({
       where: { id },
-      relations: ['dx', 'patient'],
+      relations: ['patient'],
     });
 
     console.log('====================================');
