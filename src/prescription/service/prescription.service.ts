@@ -64,27 +64,6 @@ export class PrescriptionService {
         weight,
         code: patient_code,
       });
-      if (weight != null || weight != '') {
-        const pnt = await this.professionalRepo.findOne(professionid);
-        const newPoint = Number(pnt.points) + Number(0.5);
-
-        await this.professionalRepo.update(professionid, {
-          points: newPoint.toString(),
-        });
-      }
-    } else {
-      if (weight != null || weight != '') {
-        this.patientRepo.update(patient_find.id, {
-          weight,
-        });
-
-        const pnt = await this.professionalRepo.findOne(professionid);
-        const point = pnt.points == null ? 0 : pnt.points;
-        const newPoint = Number(point) + Number(0.5);
-        this.professionalRepo.update(pnt.id, {
-          points: newPoint.toString(),
-        });
-      }
     }
     const patients = patient_find == null ? patient : patient_find;
     let pres = null;
@@ -122,6 +101,7 @@ export class PrescriptionService {
         size,
         type,
         professional,
+        professionalid: professionid,
       });
       const { diagnosis } = dx;
       if (diagnosis != null || diagnosis != '') {
@@ -129,14 +109,6 @@ export class PrescriptionService {
           diagnosis,
           patient: patients,
         });
-        if (diagnosis.length >= 3) {
-          const pnt = await this.professionalRepo.findOne(professionid);
-          const point = pnt.points == null ? 0 : pnt.points;
-          const newPoint = Number(point) + Number(0.5);
-          await this.professionalRepo.update(pnt.id, {
-            points: newPoint.toString(),
-          });
-        }
       }
     }
     return pres;
@@ -225,17 +197,46 @@ export class PrescriptionService {
     const name = user.profession[0].name + ' ' + user.profession[0].fathername;
     const profession_id = user.profession[0].id;
     const user_id = user.id;
-    const pnt = await this.professionalRepo.findOne(profession_id);
-    const newPoint = Number(pnt.points) + Number(0.2);
+    const professional = await this.professionalRepo.findOne(profession_id);
+    const newPoint = Number(professional.points) + Number(0.2);
 
     const pres = await this.prescriptionRepo.findOne({
       where: { id },
       relations: ['patient'],
     });
 
+    const professionid = pres.professionalid;
+    const weight = pres.patient.weight;
+    const patientId = pres.patient.id;
+    const patient = await this.patientRepo.findOne({
+      where: { id: patientId },
+      relations: ['dx'],
+    });
     console.log('====================================');
-    console.log(pres);
+    console.log(patient);
     console.log('====================================');
+    const diagnosis = patient.dx;
+    // if (weight != null || weight != '') {
+    //   const writer = await this.professionalRepo.findOne(professionid);
+    //   const point = writer.points == null ? 0 : writer.points;
+    //   const writerNewPoint = Number(point) + Number(0.5);
+    //   this.professionalRepo.update(writer.id, {
+    //     points: writerNewPoint.toString(),
+    //   });
+    // }
+
+    // if (diagnosis.length >= 3) {
+    //   const pnt = await this.professionalRepo.findOne(professionid);
+    //   const point = pnt.points == null ? 0 : pnt.points;
+    //   const newPoint = Number(point) + Number(0.5);
+    //   await this.professionalRepo.update(pnt.id, {
+    //     points: newPoint.toString(),
+    //   });
+    // }
+
+    // console.log('====================================');
+    // console.log(pres);
+    // console.log('====================================');
     // this.professionalRepo.update(profession_id, {
     //   points: newPoint.toString(),
     // });

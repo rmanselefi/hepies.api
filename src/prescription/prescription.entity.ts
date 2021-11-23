@@ -77,13 +77,17 @@ export class PrescriptionEntity {
   })
   professional: string;
 
+  @Column({
+    nullable: true,
+  })
+  professionalid: number;
 
   @CreateDateColumn()
   createdAt;
 
   @Column({
     nullable: true,
-    default:'NotRead'
+    default: 'NotRead',
   })
   status: string;
 
@@ -101,8 +105,6 @@ export class PrescriptionEntity {
     nullable: true,
   })
   readDate: Date;
-
-
 
   @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription, {
     cascade: true,
