@@ -100,10 +100,7 @@ export class PrescriptionController {
     @Body() pres: number[],
     @Request() req,
   ): Promise<boolean> {
-    try {
-      console.log('================user_id====================');
-      console.log(pres);
-      console.log('==================user_id==================');
+    try {     
       for (let index = 0; index < pres.length; index++) {
         this.prescriptionService.acceptPrescription(pres[index], req.user);
       }

@@ -200,37 +200,23 @@ export class PrescriptionService {
     const name = user.profession[0].name + ' ' + user.profession[0].fathername;
     const profession_id = user.profession[0].id;
     const user_id = user.id;
-    console.log('================user_id====================');
-    console.log(user_id);
-    console.log('==================user_id==================');
+
     const professional = await this.professionalRepo.findOne(profession_id);
-    console.log('====================================');
-    console.log(professional);
-    console.log('====================================');
+
     const newPoint = Number(professional.points) + Number(0.2);
     this.professionalRepo.update(profession_id, {
       points: newPoint.toString(),
     });
-   
+
     const pres = await this.prescriptionRepo.findOne({
       where: { id },
       relations: ['patient'],
     });
-    console.log('====================================');
-    console.log(pres);
-    console.log('====================================');
 
     const professionid = pres.professionalid;
     const weight = pres.patient.weight;
-    const patientId = pres.patient.id;
 
     const diagnosis = pres.diagnosis;
-    // const patient = await this.patientRepo.findOne({
-    //   where: { id: patientId },
-    //   relations: ['dx'],
-    // });
-
-    
 
     if (weight != null || weight != '') {
       const writer = await this.professionalRepo.findOne(professionid);
@@ -250,7 +236,6 @@ export class PrescriptionService {
       });
     }
 
-    // return 'Updated';
     return this.prescriptionRepo.update(id, {
       status: 'Read',
       readby: name,
