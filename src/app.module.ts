@@ -13,7 +13,7 @@ import { LookupModule } from './lookup/lookup.module';
 import { RolesModule } from './roles/roles.module';
 import { GuidelinesModule } from './guidelines/guidelines.module';
 import { PharmacyModule } from './pharmacy/pharmacy.module';
-import { NotificationModule } from './notification/notification.module';
+// import { NotificationModule } from './notification/notification.module';
 import { VoucherModule } from './voucher/voucher.module';
 
 @Module({
