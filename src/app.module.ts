@@ -52,7 +52,6 @@ import { VoucherModule } from './voucher/voucher.module';
     RolesModule,
     GuidelinesModule,
     PharmacyModule,
-    NotificationModule,
     VoucherModule,
   ],
 })
