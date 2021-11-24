@@ -205,10 +205,16 @@ export class PrescriptionService {
     this.professionalRepo.update(profession_id, {
       points: newPoint.toString(),
     });
+    console.log('====================================');
+    console.log(professional);
+    console.log('====================================');
     const pres = await this.prescriptionRepo.findOne({
       where: { id },
       relations: ['patient'],
     });
+    console.log('====================================');
+    console.log(pres);
+    console.log('====================================');
 
     const professionid = pres.professionalid;
     const weight = pres.patient.weight;
@@ -220,9 +226,7 @@ export class PrescriptionService {
     //   relations: ['dx'],
     // });
 
-    console.log('====================================');
-    console.log(weight, ' ', id);
-    console.log('====================================');
+    
 
     if (weight != null || weight != '') {
       const writer = await this.professionalRepo.findOne(professionid);
