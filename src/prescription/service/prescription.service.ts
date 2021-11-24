@@ -202,7 +202,9 @@ export class PrescriptionService {
     const user_id = user.id;
     const professional = await this.professionalRepo.findOne(profession_id);
     const newPoint = Number(professional.points) + Number(0.2);
-
+    this.professionalRepo.update(profession_id, {
+      points: newPoint.toString(),
+    });
     const pres = await this.prescriptionRepo.findOne({
       where: { id },
       relations: ['patient'],
@@ -213,11 +215,15 @@ export class PrescriptionService {
     const patientId = pres.patient.id;
 
     const diagnosis = pres.diagnosis;
-    const patient = await this.patientRepo.findOne({
-      where: { id: patientId },
-      relations: ['dx'],
-    });
-   
+    // const patient = await this.patientRepo.findOne({
+    //   where: { id: patientId },
+    //   relations: ['dx'],
+    // });
+
+    console.log('====================================');
+    console.log(weight, ' ', id);
+    console.log('====================================');
+
     if (weight != null || weight != '') {
       const writer = await this.professionalRepo.findOne(professionid);
       const point = writer.points == null ? 0 : writer.points;
@@ -235,13 +241,6 @@ export class PrescriptionService {
         points: newPoint.toString(),
       });
     }
-
-    // console.log('====================================');
-    // console.log(pres);
-    // console.log('====================================');
-    this.professionalRepo.update(profession_id, {
-      points: newPoint.toString(),
-    });
 
     // return 'Updated';
     return this.prescriptionRepo.update(id, {
