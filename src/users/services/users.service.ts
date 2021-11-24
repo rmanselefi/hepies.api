@@ -214,10 +214,7 @@ export class UsersService {
   async transferPoint(
     user: User,
     professional: Proffesional,
-  ): Promise<UpdateResult> {
-    console.log('====================================');
-    console.log(professional);
-    console.log('====================================');
+  ): Promise<UpdateResult> {    
     const phone = professional.phone;
     const point = professional.points;
     const transId = user.profession[0].id;
