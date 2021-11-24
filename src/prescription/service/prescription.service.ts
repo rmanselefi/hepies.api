@@ -200,14 +200,18 @@ export class PrescriptionService {
     const name = user.profession[0].name + ' ' + user.profession[0].fathername;
     const profession_id = user.profession[0].id;
     const user_id = user.id;
+    console.log('================user_id====================');
+    console.log(user_id);
+    console.log('==================user_id==================');
     const professional = await this.professionalRepo.findOne(profession_id);
+    console.log('====================================');
+    console.log(professional);
+    console.log('====================================');
     const newPoint = Number(professional.points) + Number(0.2);
     this.professionalRepo.update(profession_id, {
       points: newPoint.toString(),
     });
-    console.log('====================================');
-    console.log(professional);
-    console.log('====================================');
+   
     const pres = await this.prescriptionRepo.findOne({
       where: { id },
       relations: ['patient'],
