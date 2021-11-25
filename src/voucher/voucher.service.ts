@@ -28,8 +28,8 @@ export class VoucherService {
   async findToFill(amount: number, user: User): Promise<CreateVoucherDto> {
     const voucher = await this.voucherRepo.findOne({
       where: {
-        amount,
-        status: 'NotFilled',
+        amount: amount.toString(),
+        status: 'NotGiven',
       },
     });
     this.voucherRepo.update(voucher.id, {
