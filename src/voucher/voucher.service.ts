@@ -32,10 +32,12 @@ export class VoucherService {
         status: 'NotGiven',
       },
     });
+    const profession_id = user.profession[0].id;
     this.voucherRepo.update(voucher.id, {
       status: 'Filled',
+      filledby: profession_id,
     });
-    const profession_id = user.profession[0].id;
+
     const professional = await this.professionalRepo.findOne(profession_id);
 
     const newPoint = Number(professional.points) - amount;

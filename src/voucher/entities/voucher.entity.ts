@@ -20,10 +20,7 @@ export class VoucherEntity {
   @Column({
     nullable: true,
   })
-  givenby: string;
+  filledby: string;
 
-  @Column({
-    nullable: true,
-  })
-  givento: string;
+ 
 }
