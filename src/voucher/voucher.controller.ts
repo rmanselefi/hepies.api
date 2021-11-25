@@ -25,6 +25,11 @@ export class VoucherController {
     return this.voucherService.findAll();
   }
 
+  @Get('fill')
+  findNotFilled(@Body() createVoucherDto: CreateVoucherDto) {
+    return this.voucherService.findToFill(createVoucherDto.amount);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.voucherService.findOne(+id);

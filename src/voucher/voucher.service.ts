@@ -21,6 +21,15 @@ export class VoucherService {
     return this.voucherRepo.find();
   }
 
+  findToFill(amount: string): Promise<CreateVoucherDto> {
+    return this.voucherRepo.findOne({
+      where: {
+        amount,
+        status: 'NotFilled',
+      },
+    });
+  }
+
   findOne(id: number): Promise<CreateVoucherDto> {
     return this.voucherRepo.findOne(id);
   }
