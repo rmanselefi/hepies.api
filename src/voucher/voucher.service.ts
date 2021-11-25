@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { from } from 'rxjs';
+import { User } from 'src/auth/user.interface';
 import { PatientEntity } from 'src/patient/patient.entity';
+import { ProffesionalEntity } from 'src/users/professional.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateVoucherDto } from './dto/create-voucher.dto';
 import { UpdateVoucherDto } from './dto/update-voucher.dto';
@@ -12,6 +14,8 @@ export class VoucherService {
   constructor(
     @InjectRepository(VoucherEntity)
     private readonly voucherRepo: Repository<VoucherEntity>,
+    @InjectRepository(ProffesionalEntity)
+    private readonly professionalRepo: Repository<ProffesionalEntity>,
   ) {}
   create(createVoucherDto: CreateVoucherDto): Promise<CreateVoucherDto> {
     return this.voucherRepo.save(createVoucherDto);
@@ -21,13 +25,24 @@ export class VoucherService {
     return this.voucherRepo.find();
   }
 
-  findToFill(amount: string): Promise<CreateVoucherDto> {
-    return this.voucherRepo.findOne({
+  async findToFill(amount: number, user: User): Promise<CreateVoucherDto> {
+    const voucher = await this.voucherRepo.findOne({
       where: {
         amount,
         status: 'NotFilled',
       },
     });
+    this.voucherRepo.update(voucher.id, {
+      status: 'Filled',
+    });
+    const profession_id = user.profession[0].id;
+    const professional = await this.professionalRepo.findOne(profession_id);
+
+    const newPoint = Number(professional.points) - amount;
+    this.professionalRepo.update(profession_id, {
+      points: newPoint.toString(),
+    });
+    return voucher;
   }
 
   findOne(id: number): Promise<CreateVoucherDto> {

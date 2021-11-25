@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { VoucherService } from './voucher.service';
 import { CreateVoucherDto } from './dto/create-voucher.dto';
 import { UpdateVoucherDto } from './dto/update-voucher.dto';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('voucher')
 export class VoucherController {
@@ -25,9 +28,13 @@ export class VoucherController {
     return this.voucherService.findAll();
   }
 
-  @Get('fill')
-  findNotFilled(@Body() createVoucherDto: CreateVoucherDto) {
-    return this.voucherService.findToFill(createVoucherDto.amount);
+  @UseGuards(JwtGuard)
+  @Post('fill')
+  findNotFilled(@Body() createVoucherDto: CreateVoucherDto, @Request() req) {
+    return this.voucherService.findToFill(
+      Number(createVoucherDto.amount),
+      req.user,
+    );
   }
 
   @Get(':id')
