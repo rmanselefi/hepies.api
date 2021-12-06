@@ -26,6 +26,13 @@ export class AuthController {
     return res;
   }
 
+
+  @Post('admin-login')
+  async adminLogin(@Body() user: User): Promise<User> {    
+    const res = await this.authservice.adminLogin(user);
+    return res;
+  }
+
   @UseGuards(JwtGuard)
   @Post('me')
   async findUser(@Request() req): Promise<User> {

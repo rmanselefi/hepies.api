@@ -24,7 +24,6 @@ export class AuthService {
     return from(bcrypt.hash(password, 12));
   }
 
-
   async validateUser(username: string, pass: string): Promise<User> {
     const user = await this.userRepo.findOne(
       { username },
@@ -33,15 +32,38 @@ export class AuthService {
       },
     );
     if (user != null) {
-      const isValid = await bcrypt.compare(pass, user.password);     
-      const isAuthorized = user.role.name==='admin'||
-        user.role.name === 'doctor' || user.role.name === 'pharmacy';
+      const isValid = await bcrypt.compare(pass, user.password);
+      const isAuthorized =
+        user.role.name === 'admin' ||
+        user.role.name === 'doctor' ||
+        user.role.name === 'pharmacy';
 
       if (isValid && isAuthorized) {
         delete user.password;
         return user;
+      } else {
+        return null;
       }
-      else{
+    }
+  }
+
+
+  async validateAdminUser(username: string, pass: string): Promise<User> {
+    const user = await this.userRepo.findOne(
+      { username },
+      {
+        relations: ['role', 'profession'],
+      },
+    );
+    if (user != null) {
+      const isValid = await bcrypt.compare(pass, user.password);
+      const isAuthorized =
+        user.role.name === 'admin';  
+
+      if (isValid && isAuthorized) {
+        delete user.password;
+        return user;
+      } else {
         return null;
       }
     }
@@ -62,6 +84,23 @@ export class AuthService {
     user.token = token;
     return user;
   }
+
+  async adminLogin(usere: User): Promise<User> {
+    const { username, password } = usere;
+    const user = await this.validateAdminUser(username, password);
+    if (!user) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+    const token = await this.jwtservice.signAsync(
+      { user },
+      {
+        expiresIn: '9999 years',
+      },
+    );
+    user.token = token;
+    return user;
+  }
+
   async findUserById(id: number): Promise<User> {
     const user = await this.userRepo.findOne({
       where: { id },
