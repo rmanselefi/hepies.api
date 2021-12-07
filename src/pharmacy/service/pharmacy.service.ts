@@ -9,7 +9,7 @@ import { Pharmacy } from '../pharmacy.interface';
 export class PharmacyService {
   constructor(
     @InjectRepository(PharmacyDrugsEntity)
-    private readonly lookupRepo: Repository<PharmacyDrugsEntity>,
+    private readonly pharmacyRepo: Repository<PharmacyDrugsEntity>,
   ) {}
 
   create(pharmacy_drugs: Pharmacy): Observable<PharmacyDrugsEntity> {
@@ -18,7 +18,7 @@ export class PharmacyService {
     const { drug_name, drug, professional, price } = pharmacy_drugs;
 
     return from(
-      this.lookupRepo.save({
+      this.pharmacyRepo.save({
         drug,
         price,
         drug_name,
@@ -28,22 +28,26 @@ export class PharmacyService {
   }
 
   findAll(): Observable<PharmacyDrugsEntity[]> {
-    return from(this.lookupRepo.find());
+    return from(
+      this.pharmacyRepo.find({
+        relations: ['drug', 'profession'],
+      }),
+    );
   }
 
   find(id: number): Observable<PharmacyDrugsEntity[]> {
     return from(
-      this.lookupRepo.find({
+      this.pharmacyRepo.find({
         where: { profession: id },
       }),
     );
   }
 
   update(id: number, patient: Pharmacy): Observable<UpdateResult> {
-    return from(this.lookupRepo.update(id, patient));
+    return from(this.pharmacyRepo.update(id, patient));
   }
 
   delete(id: number): Observable<DeleteResult> {
-    return from(this.lookupRepo.delete(id));
+    return from(this.pharmacyRepo.delete(id));
   }
 }
