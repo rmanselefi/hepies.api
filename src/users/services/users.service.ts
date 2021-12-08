@@ -72,6 +72,17 @@ export class UsersService {
     );
   }
 
+  findAllUsersByRole(role:string): Observable<Proffesional[]> {
+    return from(
+      this.professionalRepo.find({
+        where:{
+          proffesion:role
+        },
+        relations: ['user'],
+      }),
+    );
+  }
+
   async findUserById(id: number): Promise<Proffesional> {
     return await this.professionalRepo.findOne({
       where: { id },

@@ -31,6 +31,12 @@ export class UsersController {
     return this.userService.findAllUsers();
   }
 
+  @Get('role')
+  getAllUsersByRole(@Body() data: any): Observable<Proffesional[]> {
+    const role = data.role;
+    return this.userService.findAllUsersByRole(role);
+  }
+
   @Get(':id')
   getUser(@Param('id') id: number): Promise<Proffesional> {
     return this.userService.findUserById(id);
@@ -113,6 +119,6 @@ export class UsersController {
     // console.log('====================================');
     // console.log(req.user);
     // console.log('====================================');
-    return this.userService.transferPoint(req.user,user);
+    return this.userService.transferPoint(req.user, user);
   }
 }
