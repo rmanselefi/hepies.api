@@ -31,7 +31,7 @@ export class UsersController {
     return this.userService.findAllUsers();
   }
 
-  @Get('role')
+  @Post('role')
   getAllUsersByRole(@Body() data: any): Observable<Proffesional[]> {
     const role = data.role;
     return this.userService.findAllUsersByRole(role);
