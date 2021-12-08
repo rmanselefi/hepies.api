@@ -15,7 +15,7 @@ import { ConsultingEntity } from '../consulting/consulting.entity';
 import { RoleEntity } from './role.entity';
 import { ProffesionalEntity } from '../users/professional.entity';
 import { LikeEntity } from '../consulting/like.entity';
-import { NotificationEntity } from '../notification/entities/notification.entity';
+// import { NotificationEntity } from '../notification/entities/notification.entity';
 
 @Entity('user')
 export class UserEntity {
