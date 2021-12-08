@@ -2,6 +2,7 @@
 import { CommentEntity } from '../consulting/comment.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToMany,
@@ -14,6 +15,7 @@ import { ConsultingEntity } from '../consulting/consulting.entity';
 import { RoleEntity } from './role.entity';
 import { ProffesionalEntity } from '../users/professional.entity';
 import { LikeEntity } from '../consulting/like.entity';
+import { NotificationEntity } from '../notification/entities/notification.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -28,15 +30,18 @@ export class UserEntity {
 
   @Column({
     nullable: true,
-    default:"true"
+    default: 'false',
   })
   active: string;
 
   @Column({
     nullable: true,
-    default:"false"
+    default: 'false',
   })
   isFit: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
 
   @ManyToOne(() => RoleEntity, (role) => role.user)
   role: RoleEntity;
@@ -49,6 +54,9 @@ export class UserEntity {
 
   @OneToMany(() => ProffesionalEntity, (profession) => profession.user)
   profession: ProffesionalEntity;
+
+  // @OneToMany(() => NotificationEntity, (notification) => notification.user)
+  // notification: NotificationEntity;
 
   @OneToMany(() => LikeEntity, (likeEntity) => likeEntity.user)
   like: LikeEntity[];
