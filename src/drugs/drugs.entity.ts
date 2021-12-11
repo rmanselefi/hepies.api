@@ -40,6 +40,12 @@ export class DrugEntity {
   number_prescription: number;
 
   @Column({
+    nullable: true,
+    default: false,
+  })
+  prescribed: boolean;
+
+  @Column({
     length: '10000',
     nullable: true,
   })

@@ -96,6 +96,7 @@ export class PrescriptionService {
       const amt = drg.number_prescription;
       this.drugRepo.update(drug, {
         number_prescription: amt + 1,
+        prescribed: true,
       });
 
       const { diagnosis } = dx;
