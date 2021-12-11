@@ -34,6 +34,12 @@ export class DrugEntity {
   route: string;
 
   @Column({
+    nullable: true,
+    default: 0,
+  })
+  number_prescription: number;
+
+  @Column({
     length: '10000',
     nullable: true,
   })

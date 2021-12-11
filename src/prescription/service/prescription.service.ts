@@ -11,6 +11,7 @@ import { Drug } from '../../drugs/drug.interface';
 import { DxEntity } from '../entities/dx.entity';
 import { User } from 'src/auth/user.interface';
 import { ProffesionalEntity } from '../../users/professional.entity';
+import { DrugEntity } from 'src/drugs/drugs.entity';
 
 @Injectable()
 export class PrescriptionService {
@@ -25,6 +26,9 @@ export class PrescriptionService {
     private readonly dxRepo: Repository<DxEntity>,
     @InjectRepository(ProffesionalEntity)
     private readonly professionalRepo: Repository<ProffesionalEntity>,
+
+    @InjectRepository(DrugEntity)
+    private readonly drugRepo: Repository<DrugEntity>,
 
     private drugService: DrugsService,
   ) {}
@@ -86,6 +90,14 @@ export class PrescriptionService {
         drug_name,
         dx,
       } = presc;
+
+      // update drug prescription number
+      const drg = await this.drugRepo.findOne(drug_name);
+      const amt = drg.number_prescription;
+      this.drugRepo.update(drug, {
+        number_prescription: amt + 1,
+      });
+
       const { diagnosis } = dx;
       pres = await this.prescriptionRepo.save({
         code,
