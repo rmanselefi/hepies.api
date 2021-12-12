@@ -53,7 +53,7 @@ export class PrescriptionController {
     try {
       console.log('=======>', process.env.TWILIO_ACCOUNT_SID);
 
-      const code = await crypto.randomBytes(6).toString('hex');     
+      const code = await crypto.randomBytes(6).toString('hex');
       const patient = pres.patient[0];
       const phone = patient.phone;
 
@@ -100,7 +100,7 @@ export class PrescriptionController {
     @Body() pres: number[],
     @Request() req,
   ): Promise<boolean> {
-    try {     
+    try {
       for (let index = 0; index < pres.length; index++) {
         this.prescriptionService.acceptPrescription(pres[index], req.user);
       }
@@ -115,6 +115,28 @@ export class PrescriptionController {
   async findReadById(@Request() req): Promise<PrescriptionEntity[]> {
     try {
       const res = await this.prescriptionService.getReadBy(req.user);
+      return res;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  @Post('prescription/history/:id')
+  async getHistoryForPrescription(
+    @Param('id') id: any,
+  ): Promise<PrescriptionEntity[]> {
+    try {
+      const res = await this.prescriptionService.getPrescriptionHistory(id);
+      return res;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  @Post('pharmacy/history/:id')
+  async getHistoryForUser(@Param('id') id: any): Promise<PrescriptionEntity[]> {
+    try {
+      const res = await this.prescriptionService.getPharmacyHistory(id);
       return res;
     } catch (error) {
       return null;

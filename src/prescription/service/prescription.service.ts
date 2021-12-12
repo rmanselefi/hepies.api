@@ -264,4 +264,16 @@ export class PrescriptionService {
       relations: ['patient'],
     });
   }
+
+  getPrescriptionHistory(id: any): Promise<PrescriptionEntity[]> {
+    return this.prescriptionRepo.find({
+      where: { professionalid: id },
+    });
+  }
+
+  getPharmacyHistory(id: any): Promise<PrescriptionEntity[]> {
+    return this.prescriptionRepo.find({
+      where: { readby: id },
+    });
+  }
 }
