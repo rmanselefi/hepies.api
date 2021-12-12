@@ -121,7 +121,7 @@ export class PrescriptionController {
     }
   }
 
-  @Post('prescription/history/:id')
+  @Get('prescription/history/:id')
   async getHistoryForPrescription(
     @Param('id') id: any,
   ): Promise<PrescriptionEntity[]> {
@@ -133,7 +133,7 @@ export class PrescriptionController {
     }
   }
 
-  @Post('pharmacy/history/:id')
+  @Get('pharmacy/history/:id')
   async getHistoryForUser(@Param('id') id: any): Promise<PrescriptionEntity[]> {
     try {
       const res = await this.prescriptionService.getPharmacyHistory(id);
