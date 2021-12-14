@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { PrescriptionService } from './service/prescription.service';
 import { PrescriptionController } from './controller/prescription.controller';
@@ -11,6 +12,7 @@ import { DrugEntity } from '../drugs/drugs.entity';
 import { DrugsModule } from '../drugs/drugs.module';
 import { DxEntity } from './entities/dx.entity';
 import { ProffesionalEntity } from '../users/professional.entity';
+import { PrescriptionItemEntity } from './entities/prescription_items.entity';
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import { ProffesionalEntity } from '../users/professional.entity';
       DrugEntity,
       DxEntity,
       ProffesionalEntity,
+      PrescriptionItemEntity,
     ]),
     DrugsModule,
   ],

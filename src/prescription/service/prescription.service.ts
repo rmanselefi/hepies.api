@@ -12,12 +12,17 @@ import { DxEntity } from '../entities/dx.entity';
 import { User } from 'src/auth/user.interface';
 import { ProffesionalEntity } from '../../users/professional.entity';
 import { DrugEntity } from 'src/drugs/drugs.entity';
+import { PrescriptionItemEntity } from '../entities/prescription_items.entity';
+import { constants } from 'buffer';
 
 @Injectable()
 export class PrescriptionService {
   constructor(
     @InjectRepository(PrescriptionEntity)
     private readonly prescriptionRepo: Repository<PrescriptionEntity>,
+
+    @InjectRepository(PrescriptionItemEntity)
+    private readonly itemsRepo: Repository<PrescriptionItemEntity>,
 
     @InjectRepository(PatientEntity)
     private readonly patientRepo: Repository<PatientEntity>,
@@ -70,7 +75,28 @@ export class PrescriptionService {
       });
     }
     const patients = patient_find == null ? patient : patient_find;
-    let pres = null;
+
+    const presc = prescription[0];
+
+    const { remark, type, professional, dx } = presc;
+    const { diagnosis } = dx;
+    const pres = await this.prescriptionRepo.save({
+      code,
+      patient: patients,
+      remark,
+      type,
+      professional,
+      diagnosis,
+      professionalid: professionid,
+    });
+
+    if (diagnosis != null || diagnosis != '') {
+      this.dxRepo.save({
+        diagnosis,
+        patient: patients,
+      });
+    }
+
     for (let index = 0; index < prescription.length; index++) {
       const presc = prescription[index];
 
@@ -82,13 +108,9 @@ export class PrescriptionService {
         ampule,
         unit,
         strength,
-        remark,
         material_name,
         size,
-        type,
-        professional,
         drug_name,
-        dx,
       } = presc;
 
       // update drug prescription number
@@ -99,33 +121,20 @@ export class PrescriptionService {
         prescribed: true,
       });
 
-      const { diagnosis } = dx;
-      pres = await this.prescriptionRepo.save({
+      await this.itemsRepo.save({
         code,
         drug_name,
         frequency,
         route,
         drug,
         takein,
-        patient: patients,
         ampule,
         unit,
         strength,
-        remark,
         material_name,
         size,
-        type,
-        professional,
-        diagnosis,
-        professionalid: professionid,
+        prescription: pres,
       });
-
-      if (diagnosis != null || diagnosis != '') {
-        this.dxRepo.save({
-          diagnosis,
-          patient: patients,
-        });
-      }
     }
     return pres;
   }

@@ -4,63 +4,17 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { DrugEntity } from '../drugs/drugs.entity';
 import { PatientEntity } from '../patient/patient.entity';
+import { PrescriptionItemEntity } from './entities/prescription_items.entity';
 
 @Entity('prescription')
 export class PrescriptionEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  code: string;
-
-  @Column({
-    nullable: true,
-  })
-  drug_name: string;
-
-  @Column({
-    nullable: true,
-  })
-  strength: string;
-
-  @Column({
-    nullable: true,
-  })
-  unit: string;
-
-  @Column({
-    nullable: true,
-  })
-  route: string;
-
-  @Column({
-    nullable: true,
-  })
-  ampule: string;
-
-  @Column({
-    nullable: true,
-  })
-  takein: string;
-
-  @Column({
-    nullable: true,
-  })
-  frequency: string;
-
-  @Column({
-    nullable: true,
-  })
-  material_name: string;
-
-  @Column({
-    nullable: true,
-  })
-  size: string;
 
   @Column({
     nullable: true,
@@ -118,4 +72,7 @@ export class PrescriptionEntity {
 
   @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.prescription)
   patient: PatientEntity;
+
+  @OneToMany(() => PrescriptionItemEntity, (patientEntity) => patientEntity.prescription)
+  item: PrescriptionItemEntity;
 }
