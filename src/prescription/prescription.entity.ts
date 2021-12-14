@@ -16,7 +16,9 @@ export class PrescriptionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   code: string;
 
   @Column({
@@ -76,6 +78,9 @@ export class PrescriptionEntity {
   @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.prescription)
   patient: PatientEntity;
 
-  @OneToMany(() => PrescriptionItemEntity, (patientEntity) => patientEntity.prescription)
+  @OneToMany(
+    () => PrescriptionItemEntity,
+    (patientEntity) => patientEntity.prescription,
+  )
   item: PrescriptionItemEntity;
 }
