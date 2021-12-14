@@ -16,6 +16,7 @@ import { PrescriptionEntity } from '../prescription.entity';
 import { PrescriptionService } from '../service/prescription.service';
 import * as crypto from 'crypto';
 import { PatientEntity } from 'src/patient/patient.entity';
+import { PrescriptionItemEntity } from '../entities/prescription_items.entity';
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
@@ -137,6 +138,18 @@ export class PrescriptionController {
   async getHistoryForUser(@Param('id') id: any): Promise<PrescriptionEntity[]> {
     try {
       const res = await this.prescriptionService.getPharmacyHistory(id);
+      return res;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  @Get('paper/:code')
+  async getPrescriptionPaper(
+    @Param('code') code: any,
+  ): Promise<PrescriptionItemEntity[]> {
+    try {
+      const res = await this.prescriptionService.findPrescriptionPaper(code);
       return res;
     } catch (error) {
       return null;

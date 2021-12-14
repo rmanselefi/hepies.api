@@ -156,6 +156,12 @@ export class PrescriptionService {
     );
   }
 
+  async findPrescriptionPaper(code: string): Promise<PrescriptionItemEntity[]> {
+    return this.itemsRepo.find({
+      where: { code },
+    });
+  }
+
   async findMostPrescribed(): Promise<Drug[]> {
     const pres = await this.prescriptionRepo
       .createQueryBuilder('prescription')
