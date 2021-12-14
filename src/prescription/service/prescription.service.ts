@@ -114,7 +114,7 @@ export class PrescriptionService {
       } = presc;
 
       // update drug prescription number
-      const drg = await this.drugRepo.findOne(drug_name);
+      const drg = await this.drugRepo.findOne(drug);
       const amt = drg.number_prescription;
       this.drugRepo.update(drug, {
         number_prescription: amt + 1,
