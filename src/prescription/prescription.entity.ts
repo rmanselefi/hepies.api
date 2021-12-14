@@ -16,6 +16,9 @@ export class PrescriptionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  code: string;
+
   @Column({
     nullable: true,
   })
