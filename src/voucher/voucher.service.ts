@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { from } from 'rxjs';
 import { User } from 'src/auth/user.interface';
 import { PatientEntity } from 'src/patient/patient.entity';
-import { ProffesionalEntity } from 'src/users/professional.entity';
+import { ProffesionalEntity } from '../users/professional.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateVoucherDto } from './dto/create-voucher.dto';
 import { UpdateVoucherDto } from './dto/update-voucher.dto';

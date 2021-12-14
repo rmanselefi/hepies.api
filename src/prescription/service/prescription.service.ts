@@ -11,7 +11,7 @@ import { Drug } from '../../drugs/drug.interface';
 import { DxEntity } from '../entities/dx.entity';
 import { User } from 'src/auth/user.interface';
 import { ProffesionalEntity } from '../../users/professional.entity';
-import { DrugEntity } from 'src/drugs/drugs.entity';
+import { DrugEntity } from '../../drugs/drugs.entity';
 import { PrescriptionItemEntity } from '../entities/prescription_items.entity';
 import { constants } from 'buffer';
 

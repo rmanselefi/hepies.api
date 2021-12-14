@@ -3,7 +3,7 @@ import { VoucherService } from './voucher.service';
 import { VoucherController } from './voucher.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VoucherEntity } from './entities/voucher.entity';
-import { ProffesionalEntity } from 'src/users/professional.entity';
+import { ProffesionalEntity } from '../users/professional.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([VoucherEntity, ProffesionalEntity])],
