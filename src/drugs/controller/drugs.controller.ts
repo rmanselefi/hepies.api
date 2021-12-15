@@ -31,7 +31,7 @@ export class DrugsController {
       const drug = drugs[index];
       const drg: Drug = {
         name: drug.DrugName,
-        about: drug.A,
+        about: drug.About,
         strength: drug.Common_strength,
         unit: drug.Unit,
         route: drug.Common_route,
