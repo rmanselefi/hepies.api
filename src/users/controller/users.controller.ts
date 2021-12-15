@@ -24,7 +24,7 @@ import { RolesGuard } from '../../auth/guards/roles.guard';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @Roles(Role.ADMIN || Role.CUSTOMER)
+  @Roles(Role.ADMIN , Role.CUSTOMER)
   @UseGuards(JwtGuard, RolesGuard)
   @Get()
   getAllUsers(): Observable<Proffesional[]> {
