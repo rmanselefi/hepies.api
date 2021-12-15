@@ -36,7 +36,7 @@ export class DrugsController {
         unit: drug.Unit,
         route: drug.Common_route,
         category: '',
-        type: 'narcotics',
+        type: 'psychotropic',
       };
       this.drugService.createDrug(drg);
     }
