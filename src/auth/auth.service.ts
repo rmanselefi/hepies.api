@@ -47,7 +47,6 @@ export class AuthService {
     }
   }
 
-
   async validateAdminUser(username: string, pass: string): Promise<User> {
     const user = await this.userRepo.findOne(
       { username },
@@ -58,7 +57,7 @@ export class AuthService {
     if (user != null) {
       const isValid = await bcrypt.compare(pass, user.password);
       const isAuthorized =
-        user.role.name === 'admin';  
+        user.role.name === 'admin' || user.role.name === 'customer_service';
 
       if (isValid && isAuthorized) {
         delete user.password;
