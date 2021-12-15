@@ -30,12 +30,13 @@ export class DrugsController {
     for (let index = 0; index < drugs.length; index++) {
       const drug = drugs[index];
       const drg: Drug = {
-        name: drug.B,
-        about: drug.F,
-        strength: drug.D,
-        unit: drug.E,
-        route: drug.C,
+        name: drug.DrugName,
+        about: drug.A,
+        strength: drug.Common_strength,
+        unit: drug.Unit,
+        route: drug.Common_route,
         category: '',
+        type: 'narcotics',
       };
       this.drugService.createDrug(drg);
     }

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export class Drug {
   id?: number;
   name: string;
@@ -6,4 +7,5 @@ export class Drug {
   unit: string;
   about: string;
   route: string;
+  type: string;
 }
