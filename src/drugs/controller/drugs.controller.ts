@@ -31,7 +31,7 @@ export class DrugsController {
       const drug = drugs[index];
       const drg: Drug = {
         name: drug.DrugName,
-        about: drug.About,
+        about: drug.about,
         strength: drug.Common_strength,
         unit: drug.Unit,
         route: drug.Common_route,
@@ -51,6 +51,11 @@ export class DrugsController {
   @Get(':id')
   getDrugById(@Param('id') id: number): Promise<Drug[]> {
     return this.drugService.findDrug(id);
+  }
+
+  @Get('type/:type')
+  getDrugByType(@Param('type') type: string): Promise<Drug[]> {
+    return this.drugService.findDrugByType(type);
   }
 
   @Get('find/:name')

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
@@ -29,6 +30,12 @@ export class DrugsService {
   async findDrug(id: number): Promise<Drug[]> {
     return await this.drugRepo.find({
       where: { id },
+    });
+  }
+
+  async findDrugByType(type: string): Promise<Drug[]> {
+    return await this.drugRepo.find({
+      where: { type },
     });
   }
 
