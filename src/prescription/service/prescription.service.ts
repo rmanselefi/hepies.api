@@ -239,11 +239,13 @@ export class PrescriptionService {
 
     const presItem = await this.itemsRepo.findOne({
       where: { id },
-      relations: ['patient'],
+      relations: ['patient','prescription'],
     });
 
     // const professionid = pres.professionalid;
     const weight = presItem.patient.weight;
+
+    
 
     const pres = await this.prescriptionRepo.findOne({
       where: { id: presItem.prescription.id },
