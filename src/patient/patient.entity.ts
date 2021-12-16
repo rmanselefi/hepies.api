@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { PrescriptionEntity } from '../prescription/prescription.entity';
 import { DxEntity } from '../prescription/entities/dx.entity';
+import { PrescriptionItemEntity } from 'src/prescription/entities/prescription_items.entity';
 
 @Entity('patient')
 export class PatientEntity {
@@ -68,4 +69,10 @@ export class PatientEntity {
     (prescriptionEntity) => prescriptionEntity.patient,
   )
   prescription?: PrescriptionEntity[];
+
+  @OneToMany(
+    () => PrescriptionItemEntity,
+    (prescriptionEntity) => prescriptionEntity.patient,
+  )
+  prescription_item?: PrescriptionItemEntity[];
 }
