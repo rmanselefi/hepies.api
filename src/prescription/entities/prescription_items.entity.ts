@@ -62,6 +62,26 @@ export class PrescriptionItemEntity {
   })
   size: string;
 
+  @Column({
+    nullable: true,
+    default: 'NotRead',
+  })
+  status: string;
+
+  @Column({
+    nullable: true,
+  })
+  readbyid: number;
+
+  @Column({
+    nullable: true,
+  })
+  readDate: Date;
+  @Column({
+    nullable: true,
+  })
+  readby: string;
+
   @CreateDateColumn()
   createdAt;
 
@@ -70,6 +90,9 @@ export class PrescriptionItemEntity {
   })
   prescription: PrescriptionEntity;
 
-  @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.prescription_item)
+  @ManyToOne(
+    () => PatientEntity,
+    (patientEntity) => patientEntity.prescription_item,
+  )
   patient: PatientEntity;
 }
