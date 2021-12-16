@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { PatientEntity } from 'src/patient/patient.entity';
 import {
   Column,
   CreateDateColumn,
@@ -68,4 +69,7 @@ export class PrescriptionItemEntity {
     cascade: true,
   })
   prescription: PrescriptionEntity;
+
+  @ManyToOne(() => PatientEntity, (patientEntity) => patientEntity.prescription_item)
+  patient: PatientEntity;
 }
