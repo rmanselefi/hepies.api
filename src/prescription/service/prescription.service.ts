@@ -55,7 +55,7 @@ export class PrescriptionService {
       professionid,
     } = patientt;
 
-    const patient_cod = await crypto.randomBytes(4).toString('hex');
+    const patient_cod = await crypto.randomBytes(4).toString();
 
     const patient_code = 'PATIENT' + patient_cod;
     const patient_find = await this.findPatient(phone);
