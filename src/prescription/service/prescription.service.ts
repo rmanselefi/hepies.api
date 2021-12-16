@@ -134,6 +134,7 @@ export class PrescriptionService {
         material_name,
         size,
         prescription: pres,
+        patient: patients,
       });
     }
     return pres;
@@ -179,7 +180,7 @@ export class PrescriptionService {
   async findPrescriptionByPhone(phone: string): Promise<PatientEntity[]> {
     const result = await this.patientRepo.find({
       where: { phone },
-      relations: ['prescription','prescription_item'],
+      relations: ['prescription', 'prescription_item'],
     });
     if (result.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
