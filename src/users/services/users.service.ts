@@ -72,11 +72,11 @@ export class UsersService {
     );
   }
 
-  findAllUsersByRole(role:string): Observable<Proffesional[]> {
+  findAllUsersByRole(role: string): Observable<Proffesional[]> {
     return from(
       this.professionalRepo.find({
-        where:{
-          proffesion:role
+        where: {
+          proffesion: role,
         },
         relations: ['user'],
       }),
@@ -134,45 +134,16 @@ export class UsersService {
     id: number,
     proffesional: Proffesional,
   ): Promise<Proffesional> {
-    const {
-      name,
-      fathername,
-      grandfathername,
-      phone,
-      proffesion,
-      profile,
-      license,
-      email,
-      interests,
-      points,
-      speciality,
-      workplace,
-      dob,
-      sex,
-    } = proffesional;
-    const { username } = proffesional.user;
-    console.log('====================================');
-    console.log(username);
-    console.log('====================================');
-    await this.userRepo.update(proffesional.user.id, {
-      username,
-    });
+    const { phone, profile, email, interests, speciality, workplace } =
+      proffesional;
 
     const result = await this.professionalRepo.update(id, {
-      name,
-      fathername,
-      grandfathername,
       phone,
-      proffesion,
       profile,
-      license,
       email,
       interests,
-      points,
       speciality,
       workplace,
-      dob,
-      sex,
     });
     if (result.affected == 1) {
       const profession = await this.findUserById(id);
@@ -225,7 +196,7 @@ export class UsersService {
   async transferPoint(
     user: User,
     professional: Proffesional,
-  ): Promise<UpdateResult> {    
+  ): Promise<UpdateResult> {
     const phone = professional.phone;
     const point = professional.points;
     const transId = user.profession[0].id;
