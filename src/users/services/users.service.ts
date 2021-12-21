@@ -136,6 +136,9 @@ export class UsersService {
   ): Promise<Proffesional> {
     const { phone, profile, email, interests, speciality, workplace } =
       proffesional;
+    console.log('====================================');
+    console.log(proffesional);
+    console.log('====================================');
 
     const result = await this.professionalRepo.update(id, {
       phone,
