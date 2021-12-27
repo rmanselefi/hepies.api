@@ -45,6 +45,11 @@ export class DrugsController {
     return this.drugService.findAllDrugs();
   }
 
+  @Get('instrument')
+  getInstrument(): Observable<Drug[]> {
+    return this.drugService.findAllDrugs();
+  }
+
   @Get(':id')
   getDrugById(@Param('id') id: number): Promise<Drug[]> {
     return this.drugService.findDrug(id);

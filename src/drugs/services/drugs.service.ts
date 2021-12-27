@@ -27,6 +27,19 @@ export class DrugsService {
     );
   }
 
+  getInstrument(): Observable<Drug[]> {
+    return from(
+      this.drugRepo.find({
+        where: {
+          type: 'instrument',
+        },
+        order: {
+          name: 'ASC',
+        },
+      }),
+    );
+  }
+
   async findDrug(id: number): Promise<Drug[]> {
     return await this.drugRepo.find({
       where: { id },
