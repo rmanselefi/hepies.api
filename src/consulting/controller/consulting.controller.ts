@@ -77,9 +77,7 @@ export class ConsultingController {
     const consult = {
       id,
     };
-    console.log('====================================');
-    console.log(consult);
-    console.log('====================================');
+   
     return this.consultingService.likePost(req.user, consult);
   }
 
@@ -101,10 +99,7 @@ export class ConsultingController {
   @UseGuards(JwtGuard)
   @Post('like/find/:id')
   async findLikeForUser(@Param('id') id: number, @Request() req): Promise<any> {
-    const found = await await this.consultingService.findLike(id, req.user);
-    console.log('====================================');
-    console.log(found);
-    console.log('====================================');
+    const found = await await this.consultingService.findLike(id, req.user);   
     return found;
   }
 
