@@ -25,7 +25,7 @@ export class DrugsController {
     return this.drugService.createDrug(drug);
   }
 
-  @Post('instrument')
+  @Get('instrument/get')
   getInstrument(): Observable<Drug[]> {
     return this.drugService.findAllDrugs();
   }
