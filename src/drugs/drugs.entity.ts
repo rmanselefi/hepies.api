@@ -64,7 +64,7 @@ export class DrugEntity {
   @Column({
     nullable: true,
   })
-  size: string;
+  size: string[];
 
   @Column({
     nullable: true,
