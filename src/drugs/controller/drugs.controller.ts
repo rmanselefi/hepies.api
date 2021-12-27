@@ -25,6 +25,11 @@ export class DrugsController {
     return this.drugService.createDrug(drug);
   }
 
+  @Get('instrument')
+  getInstrument(): Observable<Drug[]> {
+    return this.drugService.findAllDrugs();
+  }
+
   @Post('migrate')
   migrate(@Body() drugs: any[]) {
     for (let index = 0; index < drugs.length; index++) {
@@ -45,10 +50,7 @@ export class DrugsController {
     return this.drugService.findAllDrugs();
   }
 
-  @Get('instrument')
-  getInstrument(): Observable<Drug[]> {
-    return this.drugService.findAllDrugs();
-  }
+ 
 
   @Get(':id')
   getDrugById(@Param('id') id: number): Promise<Drug[]> {
