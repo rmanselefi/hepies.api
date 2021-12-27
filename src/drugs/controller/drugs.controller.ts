@@ -25,7 +25,7 @@ export class DrugsController {
     return this.drugService.createDrug(drug);
   }
 
-  @Get('instrument')
+  @Post('instrument')
   getInstrument(): Observable<Drug[]> {
     return this.drugService.findAllDrugs();
   }
@@ -49,8 +49,6 @@ export class DrugsController {
   getPosts(): Observable<Drug[]> {
     return this.drugService.findAllDrugs();
   }
-
- 
 
   @Get(':id')
   getDrugById(@Param('id') id: number): Promise<Drug[]> {
