@@ -33,6 +33,7 @@ export class DrugsController {
         type: 'instrument',
         material_name: drug.material_name,
         size: drug.size,
+        how_many: drug.how_many,
       };
       this.drugService.createDrug(drg);
     }

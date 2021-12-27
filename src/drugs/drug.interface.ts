@@ -10,4 +10,5 @@ export class Drug {
   type?: string;
   material_name?: string;
   size?: any;
+  how_many?: string;
 }

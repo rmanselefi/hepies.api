@@ -66,6 +66,11 @@ export class DrugEntity {
   })
   size: string;
 
+  @Column({
+    nullable: true,
+  })
+  how_many: string;
+
   @OneToMany(() => PrescriptionEntity, (presEntity) => presEntity.drug)
   prescription?: PrescriptionEntity[];
 
