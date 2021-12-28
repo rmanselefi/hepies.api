@@ -118,6 +118,7 @@ export class ConsultingService {
   async findComment(consultid: number): Promise<CommentEntity[]> {
     const comment = await this.commentRepo.find({
       where: { consult: consultid },
+      relations: ['user'],
       order: { createdAt: 'DESC' },
     });
     return comment;
