@@ -19,6 +19,7 @@ import { ConsultingService } from '../service/consulting.service';
 import { Comment } from '../comment.interface';
 import { CommentEntity } from '../comment.entity';
 import { InterestEntity } from '../interests.entity';
+import { LikeEntity } from '../like.entity';
 
 @Controller('consulting')
 export class ConsultingController {
@@ -107,6 +108,12 @@ export class ConsultingController {
   async findLikesForConsult(@Param('id') id: number): Promise<number> {
     const length = await await this.consultingService.findLikeForConsult(id);
     return length;
+  }
+
+  @Get('likes/search/:id')
+  async findLikesForConsults(@Param('id') id: number): Promise<LikeEntity[]> {
+    const likes = await await this.consultingService.findLikeForConsults(id);
+    return likes;
   }
 
   @Post('interest')

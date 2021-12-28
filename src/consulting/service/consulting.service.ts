@@ -153,6 +153,15 @@ export class ConsultingService {
     return comment.length;
   }
 
+  async findLikeForConsults(consultid: number): Promise<LikeEntity[]> {
+    const likes = await this.likeRepo.find({
+      where: { consult: consultid },
+      relations: ['user']
+    });
+    return likes;
+  }
+
+
   async addInterest(interest: any): Promise<InterestEntity> {
     return await this.interestRepo.save({
       interest: interest,
