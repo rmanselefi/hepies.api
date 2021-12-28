@@ -148,6 +148,7 @@ export class ConsultingService {
   async findLikeForConsult(consultid: number): Promise<number> {
     const comment = await this.likeRepo.find({
       where: { consult: consultid },
+      relations: ['user']
     });
     return comment.length;
   }
