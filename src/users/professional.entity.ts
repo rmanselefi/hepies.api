@@ -81,6 +81,12 @@ export class ProffesionalEntity {
   })
   interests: string;
 
+  @Column({
+    nullable: true,
+    default: '0',
+  })
+  overall_points: string;
+
   @CreateDateColumn()
   createdAt;
 
