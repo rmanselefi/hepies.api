@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,7 +14,8 @@ import { User } from 'src/auth/user.interface';
 import { ProffesionalEntity } from '../../users/professional.entity';
 import { DrugEntity } from '../../drugs/drugs.entity';
 import { PrescriptionItemEntity } from '../entities/prescription_items.entity';
-import { constants } from 'buffer';
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const client = require('twilio')(
   process.env.TWILIO_ACCOUNT_SID,
