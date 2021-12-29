@@ -14,6 +14,11 @@ import { ProffesionalEntity } from '../../users/professional.entity';
 import { DrugEntity } from '../../drugs/drugs.entity';
 import { PrescriptionItemEntity } from '../entities/prescription_items.entity';
 import { constants } from 'buffer';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const client = require('twilio')(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_TOKEN,
+);
 
 @Injectable()
 export class PrescriptionService {
@@ -37,6 +42,30 @@ export class PrescriptionService {
 
     private drugService: DrugsService,
   ) {}
+
+  async resend(id): Promise<boolean> {
+    try {
+      const prescription = await this.prescriptionRepo.find({
+        where: { id },
+        relations: ['patient'],
+      });
+      const code = prescription[0].code;
+      const phone = prescription[0].patient.phone;
+
+      client.messages
+        .create({
+          to: phone,
+          from: '+12692318349',
+          body:
+            'This is your prescription code please go to nearby pharmacy and purchase your prescription--' +
+            code,
+        })
+        .then((message) => console.log(message.sid));
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
 
   async registerPrescription(
     prescription: any,

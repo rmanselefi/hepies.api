@@ -85,6 +85,12 @@ export class PrescriptionController {
     }
   }
 
+  @Post('resend')
+  async resend(@Body() id: number): Promise<boolean> {
+    const res = await this.prescriptionService.resend(id);
+    return res;
+  }
+
   @Get('most/prescribed')
   getMostPrescribed(): Promise<Drug[]> {
     return this.prescriptionService.findMostPrescribed();
