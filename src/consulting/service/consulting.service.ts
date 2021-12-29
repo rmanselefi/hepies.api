@@ -38,7 +38,7 @@ export class ConsultingService {
         where: {
           status: 'show',
         },
-        relations: ['author','like','comment'],
+        relations: ['author', 'like', 'comment'],
         order: {
           createdAt: 'DESC',
         },
@@ -99,6 +99,7 @@ export class ConsultingService {
       throw new HttpException('FOUND', HttpStatus.FOUND);
     }
     return await this.likeRepo.save({
+      user_id: user.id,
       user: user,
       consult: consult,
     });
@@ -148,7 +149,7 @@ export class ConsultingService {
   async findLikeForConsult(consultid: number): Promise<number> {
     const comment = await this.likeRepo.find({
       where: { consult: consultid },
-      relations: ['user']
+      relations: ['user'],
     });
     return comment.length;
   }
@@ -156,11 +157,10 @@ export class ConsultingService {
   async findLikeForConsults(consultid: number): Promise<LikeEntity[]> {
     const likes = await this.likeRepo.find({
       where: { consult: consultid },
-      relations: ['user']
+      relations: ['user'],
     });
     return likes;
   }
-
 
   async addInterest(interest: any): Promise<InterestEntity> {
     return await this.interestRepo.save({
