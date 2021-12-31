@@ -30,6 +30,24 @@ export class DrugsController {
     return this.drugService.getInstrument();
   }
 
+
+  @Get('general')
+  getGeneral(): Observable<Drug[]> {
+    return this.drugService.getGeneral();
+  }
+
+  @Get('psychotropic')
+  getPsychotropic(): Observable<Drug[]> {
+    return this.drugService.getPsychotic();
+  }
+
+  @Get('narcotics')
+  getNarcotics(): Observable<Drug[]> {
+    return this.drugService.getNarcotics();
+  }
+
+
+
   @Post('migrate')
   migrate(@Body() drugs: any[]) {
     for (let index = 0; index < drugs.length; index++) {

@@ -40,6 +40,46 @@ export class DrugsService {
     );
   }
 
+  getGeneral(): Observable<Drug[]> {
+    return from(
+      this.drugRepo.find({
+        where: {
+          type: 'general',
+        },
+        order: {
+          name: 'ASC',
+        },
+      }),
+    );
+  }
+
+
+  getPsychotic(): Observable<Drug[]> {
+    return from(
+      this.drugRepo.find({
+        where: {
+          type: 'psychotropic',
+        },
+        order: {
+          name: 'ASC',
+        },
+      }),
+    );
+  }
+
+  getNarcotics(): Observable<Drug[]> {
+    return from(
+      this.drugRepo.find({
+        where: {
+          type: 'narcotics',
+        },
+        order: {
+          name: 'ASC',
+        },
+      }),
+    );
+  }
+
   async findDrug(id: number): Promise<Drug[]> {
     return await this.drugRepo.find({
       where: { id },
