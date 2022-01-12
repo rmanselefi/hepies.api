@@ -35,6 +35,8 @@ export class UsersService {
       points,
       speciality,
       workplace,
+      dob,
+      sex,
     } = professional;
     const { username, password, role } = professional.user;
     const hashed_password = await this.hashPassword(password);
@@ -59,6 +61,8 @@ export class UsersService {
       points,
       speciality,
       workplace,
+      dob,
+      sex,
     });
     delete (await pro).user.password;
     return pro;
