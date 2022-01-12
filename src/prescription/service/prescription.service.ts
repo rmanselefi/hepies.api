@@ -83,6 +83,7 @@ export class PrescriptionService {
       phone,
       sex,
       weight,
+      mrn,
       professionid,
     } = patientt;
 
@@ -102,6 +103,7 @@ export class PrescriptionService {
         phone,
         sex,
         weight,
+        mrn,
         code: patient_code,
       });
     }

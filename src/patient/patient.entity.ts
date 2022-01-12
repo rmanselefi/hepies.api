@@ -49,6 +49,11 @@ export class PatientEntity {
   @Column()
   code: string;
 
+  @Column({
+    nullable: true,
+  })
+  mrn: string;
+
   @CreateDateColumn()
   createdAt;
 
