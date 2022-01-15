@@ -144,6 +144,7 @@ export class PrescriptionService {
         material_name,
         size,
         drug_name,
+        type,
       } = presc;
 
       // update drug prescription number
@@ -166,6 +167,7 @@ export class PrescriptionService {
         strength,
         material_name,
         size,
+        type,
         prescription: pres,
         patient: patients,
       });

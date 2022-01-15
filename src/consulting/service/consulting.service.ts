@@ -38,7 +38,7 @@ export class ConsultingService {
         where: {
           status: 'show',
         },
-        relations: ['author', 'like', 'comment'],
+        relations: ['author','author.profession', 'like', 'comment'],
         order: {
           createdAt: 'DESC',
         },
