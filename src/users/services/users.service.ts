@@ -72,6 +72,7 @@ export class UsersService {
     return from(
       this.professionalRepo.find({
         relations: ['user'],
+        order: { createdAt: 'DESC' },
       }),
     );
   }
