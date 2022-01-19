@@ -71,7 +71,7 @@ export class UsersService {
   findAllUsers(): Observable<Proffesional[]> {
     return from(
       this.professionalRepo.find({
-        relations: ['user'],
+        relations: ['user','user.role'],
         order: { createdAt: 'DESC' },
       }),
     );
