@@ -331,10 +331,10 @@ export class PrescriptionService {
     });
   }
 
-  getPrescriptionHistory(id: any): Promise<PrescriptionEntity[]> {
-    return this.prescriptionRepo.find({
+  getPrescriptionHistory(id: any): Promise<PrescriptionItemEntity[]> {
+    return this.itemsRepo.find({
       where: { professionalid: id },
-      relations: ['patient','item']
+      relations: ['patient']
     });
   }
 
