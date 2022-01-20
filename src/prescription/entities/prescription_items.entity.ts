@@ -91,6 +91,16 @@ export class PrescriptionItemEntity {
   })
   type: string;
 
+  @Column({
+    nullable: true,
+  })
+  professional: string;
+
+  @Column({
+    nullable: true,
+  })
+  professionalid: number;
+
   @ManyToOne(() => PrescriptionEntity, (patientEntity) => patientEntity.item, {
     cascade: true,
   })

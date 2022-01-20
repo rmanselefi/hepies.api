@@ -168,6 +168,8 @@ export class PrescriptionService {
         material_name,
         size,
         type,
+        professional,
+        professionalid: professionid,
         prescription: pres,
         patient: patients,
       });
