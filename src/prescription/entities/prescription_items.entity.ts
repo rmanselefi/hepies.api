@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { DrugEntity } from 'src/drugs/drugs.entity';
 import { PatientEntity } from 'src/patient/patient.entity';
 import {
   Column,
@@ -100,4 +101,9 @@ export class PrescriptionItemEntity {
     (patientEntity) => patientEntity.prescription_item,
   )
   patient: PatientEntity;
+
+  @ManyToOne(() => DrugEntity, (drugEntity) => drugEntity.prescription_item, {
+    cascade: true,
+  })
+  drug: DrugEntity;
 }
