@@ -2,6 +2,7 @@
 import { PharmacyDrugsEntity } from '../pharmacy/pharmacy.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PrescriptionEntity } from '../prescription/prescription.entity';
+import { PrescriptionItemEntity } from 'src/prescription/entities/prescription_items.entity';
 
 @Entity('drugs')
 export class DrugEntity {
@@ -73,6 +74,9 @@ export class DrugEntity {
 
   @OneToMany(() => PrescriptionEntity, (presEntity) => presEntity.drug)
   prescription?: PrescriptionEntity[];
+
+  @OneToMany(() => PrescriptionItemEntity, (presEntity) => presEntity.drug)
+  prescription_item?: PrescriptionItemEntity[];
 
   @OneToMany(() => PharmacyDrugsEntity, (pharmacy) => pharmacy.drug)
   pharmacy?: PharmacyDrugsEntity[];
