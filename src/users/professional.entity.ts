@@ -79,6 +79,11 @@ export class ProffesionalEntity {
   @Column({
     nullable: true,
   })
+  age: string;
+
+  @Column({
+    nullable: true,
+  })
   interests: string;
 
   @Column({

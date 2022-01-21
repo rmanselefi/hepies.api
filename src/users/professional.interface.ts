@@ -9,13 +9,14 @@ export interface Proffesional {
   phone?: string;
   proffesion?: string;
   points?: string;
-  overall_points?:string;
+  overall_points?: string;
   license?: string;
   email?: string;
   profile?: string;
   speciality?: string;
   workplace?: string;
   sex?: string;
+  age?: string;
   interests?: string;
   dob?: string;
   user?: User;
