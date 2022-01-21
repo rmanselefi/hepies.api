@@ -181,6 +181,7 @@ export class PrescriptionService {
     return from(
       this.prescriptionRepo.find({
         relations: ['drug', 'patient'],
+        order: { createdAt: 'DESC' },
       }),
     );
   }
@@ -334,14 +335,14 @@ export class PrescriptionService {
   getPrescriptionHistory(id: any): Promise<PrescriptionItemEntity[]> {
     return this.itemsRepo.find({
       where: { professionalid: id },
-      relations: ['patient']
+      relations: ['patient'],
     });
   }
 
   getPharmacyHistory(id: any): Promise<PrescriptionEntity[]> {
     return this.prescriptionRepo.find({
       where: { readby: id },
-      relations: ['patient','drug']
+      relations: ['patient', 'drug'],
     });
   }
 }
