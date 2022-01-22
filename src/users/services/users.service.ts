@@ -114,6 +114,7 @@ export class UsersService {
       interests,
       points,
       speciality,
+      overall_points,
       workplace,
     } = proffesional;
     const { username, role } = proffesional.user;
@@ -136,6 +137,7 @@ export class UsersService {
       dob,
       interests,
       points,
+      overall_points,
       speciality,
       workplace,
     });
