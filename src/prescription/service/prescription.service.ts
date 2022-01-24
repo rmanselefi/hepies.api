@@ -265,6 +265,7 @@ export class PrescriptionService {
 
   async acceptPrescription(id: number, user: User): Promise<UpdateResult> {
     try {
+    
       const name =
         user.profession[0].name + ' ' + user.profession[0].fathername;
       const profession_id = user.profession[0].id;
@@ -278,14 +279,14 @@ export class PrescriptionService {
       const newOverAll = Number(professional.overall_points) + Number(0.2);
       this.professionalRepo.update(profession_id, {
         points: newPoint.toString(),
-        overall_points: newOverAll.toString,
+        overall_points: newOverAll.toString(),
       });
 
       const presItem = await this.itemsRepo.findOne({
         where: { id },
         relations: ['patient', 'prescription'],
       });
-      console.log('');
+console.log("")
       console.log('===============presItem=====================');
       console.log(presItem);
       console.log('=================presItem===================');
