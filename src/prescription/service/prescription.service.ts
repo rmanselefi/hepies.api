@@ -215,17 +215,17 @@ export class PrescriptionService {
     }
   }
 
-  async findPrescriptionByPhone(phone: string): Promise<PrescriptionItemEntity[]> {
+  async findPrescriptionByPhone(phone: string): Promise<PatientEntity[]> {
     const result = await this.patientRepo.find({
       where: { phone },
       relations: ['prescription', 'prescription_item'],
     });
-
-    const filtered = result[0].prescription_item.filter(
-      (pre) => pre.status !== 'Read',
+    const filtered = result.filter((f) =>
+      f.prescription_item.filter((pre) => pre.status !== 'Read'),
     );
+
     console.log('====================================');
-    console.log(result[0].prescription_item);
+    console.log(filtered);
     console.log('====================================');
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);

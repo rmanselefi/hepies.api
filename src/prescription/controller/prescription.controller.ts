@@ -43,7 +43,7 @@ export class PrescriptionController {
   }
 
   @Get('phone/:phone')
-  getPrescriptionByPhone(@Param('phone') phone: string): Promise<PrescriptionItemEntity[]> {
+  getPrescriptionByPhone(@Param('phone') phone: string): Promise<PatientEntity[]> {
     return this.prescriptionService.findPrescriptionByPhone(phone);
   }
 
