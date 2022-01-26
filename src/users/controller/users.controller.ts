@@ -116,9 +116,9 @@ export class UsersController {
     @Request() req,
     @Body() user: Proffesional,
   ): Promise<UpdateResult> {
-    // console.log('====================================');
-    // console.log(req.user);
-    // console.log('====================================');
+    console.log('=============user=======================');
+    console.log(user);
+    console.log('=============user=======================');
     return this.userService.transferPoint(req.user, user);
   }
 }
