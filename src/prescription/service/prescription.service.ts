@@ -221,10 +221,12 @@ export class PrescriptionService {
       relations: ['prescription', 'prescription_item'],
     });
 
+    const filtered = result[0].prescription_item.filter(
+      (pre) => pre.status !== 'Read',
+    );
     console.log('====================================');
-    console.log(result);
+    console.log(filtered);
     console.log('====================================');
-
     if (result.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
