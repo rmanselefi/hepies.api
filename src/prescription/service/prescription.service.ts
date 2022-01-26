@@ -215,7 +215,7 @@ export class PrescriptionService {
     }
   }
 
-  async findPrescriptionByPhone(phone: string): Promise<any[]> {
+  async findPrescriptionByPhone(phone: string): Promise<PrescriptionItemEntity[]> {
     const result = await this.patientRepo.find({
       where: { phone },
       relations: ['prescription', 'prescription_item'],
