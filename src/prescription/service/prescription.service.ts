@@ -265,19 +265,16 @@ export class PrescriptionService {
 
   async acceptPrescription(id: number, user: User): Promise<UpdateResult> {
     try {
-    
       const name =
         user.profession[0].name + ' ' + user.profession[0].fathername;
-      const profession_id = user.profession[0].id;
+      const accepter_id = user.profession[0].id;
       const user_id = user.id;
 
-      const professional = await this.professionalRepo.findOne(profession_id);
-      console.log('===============professional=====================');
-      console.log(professional);
-      console.log('=================professional===================');
+      const professional = await this.professionalRepo.findOne(accepter_id);
+     
       const newPoint = Number(professional.points) + Number(0.2);
       const newOverAll = Number(professional.overall_points) + Number(0.2);
-      this.professionalRepo.update(profession_id, {
+      this.professionalRepo.update(accepter_id, {
         points: newPoint.toString(),
         overall_points: newOverAll.toString(),
       });
@@ -286,7 +283,7 @@ export class PrescriptionService {
         where: { id },
         relations: ['patient', 'prescription'],
       });
-console.log("")
+      console.log('');
       console.log('===============presItem=====================');
       console.log(presItem);
       console.log('=================presItem===================');
@@ -300,31 +297,31 @@ console.log("")
       });
       const diagnosis = pres.diagnosis;
 
-      if (weight != null || weight != '') {
-        const writer = await this.professionalRepo.findOne(profession_id);
-        const point = writer.points == null ? 0 : writer.points;
-        const overall_point =
-          writer.overall_points == null ? 0 : writer.overall_points;
-        const writerNewPoint = Number(point) + Number(0.5);
-        const newOverAll = Number(overall_point) + Number(0.2);
-        this.professionalRepo.update(writer.id, {
-          points: writerNewPoint.toString(),
-          overall_points: newOverAll.toString(),
-        });
-      }
+      // if (weight != null || weight != '') {
+      //   const writer = await this.professionalRepo.findOne(profession_id);
+      //   const point = writer.points == null ? 0 : writer.points;
+      //   const overall_point =
+      //     writer.overall_points == null ? 0 : writer.overall_points;
+      //   const writerNewPoint = Number(point) + Number(0.5);
+      //   const newOverAll = Number(overall_point) + Number(0.2);
+      //   this.professionalRepo.update(writer.id, {
+      //     points: writerNewPoint.toString(),
+      //     overall_points: newOverAll.toString(),
+      //   });
+      // }
 
-      if (diagnosis.length >= 3) {
-        const pnt = await this.professionalRepo.findOne(profession_id);
-        const point = pnt.points == null ? 0 : pnt.points;
-        const overall_point =
-          pnt.overall_points == null ? 0 : pnt.overall_points;
-        const newPoint = Number(point) + Number(0.5);
-        const newOverAll = Number(overall_point) + Number(0.5);
-        await this.professionalRepo.update(pnt.id, {
-          points: newPoint.toString(),
-          overall_points: newOverAll.toString,
-        });
-      }
+      // if (diagnosis.length >= 3) {
+      //   const pnt = await this.professionalRepo.findOne(profession_id);
+      //   const point = pnt.points == null ? 0 : pnt.points;
+      //   const overall_point =
+      //     pnt.overall_points == null ? 0 : pnt.overall_points;
+      //   const newPoint = Number(point) + Number(0.5);
+      //   const newOverAll = Number(overall_point) + Number(0.5);
+      //   await this.professionalRepo.update(pnt.id, {
+      //     points: newPoint.toString(),
+      //     overall_points: newOverAll.toString,
+      //   });
+      // }
 
       return this.itemsRepo.update(id, {
         status: 'Read',
