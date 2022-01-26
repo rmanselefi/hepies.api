@@ -220,6 +220,11 @@ export class PrescriptionService {
       where: { phone },
       relations: ['prescription', 'prescription_item'],
     });
+
+    console.log('====================================');
+    console.log(result);
+    console.log('====================================');
+
     if (result.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
@@ -265,7 +270,6 @@ export class PrescriptionService {
 
   async acceptPrescription(id: number, user: User): Promise<UpdateResult> {
     try {
-
       console.log('===============id=====================');
       console.log(id);
       console.log('=================id===================');
@@ -275,7 +279,7 @@ export class PrescriptionService {
       const user_id = user.id;
 
       const professional = await this.professionalRepo.findOne(accepter_id);
-     
+
       const newPoint = Number(professional.points) + Number(0.2);
       const newOverAll = Number(professional.overall_points) + Number(0.2);
       this.professionalRepo.update(accepter_id, {
@@ -294,7 +298,6 @@ export class PrescriptionService {
 
       const writer_id = presItem.professionalid;
       const weight = presItem.patient.weight;
-
 
       const pres = await this.prescriptionRepo.findOne({
         where: { id: presItem.prescription.id },
