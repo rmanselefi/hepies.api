@@ -315,7 +315,7 @@ export class PrescriptionService {
         });
       }
 
-      if (diagnosis.length >= 3) {
+      if ((diagnosis != null || diagnosis != '') && diagnosis.length >= 3) {
         const pnt = await this.professionalRepo.findOne(writer_id);
         const point = pnt.points == null ? 0 : pnt.points;
         const overall_point =
