@@ -285,8 +285,8 @@ export class PrescriptionService {
       const newPoint = Number(professional.points) + Number(0.2);
       const newOverAll = Number(professional.overall_points) + Number(0.2);
       this.professionalRepo.update(accepter_id, {
-        points: newPoint.toString(),
-        overall_points: newOverAll.toString(),
+        points: newPoint.toFixed(2).toString(),
+        overall_points: newOverAll.toFixed(2).toString(),
       });
 
       const presItem = await this.itemsRepo.findOne({
