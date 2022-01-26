@@ -21,6 +21,39 @@ export class UsersService {
     return bcrypt.hash(password, 12);
   }
 
+  async checkUserName(username: string): Promise<boolean> {
+    const user = this.userRepo.findOne({
+      where: { username },
+    });
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async checkPhone(phone: string): Promise<boolean> {
+    const user = this.professionalRepo.findOne({
+      where: { phone },
+    });
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async checkEmail(email: string): Promise<boolean> {
+    const user = this.professionalRepo.findOne({
+      where: { email },
+    });
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   async registerUser(professional: Proffesional): Promise<Proffesional> {
     const {
       name,
@@ -39,6 +72,19 @@ export class UsersService {
       sex,
     } = professional;
     const { username, password, role } = professional.user;
+    const isUsername = await this.checkUserName(username);
+    const isPhone = await this.checkPhone(phone);
+    const isEmail = await this.checkEmail(email);
+    if (isUsername) {
+      throw new HttpException('username',HttpStatus.FOUND);
+    }
+    if (isPhone) {
+      throw new HttpException('phone',HttpStatus.FOUND);
+    }
+    if (isEmail) {
+      throw new HttpException('email', HttpStatus.FOUND);
+    }
+
     const hashed_password = await this.hashPassword(password);
 
     const user = await this.userRepo.save({
