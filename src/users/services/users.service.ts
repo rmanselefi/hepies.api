@@ -25,6 +25,9 @@ export class UsersService {
     const user = this.userRepo.findOne({
       where: { username },
     });
+    console.log('====================================');
+    console.log(user);
+    console.log('====================================');
     if (user) {
       return true;
     } else {
