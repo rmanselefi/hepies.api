@@ -22,7 +22,7 @@ export class UsersService {
   }
 
   async checkUserName(username: string): Promise<boolean> {
-    const user = this.userRepo.findOne({
+    const user = await this.userRepo.findOne({
       where: { username },
     });
     console.log('====================================');
@@ -79,10 +79,10 @@ export class UsersService {
     const isPhone = await this.checkPhone(phone);
     const isEmail = await this.checkEmail(email);
     if (isUsername) {
-      throw new HttpException('username',HttpStatus.FOUND);
+      throw new HttpException('username', HttpStatus.FOUND);
     }
     if (isPhone) {
-      throw new HttpException('phone',HttpStatus.FOUND);
+      throw new HttpException('phone', HttpStatus.FOUND);
     }
     if (isEmail) {
       throw new HttpException('email', HttpStatus.FOUND);
