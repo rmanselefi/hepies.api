@@ -36,7 +36,7 @@ export class UsersService {
   }
 
   async checkPhone(phone: string): Promise<boolean> {
-    const user = this.professionalRepo.findOne({
+    const user = await this.professionalRepo.findOne({
       where: { phone },
     });
     if (user) {
@@ -47,7 +47,7 @@ export class UsersService {
   }
 
   async checkEmail(email: string): Promise<boolean> {
-    const user = this.professionalRepo.findOne({
+    const user = await this.professionalRepo.findOne({
       where: { email },
     });
     if (user) {
