@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { PrescriptionEntity } from '../prescription/prescription.entity';
 import { DxEntity } from '../prescription/entities/dx.entity';
-import { PrescriptionItemEntity } from 'src/prescription/entities/prescription_items.entity';
+import { PrescriptionItemEntity } from '../prescription/entities/prescription_items.entity';
 
 @Entity('patient')
 export class PatientEntity {

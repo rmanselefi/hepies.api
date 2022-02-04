@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { DrugEntity } from 'src/drugs/drugs.entity';
-import { PatientEntity } from 'src/patient/patient.entity';
+import { DrugEntity } from '../../drugs/drugs.entity';
+import { PatientEntity } from '../../patient/patient.entity';
 import {
   Column,
   CreateDateColumn,
