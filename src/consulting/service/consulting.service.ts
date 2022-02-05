@@ -90,6 +90,7 @@ export class ConsultingService {
       author: name,
       user: user,
       consult: consult,
+      image:comment.image,
     });
   }
 
