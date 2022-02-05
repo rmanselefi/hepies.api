@@ -115,10 +115,7 @@ export class UsersController {
   transferPoint(
     @Request() req,
     @Body() user: Proffesional,
-  ): Promise<UpdateResult> {
-    console.log('=============user=======================');
-    console.log(user);
-    console.log('=============user=======================');
+  ): Promise<UpdateResult> {   
     return this.userService.transferPoint(req.user, user);
   }
 }

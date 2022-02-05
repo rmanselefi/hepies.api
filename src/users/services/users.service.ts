@@ -25,9 +25,6 @@ export class UsersService {
     const user = await this.userRepo.findOne({
       where: { username },
     });
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
     if (user) {
       return true;
     } else {
@@ -198,9 +195,6 @@ export class UsersService {
   ): Promise<Proffesional> {
     const { phone, profile, email, interests, speciality, workplace } =
       proffesional;
-    console.log('====================================');
-    console.log(proffesional);
-    console.log('====================================');
 
     const result = await this.professionalRepo.update(id, {
       phone,

@@ -50,7 +50,6 @@ export class PrescriptionController {
   @Post('write')
   async register(@Body() pres: any): Promise<boolean> {
     try {
-      console.log('=======>', process.env.TWILIO_ACCOUNT_SID);
 
       const code = await crypto.randomBytes(6).toString('hex');
       const patient = pres.patient[0];
