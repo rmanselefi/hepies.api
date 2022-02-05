@@ -38,7 +38,7 @@ export class ConsultingService {
         where: {
           status: 'show',
         },
-        relations: ['author','author.profession', 'like', 'comment'],
+        relations: ['author', 'author.profession', 'like', 'comment'],
         order: {
           createdAt: 'DESC',
         },
@@ -90,7 +90,7 @@ export class ConsultingService {
       author: name,
       user: user,
       consult: consult,
-      image:comment.image,
+      image: comment.image,
     });
   }
 
@@ -120,7 +120,7 @@ export class ConsultingService {
   async findComment(consultid: number): Promise<CommentEntity[]> {
     const comment = await this.commentRepo.find({
       where: { consult: consultid },
-      relations: ['user'],
+      relations: ['user.profession'],
       order: { createdAt: 'DESC' },
     });
     return comment;
