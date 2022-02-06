@@ -333,9 +333,9 @@ export class PrescriptionService {
     }
   }
 
-  getReadBy(user: User): Promise<PrescriptionEntity[]> {
+  getReadBy(user: User): Promise<PrescriptionItemEntity[]> {
     const user_id = user.id;
-    return this.prescriptionRepo.find({
+    return this.itemsRepo.find({
       where: { readbyid: user_id, status: 'Read' },
       relations: ['patient'],
     });
