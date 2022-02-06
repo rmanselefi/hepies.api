@@ -116,7 +116,7 @@ export class PrescriptionController {
 
   @UseGuards(JwtGuard)
   @Post('readby')
-  async findReadById(@Request() req): Promise<PrescriptionEntity[]> {
+  async findReadById(@Request() req): Promise<PrescriptionItemEntity[]> {
     try {
       const res = await this.prescriptionService.getReadBy(req.user);
       return res;
