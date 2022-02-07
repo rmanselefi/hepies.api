@@ -230,8 +230,8 @@ export class PrescriptionService {
     return filtered;
   }
 
-  async findPrescriptionByCode(code: string): Promise<PrescriptionEntity[]> {
-    const result = await this.prescriptionRepo.find({
+  async findPrescriptionByCode(code: string): Promise<PrescriptionItemEntity[]> {
+    const result = await this.itemsRepo.find({
       where: { code, status: 'NotRead' },
       relations: ['drug', 'patient'],
     });
