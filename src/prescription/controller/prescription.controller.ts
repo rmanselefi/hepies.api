@@ -51,7 +51,7 @@ export class PrescriptionController {
   async register(@Body() pres: any): Promise<boolean> {
     try {
 
-      const code = await crypto.randomBytes(6).toString('hex');
+      const code = await crypto.randomBytes(2).toString('hex');
       const patient = pres.patient[0];
       const phone = patient.phone;
 
