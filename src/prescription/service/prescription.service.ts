@@ -233,7 +233,7 @@ export class PrescriptionService {
   async findPrescriptionByCode(code: string): Promise<PrescriptionItemEntity[]> {
     const result = await this.itemsRepo.find({
       where: { code, status: 'NotRead' },
-      relations: ['drug', 'patient'],
+      relations: ['drug', 'patient','prescription'],
     });
     if (result.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
