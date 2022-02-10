@@ -312,4 +312,13 @@ export class UsersService {
       throw new HttpException('Found', HttpStatus.FOUND);
     }
   }
+
+  async resetPassword(id: number, password: string): Promise<string> {
+    const hashed_password = await this.hashPassword(password);
+    await this.userRepo.update(id, {
+      password: hashed_password,
+    });
+
+    return 'Updated';
+  }
 }

@@ -43,8 +43,8 @@ export class PharmacyService {
     );
   }
 
-  update(id: number, patient: Pharmacy): Observable<UpdateResult> {
-    return from(this.pharmacyRepo.update(id, patient));
+  update(id: number, pharmacy: Pharmacy): Observable<UpdateResult> {
+    return from(this.pharmacyRepo.update(id, pharmacy));
   }
 
   delete(id: number): Observable<DeleteResult> {
