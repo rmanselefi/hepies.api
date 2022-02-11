@@ -3,6 +3,7 @@ import { UserEntity } from '../auth/user.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ConsultingEntity } from './consulting.entity';
 import { LikeEntity } from './like.entity';
+import { LikeCommentEntity } from './like_comment.entity';
 
 @Entity('comment')
 export class CommentEntity {
@@ -31,6 +32,6 @@ export class CommentEntity {
   @ManyToOne(() => UserEntity, (userEntity) => userEntity.comment)
   user: UserEntity;
 
-  @OneToMany(() => LikeEntity, (likeEntity) => likeEntity.consult)
-  like: LikeEntity[];
+  @OneToMany(() => LikeCommentEntity, (likeEntity) => likeEntity.comment)
+  like: LikeCommentEntity[];
 }

@@ -7,7 +7,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ConsultingEntity } from './consulting.entity';
 import { CommentEntity } from './comment.entity';
 
 @Entity('likes')
