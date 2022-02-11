@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { UserEntity } from '../auth/user.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ConsultingEntity } from './consulting.entity';
+import { LikeEntity } from './like.entity';
 
 @Entity('comment')
 export class CommentEntity {
@@ -29,4 +30,7 @@ export class CommentEntity {
 
   @ManyToOne(() => UserEntity, (userEntity) => userEntity.comment)
   user: UserEntity;
+
+  @OneToMany(() => LikeEntity, (likeEntity) => likeEntity.consult)
+  like: LikeEntity[];
 }
