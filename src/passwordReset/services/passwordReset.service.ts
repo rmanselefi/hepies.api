@@ -86,10 +86,10 @@ export class PasswordResetService {
       };
 
       const hashed_password = await this.hashPassword(password);
-      await this.userRepo.update(userExists['user']['id'], {
+      const updated = await this.userRepo.update(userExists['user']['id'], {
         password: hashed_password,
       });
-      return 'Updated';
+      return updated;
     } else {
       throw new HttpException('Found', HttpStatus.FOUND);
     }
