@@ -15,7 +15,7 @@ import { UsersService } from '../../users/services/users.service';
     constructor(private passwordResetService: PasswordResetService) {}
 
     @Post('send-code')
-    sendCode(@Body() userEmail): Promise<any> {
+    async sendCode(@Body() userEmail) {
       if(!userEmail['email']){
         throw new HttpException('Email', HttpStatus.NOT_FOUND);
       };
@@ -23,17 +23,40 @@ import { UsersService } from '../../users/services/users.service';
       if(!user){
         throw new HttpException('Email', HttpStatus.NOT_FOUND);
       };
-      const sendCode = this.passwordResetService.codeGenerate(userEmail['email']);
-      return sendCode;
+      const sendCode = await this.passwordResetService.codeGenerate(userEmail['email']);
+      if (sendCode) {
+        return {
+          "statusCode":200,
+          "message":"Verification Code Sent"
+        };
+      }else{
+        return {
+          "statusCode":500,
+          "message":"Verification Code not Sent!Try Again"
+        };
+      }
+    
     }
 
     @Post('check-code')
-    getAllUsers(@Body() resetBody):  Promise<any> {
+    async getAllUsers(@Body() resetBody){
       if (!resetBody['email'] || !resetBody['verification_code']) {
         throw new HttpException('Email or Verification code', HttpStatus.NOT_FOUND);
       }
-      const check = this.passwordResetService.checkVerificationCode(resetBody['email'],resetBody['verification_code']);
-      return check;
+      const check = await this.passwordResetService.checkVerificationCode(resetBody['email'],resetBody['verification_code']);
+      if (check) {
+        return {
+          "statusCode":200,
+          "message":"Verification Code is correct!",
+          "status":true
+        };
+      }else{
+        return {
+          "statusCode":200,
+          "message":"Verification Code is Incorrect!",
+          "status":false
+        };
+      }
     }
   
   }
