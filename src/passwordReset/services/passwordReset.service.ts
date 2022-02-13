@@ -9,6 +9,7 @@ import { PasswordReset } from '../passwordReset.interface';
 import { ProffesionalEntity } from '../../users/professional.entity';
 import { Proffesional } from '../../users/professional.interface';
 import { MailService } from '../../mail/services/mail.service';
+import * as bcrypt from 'bcrypt';
 
 
 @Injectable()
@@ -71,5 +72,30 @@ export class PasswordResetService {
     } else {
       return false;
     }
+  }
+
+  async changePassword(email: string,verification_code: number,password: string): Promise<any> {
+    const userExists =  await this.professionalRepo.findOne({
+      where: {email:email },
+      relations:['user'],
+    });
+    if (userExists != null) {
+      const checkCode = this.checkVerificationCode(email,verification_code);
+      if(!checkCode){
+        throw new HttpException('Found', HttpStatus.FOUND);
+      };
+
+      const hashed_password = await this.hashPassword(password);
+      await this.userRepo.update(userExists['user']['id'], {
+        password: hashed_password,
+      });
+      return 'Updated';
+    } else {
+      throw new HttpException('Found', HttpStatus.FOUND);
+    }
+  }
+
+  hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 12);
   }
 }

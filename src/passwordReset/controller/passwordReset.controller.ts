@@ -58,6 +58,19 @@ import { UsersService } from '../../users/services/users.service';
         };
       }
     }
+
+    @Post('change')
+    changePassword(@Body() resetBody: any): Promise<string> {
+      if (!resetBody['email'] || !resetBody['password'] || !resetBody['verification_code']) {
+        throw new HttpException('Email or Verification code', HttpStatus.NOT_FOUND);
+      };
+      return this.passwordResetService.changePassword(
+        resetBody['email'],
+        resetBody['verification_code'],
+        resetBody['password']
+      );
+    }
   
+    
   }
   
