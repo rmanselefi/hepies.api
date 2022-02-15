@@ -15,6 +15,9 @@ import { GuidelinesModule } from './guidelines/guidelines.module';
 import { PharmacyModule } from './pharmacy/pharmacy.module';
 // import { NotificationModule } from './notification/notification.module';
 import { VoucherModule } from './voucher/voucher.module';
+import { PasswordResetEntity } from './passwordReset/passwordReset.entity';
+import { PasswordResetModule } from './passwordReset/passwordReset.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -40,6 +43,9 @@ import { VoucherModule } from './voucher/voucher.module';
       ssl: {
         rejectUnauthorized: false,
       },
+      entities:[
+        PasswordResetEntity
+      ]
     }),
     AuthModule,
     UsersModule,
@@ -53,6 +59,8 @@ import { VoucherModule } from './voucher/voucher.module';
     GuidelinesModule,
     PharmacyModule,
     VoucherModule,
+    PasswordResetModule,
+    MailModule
   ],
 })
 export class AppModule {}
