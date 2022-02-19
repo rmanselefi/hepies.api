@@ -60,14 +60,14 @@ export class PasswordResetService {
   }
 
   async checkVerificationCode(userEmail: string,verificationCode): Promise<Boolean> {
-  
+    
     const getCode = await this.passwordResetRepo.findOne({
       where: { email:userEmail,
-                verification_code:verificationCode },
+               verification_code:verificationCode },
       order: { createdAt: 'DESC' },
     });
-    
-    if (getCode) {
+    const timeNow = (Math.round((new Date()).getTime() / 1000));
+    if (getCode && ((getCode.expires_in - timeNow) >= 0)) {
       return true;
     } else {
       return false;
