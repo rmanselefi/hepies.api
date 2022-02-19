@@ -126,4 +126,16 @@ export class ConsultingController {
     const interests = await await this.consultingService.getAllInterests();
     return interests;
   }
+
+  @Get('search')
+  searchConsults(
+    @Query('search') search = null,
+    @Query('take') take = 1,
+    @Query('skip') skip = 0,
+  ): Observable<Consult[]> {
+    take = take > 20 ? 20 : take;
+    return this.consultingService.searchPosts(take, skip,search);
+  }
+
+
 }

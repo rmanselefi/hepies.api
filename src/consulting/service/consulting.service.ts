@@ -3,7 +3,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
 import { User } from 'src/auth/user.interface';
-import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { Repository, UpdateResult, DeleteResult, Like } from 'typeorm';
 import { CommentEntity } from '../comment.entity';
 import { Comment } from '../comment.interface';
 import { Consult } from '../consult.interface';
@@ -172,5 +172,34 @@ export class ConsultingService {
   async getAllInterests(): Promise<InterestEntity[]> {
     const interests = await this.interestRepo.find();
     return interests;
+  }
+
+  searchPosts(take = 10, skip = 0,search): Observable<Consult[]> {
+    if (!search) {
+      return from(
+        this.consultRepo
+          .findAndCount({
+            take,
+            skip,
+          })
+          .then((data) => {
+            return <Consult[]>data;
+          }),
+      );
+    } else {
+      return from(
+        this.consultRepo
+          .findAndCount({
+            take,
+            skip,
+            where: search ? { topic: Like(`%${search}%`) } : {},
+          }
+          )
+          .then((data) => {
+            return <Consult[]>data;
+          }),
+      );
+    }
+    
   }
 }
