@@ -24,7 +24,7 @@ import { RolesGuard } from '../../auth/guards/roles.guard';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @Roles(Role.ADMIN , Role.CUSTOMER)
+  @Roles(Role.ADMIN, Role.CUSTOMER)
   @UseGuards(JwtGuard, RolesGuard)
   @Get()
   getAllUsers(): Observable<Proffesional[]> {
@@ -115,7 +115,12 @@ export class UsersController {
   transferPoint(
     @Request() req,
     @Body() user: Proffesional,
-  ): Promise<UpdateResult> {   
+  ): Promise<UpdateResult> {
     return this.userService.transferPoint(req.user, user);
+  }
+
+  @Put('reset/password/:id')
+  resetPassword(@Param('id') id: number, @Body() user: any): Promise<string> {
+    return this.userService.resetPassword(id, user.password);
   }
 }

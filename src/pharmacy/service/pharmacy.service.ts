@@ -15,14 +15,14 @@ export class PharmacyService {
   create(pharmacy_drugs: Pharmacy): Observable<PharmacyDrugsEntity> {
     console.log(pharmacy_drugs);
 
-    const { drug_name, drug, professional, price } = pharmacy_drugs;
+    const { drug_name, drug, profession, price } = pharmacy_drugs;
 
     return from(
       this.pharmacyRepo.save({
         drug,
         price,
         drug_name,
-        profession: professional,
+        profession: profession,
       }),
     );
   }
@@ -43,8 +43,8 @@ export class PharmacyService {
     );
   }
 
-  update(id: number, patient: Pharmacy): Observable<UpdateResult> {
-    return from(this.pharmacyRepo.update(id, patient));
+  update(id: number, pharmacy: Pharmacy): Observable<UpdateResult> {
+    return from(this.pharmacyRepo.update(id, pharmacy));
   }
 
   delete(id: number): Observable<DeleteResult> {

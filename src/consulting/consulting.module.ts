@@ -7,10 +7,11 @@ import { ConsultingEntity } from './consulting.entity';
 import { CommentEntity } from './comment.entity';
 import { LikeEntity } from './like.entity';
 import { InterestEntity } from './interests.entity';
+import { LikeCommentEntity } from './like_comment.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ConsultingEntity, CommentEntity, LikeEntity, InterestEntity]),
+    TypeOrmModule.forFeature([ConsultingEntity, CommentEntity, LikeEntity, InterestEntity,LikeCommentEntity]),
   ],
   controllers: [ConsultingController],
   providers: [ConsultingService],

@@ -230,10 +230,10 @@ export class PrescriptionService {
     return filtered;
   }
 
-  async findPrescriptionByCode(code: string): Promise<PrescriptionEntity[]> {
-    const result = await this.prescriptionRepo.find({
+  async findPrescriptionByCode(code: string): Promise<PrescriptionItemEntity[]> {
+    const result = await this.itemsRepo.find({
       where: { code, status: 'NotRead' },
-      relations: ['drug', 'patient'],
+      relations: ['drug', 'patient','prescription'],
     });
     if (result.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -333,9 +333,9 @@ export class PrescriptionService {
     }
   }
 
-  getReadBy(user: User): Promise<PrescriptionEntity[]> {
+  getReadBy(user: User): Promise<PrescriptionItemEntity[]> {
     const user_id = user.id;
-    return this.prescriptionRepo.find({
+    return this.itemsRepo.find({
       where: { readbyid: user_id, status: 'Read' },
       relations: ['patient'],
     });

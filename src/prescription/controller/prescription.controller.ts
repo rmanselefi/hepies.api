@@ -38,7 +38,7 @@ export class PrescriptionController {
   @Get('code/:code')
   getPrescriptionByCode(
     @Param('code') code: string,
-  ): Promise<PrescriptionEntity[]> {
+  ): Promise<PrescriptionItemEntity[]> {
     return this.prescriptionService.findPrescriptionByCode(code);
   }
 
@@ -51,7 +51,7 @@ export class PrescriptionController {
   async register(@Body() pres: any): Promise<boolean> {
     try {
 
-      const code = await crypto.randomBytes(6).toString('hex');
+      const code = await crypto.randomBytes(2).toString('hex');
       const patient = pres.patient[0];
       const phone = patient.phone;
 
@@ -116,7 +116,7 @@ export class PrescriptionController {
 
   @UseGuards(JwtGuard)
   @Post('readby')
-  async findReadById(@Request() req): Promise<PrescriptionEntity[]> {
+  async findReadById(@Request() req): Promise<PrescriptionItemEntity[]> {
     try {
       const res = await this.prescriptionService.getReadBy(req.user);
       return res;

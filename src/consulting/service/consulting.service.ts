@@ -10,6 +10,7 @@ import { Consult } from '../consult.interface';
 import { ConsultingEntity } from '../consulting.entity';
 import { InterestEntity } from '../interests.entity';
 import { LikeEntity } from '../like.entity';
+import { LikeCommentEntity } from '../like_comment.entity';
 
 @Injectable()
 export class ConsultingService {
@@ -23,6 +24,9 @@ export class ConsultingService {
 
     @InjectRepository(LikeEntity)
     private readonly likeRepo: Repository<LikeEntity>,
+
+    @InjectRepository(LikeCommentEntity)
+    private readonly likeCommentRepo: Repository<LikeCommentEntity>,
   ) {}
 
   createPost(user: User, feedPost: Consult): Observable<Consult> {
@@ -120,7 +124,7 @@ export class ConsultingService {
   async findComment(consultid: number): Promise<CommentEntity[]> {
     const comment = await this.commentRepo.find({
       where: { consult: consultid },
-      relations: ['user','user.profession'],
+      relations: ['user', 'user.profession','like','like.comment'],
       order: { createdAt: 'DESC' },
     });
     return comment;
@@ -200,6 +204,36 @@ export class ConsultingService {
           }),
       );
     }
+  }
     
+  async likeComment(user: User, comment: Comment): Promise<LikeCommentEntity> {
+    const found = await this.getCommentLike(comment.id, user);
+    if (found.length != 0) {
+      throw new HttpException('FOUND', HttpStatus.FOUND);
+    }
+    return await this.likeCommentRepo.save({
+      user_id: user.id,
+      user: user,
+      comment: comment,
+    });
+  }
+
+  async unLikeComment(user: User, comment: Comment): Promise<DeleteResult> {
+    const usr = {
+      id: user.id,
+    };
+
+    return await this.likeCommentRepo.delete({
+      user: usr,
+      comment: comment,
+    });
+  }
+
+  async getCommentLike(commentId: number, user: User): Promise<any> {
+    const comment = await this.likeCommentRepo.find({
+      where: { comment: commentId, user: user.id },
+    });
+
+    return comment;
   }
 }

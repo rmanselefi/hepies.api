@@ -7,5 +7,5 @@ export interface Pharmacy {
   drug_name: string;
   price: string;
   drug: Drug;
-  professional: Proffesional;
+  profession: Proffesional;
 }
