@@ -19,6 +19,7 @@ import { UsersService } from '../../users/services/users.service';
       if(!userEmail['email']){
         throw new HttpException('Email', HttpStatus.NOT_FOUND);
       };
+      return "before check";
       const checkEmail = await this.passwordResetService.checkEmail(userEmail['email']);
       if(!checkEmail){
         throw new HttpException('Email', HttpStatus.NOT_FOUND);
