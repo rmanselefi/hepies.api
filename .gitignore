@@ -1,6 +1,9 @@
 # compiled output
 /dist
+<<<<<<< HEAD
 node_modules
+=======
+>>>>>>> feature/forget-password
 
 # Logs
 logs
