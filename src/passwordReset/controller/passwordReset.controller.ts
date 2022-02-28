@@ -70,9 +70,9 @@ export class PasswordResetController {
     console.log(resetBody);
     console.log('====================================');
     if (
-      !resetBody['email'] ||
-      !resetBody['password'] ||
-      !resetBody['verification_code']
+      !resetBody.email ||
+      !resetBody.password ||
+      !resetBody.verification_code
     ) {
       throw new HttpException(
         'Email or Verification code',
