@@ -7,14 +7,19 @@ export class MailService {
 
   async sendUserConfirmation(email, verificationCode) {
 
-    await this.mailerService.sendMail({
-      to: email,
-      // from: '"Support Team" <support@example.com>', // override default from
-      subject: 'Hepies Reset Password',
-      template: '../templates/verificationCode', // `.hbs` extension is appended automatically
-      context: { 
-        verificationCode: verificationCode
-      },
-    });
+   try {
+      await this.mailerService.sendMail({
+        to: email,
+        // from: '"Support Team" <support@example.com>', // override default from
+        subject: 'Hepies Reset Password',
+        template: '../templates/verificationCode', // `.hbs` extension is appended automatically
+        context: { 
+          verificationCode: verificationCode
+        },
+      });
+   } catch (error) {
+     console.log(error);
+     throw error;
+   }
   }
 }

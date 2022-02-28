@@ -2,25 +2,11 @@
 import {
   Body,
   Controller,
-  Delete,
-  Get,
-  Param,
   Post,
-  Put,
-  UseGuards,
-  Request,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { Roles } from '../../auth/decorators/roles.decorators';
-import { JwtGuard } from '../../auth/guards/jwt.guard';
-import { Role } from '../../auth/decorators/role.enum';
-import { User } from '../../auth/user.interface';
-import { DeleteResult, UpdateResult } from 'typeorm';
 import { PasswordResetService } from '../services/passwordReset.service';
-import { RolesGuard } from '../../auth/guards/roles.guard';
-import { UsersService } from '../../users/services/users.service';
 
 @Controller('passwordReset')
 export class PasswordResetController {

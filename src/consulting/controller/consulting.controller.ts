@@ -127,6 +127,17 @@ export class ConsultingController {
     return interests;
   }
 
+  @Get('search')
+  searchConsults(
+    @Query('search') search = null,
+    @Query('take') take = 1,
+    @Query('skip') skip = 0,
+  ): Observable<Consult[]> {
+    take = take > 20 ? 20 : take;
+    return this.consultingService.searchPosts(take, skip,search);
+  }
+
+
   @UseGuards(JwtGuard)
   @Post('like/comment/:id')
   likeComment(@Param('id') id: number, @Request() req) {
