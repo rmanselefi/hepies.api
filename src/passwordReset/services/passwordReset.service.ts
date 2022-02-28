@@ -85,6 +85,10 @@ export class PasswordResetService {
         throw new HttpException('Found', HttpStatus.FOUND);
       };
 
+      console.log('====================================');
+      console.log(userExists['user']['id']);
+      console.log('====================================');
+
       const hashed_password = await this.hashPassword(password);
       const updated = await this.userRepo.update(userExists['user']['id'], {
         password: hashed_password,
