@@ -65,10 +65,7 @@ export class PasswordResetController {
   }
 
   @Post('change')
-  async changePassword(@Body() resetBody: any) {
-    console.log('====================================');
-    console.log(resetBody);
-    console.log('====================================');
+  async changePassword(@Body() resetBody: any) {  
     if (
       !resetBody.email ||
       !resetBody.password ||
