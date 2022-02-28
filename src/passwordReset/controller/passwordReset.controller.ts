@@ -95,14 +95,14 @@ export class PasswordResetController {
         };
       } else {
         return {
-          statusCode: 200,
+          statusCode: 400,
           message: 'Failed to update!',
           status: false,
         };
       }
     } else {
       return {
-        statusCode: 200,
+        statusCode: 400,
         message: 'Verification Code is Incorrect!',
         status: false,
       };
