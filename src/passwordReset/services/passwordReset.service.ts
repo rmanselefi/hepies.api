@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { from, Observable } from 'rxjs';
@@ -31,11 +32,11 @@ export class PasswordResetService {
       return user;
   }
 
-  async codeGenerate(userEmail: string): Promise<Boolean> {
+  async codeGenerate(userEmail: string): Promise<boolean> {
     
     var passwordReset: PasswordReset;
-    var verificationCode = Math.floor(Math.random() * 90000) + 10000;
-    var expiryTime = (Math.round((new Date()).getTime() / 1000))+3600;
+    const verificationCode = Math.floor(Math.random() * 90000) + 10000;
+    const expiryTime = (Math.round((new Date()).getTime() / 1000))+3600;
 
      passwordReset = {
       'email':userEmail,
@@ -59,7 +60,7 @@ export class PasswordResetService {
     return true;
   }
 
-  async checkVerificationCode(userEmail: string,verificationCode): Promise<Boolean> {
+  async checkVerificationCode(userEmail: string,verificationCode): Promise<boolean> {
     
     const getCode = await this.passwordResetRepo.findOne({
       where: { email:userEmail,
@@ -83,21 +84,13 @@ export class PasswordResetService {
       const checkCode = this.checkVerificationCode(email,verification_code);
       if(!checkCode){
         throw new HttpException('Found', HttpStatus.FOUND);
-      };
+      };     
 
-     
-
-      const hashed_password = await this.hashPassword(password);
-
-      console.log('==============hashed_password======================');
-      console.log(hashed_password);
-      console.log('================hashed_password====================');
+      const hashed_password = await this.hashPassword(password);     
       const updated = await this.userRepo.update(userExists['user']['id'], {
         password: hashed_password,
-      });
-      console.log('============updated========================');
-      console.log(updated);
-      console.log('==============updated======================');
+        active:'true'
+      });     
       return updated;
     } else {
       throw new HttpException('Found', HttpStatus.FOUND);
