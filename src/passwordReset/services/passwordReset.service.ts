@@ -86,7 +86,7 @@ export class PasswordResetService {
       };
 
       console.log('====================================');
-      console.log(userExists['user']['id']);
+      console.log(password);
       console.log('====================================');
 
       const hashed_password = await this.hashPassword(password);
