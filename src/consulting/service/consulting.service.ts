@@ -64,6 +64,10 @@ export class ConsultingService {
         .findAndCount({
           take,
           skip,
+          relations: ['author', 'author.profession','comment','like'],
+          order: {
+            createdAt: 'DESC',
+          },
         })
         .then((data) => {
           return <Consult[]>data;
@@ -186,6 +190,9 @@ export class ConsultingService {
             take,
             skip,
             relations: ['author', 'author.profession','comment','like'],
+            order: {
+              createdAt: 'DESC',
+            },
           })
           .then((data) => {
             return <Consult[]>data;
