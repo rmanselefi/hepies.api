@@ -8,4 +8,5 @@ export interface Consult {
   createdAt?: Date;
   user?: string;
   author?: User;
+  interests?: string;
 }
