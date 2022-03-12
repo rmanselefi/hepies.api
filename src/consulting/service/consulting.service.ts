@@ -204,7 +204,7 @@ export class ConsultingService {
           .findAndCount({
             take,
             skip,
-            where: search ? { topic: Like(`%${search}%`) } : {},
+            where: search ? { interests: Like(`%#${search}%`) } : {},
             relations: ['author', 'author.profession','comment','like'],
             order: {
               createdAt: 'DESC',

@@ -39,6 +39,11 @@ export class ConsultingEntity {
   })
   user: string;
 
+  @Column({
+    nullable: true,
+  })
+  interests: string;
+
   @ManyToOne(() => UserEntity, (userEntity) => userEntity.consult)
   author: UserEntity;
 
