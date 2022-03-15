@@ -64,7 +64,8 @@ export class ConsultingService {
         .findAndCount({
           take,
           skip,
-          relations: ['author', 'author.profession','comment','like'],
+          relations: ['author', 'author.profession', 'comment', 'like'],
+          where: { status: 'show' },
           order: {
             createdAt: 'DESC',
           },
@@ -128,7 +129,7 @@ export class ConsultingService {
   async findComment(consultid: number): Promise<CommentEntity[]> {
     const comment = await this.commentRepo.find({
       where: { consult: consultid },
-      relations: ['user', 'user.profession','like','like.comment'],
+      relations: ['user', 'user.profession', 'like', 'like.comment'],
       order: { createdAt: 'DESC' },
     });
     return comment;
@@ -182,14 +183,14 @@ export class ConsultingService {
     return interests;
   }
 
-  searchPosts(take = 10, skip = 0,search): Observable<Consult[]> {
+  searchPosts(take = 10, skip = 0, search): Observable<Consult[]> {
     if (!search) {
       return from(
         this.consultRepo
           .findAndCount({
             take,
             skip,
-            relations: ['author', 'author.profession','comment','like'],
+            relations: ['author', 'author.profession', 'comment', 'like'],
             order: {
               createdAt: 'DESC',
             },
@@ -205,19 +206,18 @@ export class ConsultingService {
             take,
             skip,
             where: search ? { interests: Like(`%#${search}%`) } : {},
-            relations: ['author', 'author.profession','comment','like'],
+            relations: ['author', 'author.profession', 'comment', 'like'],
             order: {
               createdAt: 'DESC',
             },
-          }
-          )
+          })
           .then((data) => {
             return <Consult[]>data;
           }),
       );
     }
   }
-    
+
   async likeComment(user: User, comment: Comment): Promise<LikeCommentEntity> {
     const found = await this.getCommentLike(comment.id, user);
     if (found.length != 0) {
