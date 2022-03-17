@@ -53,7 +53,7 @@ export class ConsultingService {
   findPost(id: number): Observable<Consult[]> {
     return from(
       this.consultRepo.find({
-        where: { id },
+        where: { id, status: 'show' },
       }),
     );
   }
