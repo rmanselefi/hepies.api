@@ -50,9 +50,9 @@ export class ConsultingService {
     );
   }
 
-  findPost(id: number): Observable<Consult[]> {
+  findPost(id: number): Observable<Consult> {
     return from(
-      this.consultRepo.find({
+      this.consultRepo.findOne({
         where: { id, status: 'show' },
       }),
     );

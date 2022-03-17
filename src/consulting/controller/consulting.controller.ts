@@ -36,6 +36,11 @@ export class ConsultingController {
     return this.consultingService.findAllPosts();
   }
 
+  @Get(':id')
+  getPost( @Param('id') id: number,): Observable<Consult> {
+    return this.consultingService.findPost(id);
+  }
+
   @Get('paginate')
   getSelected(
     @Query('take') take = 1,
