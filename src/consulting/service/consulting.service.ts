@@ -190,7 +190,6 @@ export class ConsultingService {
           .findAndCount({
             take,
             skip,
-            where: { status: 'show' },
             relations: ['author', 'author.profession', 'comment', 'like'],
             order: {
               createdAt: 'DESC',
@@ -206,9 +205,7 @@ export class ConsultingService {
           .findAndCount({
             take,
             skip,
-            where: search
-              ? { interests: Like(`%#${search}%`), status: 'show' }
-              : { status: 'show' },
+            where: search ? { interests: Like(`%#${search}%`) } : {},
             relations: ['author', 'author.profession', 'comment', 'like'],
             order: {
               createdAt: 'DESC',

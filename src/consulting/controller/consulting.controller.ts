@@ -35,7 +35,6 @@ export class ConsultingController {
   getPosts(): Observable<Consult[]> {
     return this.consultingService.findAllPosts();
   }
-  
 
   @Get('paginate')
   getSelected(
