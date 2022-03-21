@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable prettier/prettier */
+import moment from 'moment';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
@@ -218,13 +219,18 @@ export class PrescriptionService {
   async findPrescriptionByPhone(phone: string): Promise<PatientEntity[]> {
     const result = await this.patientRepo.find({
       where: { phone },
-      relations: ['prescription','prescription_item'],
+      relations: ['prescription', 'prescription_item'],
     });
-    const filtered = result[0].prescription_item.filter((pre) => pre.status !== 'Read')
-    
-    console.log('====================================');
-    console.log(filtered);
-    console.log('====================================');
+    const now = moment().format('M/D/YYYY');
+    const filtered = result[0].prescription_item.filter((pre) => {
+      console.log('====================================');
+      console.log(moment(pre.createdAt).diff(now));
+      console.log('====================================');
+    });
+
+    // console.log('====================================');
+    // console.log(filtered);
+    // console.log('====================================');
 
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -232,10 +238,12 @@ export class PrescriptionService {
     return null;
   }
 
-  async findPrescriptionByCode(code: string): Promise<PrescriptionItemEntity[]> {
+  async findPrescriptionByCode(
+    code: string,
+  ): Promise<PrescriptionItemEntity[]> {
     const result = await this.itemsRepo.find({
       where: { code, status: 'NotRead' },
-      relations: ['drug', 'patient','prescription'],
+      relations: ['drug', 'patient', 'prescription'],
     });
     if (result.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -271,7 +279,6 @@ export class PrescriptionService {
 
   async acceptPrescription(id: number, user: User): Promise<UpdateResult> {
     try {
-     
       const name =
         user.profession[0].name + ' ' + user.profession[0].fathername;
       const accepter_id = user.profession[0].id;
@@ -289,7 +296,7 @@ export class PrescriptionService {
       const presItem = await this.itemsRepo.findOne({
         where: { id },
         relations: ['patient', 'prescription'],
-      });   
+      });
 
       const writer_id = presItem.professionalid;
       const weight = presItem.patient.weight;
