@@ -218,14 +218,14 @@ export class PrescriptionService {
   async findPrescriptionByPhone(phone: string): Promise<PatientEntity[]> {
     const result = await this.patientRepo.find({
       where: { phone },
-      relations: ['prescription', 'prescription_item'],
+      relations: ['prescription_item'],
     });
     const filtered = result.filter((f) =>
       f.prescription_item.filter((pre) => pre.status !== 'Read'),
     );
     
     console.log('====================================');
-    console.log(filtered);
+    console.log(filtered[0].prescription_item);
     console.log('====================================');
 
     if (filtered.length == 0) {
