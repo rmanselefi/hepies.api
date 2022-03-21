@@ -220,16 +220,16 @@ export class PrescriptionService {
       where: { phone },
       relations: ['prescription','prescription_item'],
     });
-    const filtered = result.filter((f) =>
-      f.prescription_item.filter((pre) => pre.status !== 'Read'),
-    );
+    const filtered = result[0].prescription_item.filter((pre) => pre.status !== 'Read')
     
-    
+    console.log('====================================');
+    console.log(filtered);
+    console.log('====================================');
 
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return filtered;
+    return null;
   }
 
   async findPrescriptionByCode(code: string): Promise<PrescriptionItemEntity[]> {
