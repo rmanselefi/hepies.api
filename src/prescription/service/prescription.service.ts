@@ -240,10 +240,17 @@ export class PrescriptionService {
       where: { code, status: 'NotRead' },
       relations: ['drug', 'patient', 'prescription'],
     });
-    if (result.length == 0) {
+
+    const now = moment(new Date()).format('M/D/YYYY');
+    const filtered = result.filter((pre) => {
+      const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
+      return pre.status !== 'Read' && diff <= 15;
+    });
+
+    if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return result;
+    return filtered;
   }
 
   async findAllPrescribed(): Promise<Drug[]> {
