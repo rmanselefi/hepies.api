@@ -224,7 +224,7 @@ export class PrescriptionService {
     const now = moment(new Date()).format('M/D/YYYY');
     const filtered = result[0].prescription_item.filter((pre) => {
       const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
-      return pre.status !== 'Read' && diff > 15;
+      return pre.status !== 'Read' && diff <= 15;
     });
 
     if (filtered.length == 0) {
