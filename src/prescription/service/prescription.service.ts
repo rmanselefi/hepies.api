@@ -224,6 +224,10 @@ export class PrescriptionService {
       f.prescription_item.filter((pre) => pre.status !== 'Read'),
     );
     
+    console.log('====================================');
+    console.log(filtered);
+    console.log('====================================');
+
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
