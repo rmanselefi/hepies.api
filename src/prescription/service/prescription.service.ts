@@ -221,7 +221,7 @@ export class PrescriptionService {
       where: { phone },
       relations: ['prescription', 'prescription_item'],
     });
-    const now = moment().format('M/D/YYYY');
+    const now = moment(new Date()).format('M/D/YYYY');
     const filtered = result[0].prescription_item.filter((pre) => {
       console.log('====================================');
       console.log(moment(pre.createdAt).diff(now));
