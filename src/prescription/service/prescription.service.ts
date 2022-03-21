@@ -224,7 +224,7 @@ export class PrescriptionService {
     const now = moment(new Date()).format('M/D/YYYY');
     const filtered = result[0].prescription_item.filter((pre) => {
       console.log('====================================');
-      console.log(moment(pre.createdAt).diff(now));
+      console.log(moment(pre.createdAt).diff(now,'days'));
       console.log('====================================');
     });
 
