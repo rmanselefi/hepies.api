@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable prettier/prettier */
-import * as moment from "moment";
+import * as moment from 'moment';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
@@ -223,19 +223,14 @@ export class PrescriptionService {
     });
     const now = moment(new Date()).format('M/D/YYYY');
     const filtered = result[0].prescription_item.filter((pre) => {
-      console.log('====================================');
-      console.log(moment(pre.createdAt).diff(now,'days'));
-      console.log('====================================');
+      const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
+      return pre.status !== 'Read' && diff > 15;
     });
-
-    // console.log('====================================');
-    // console.log(filtered);
-    // console.log('====================================');
 
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return null;
+    return result;
   }
 
   async findPrescriptionByCode(
