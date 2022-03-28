@@ -10,7 +10,7 @@ export class MailService {
     await this.mailerService.sendMail({
       to: email,
       // from: '"Support Team" <support@example.com>', // override default from
-      subject: 'Hepies Reset Password',
+      subject: 'Hepius Reset Password',
       template: '../templates/verificationCode', // `.hbs` extension is appended automatically
       context: { 
         verificationCode: verificationCode
