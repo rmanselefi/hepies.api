@@ -52,7 +52,7 @@ export class PrescriptionController {
     try {
 
       const code = await crypto.randomBytes(2).toString('hex');
-      const patient = pres.patient[0];
+      const patient = pres.patient;
       const phone = patient.phone;
 
       this.prescriptionService.registerPrescription(
