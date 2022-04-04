@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 
@@ -6,20 +7,14 @@ export class MailService {
   constructor(private mailerService: MailerService) {}
 
   async sendUserConfirmation(email, verificationCode) {
-
-   try {
-      await this.mailerService.sendMail({
-        to: email,
-        // from: '"Support Team" <support@example.com>', // override default from
-        subject: 'Hepies Reset Password',
-        template: '../templates/verificationCode', // `.hbs` extension is appended automatically
-        context: { 
-          verificationCode: verificationCode
-        },
-      });
-   } catch (error) {
-     console.log(error);
-     throw error;
-   }
+    await this.mailerService.sendMail({
+      to: email,
+      // from: '"Support Team" <support@example.com>', // override default from
+      subject: 'Hepius Reset Password',
+      template: '../templates/verificationCode', // `.hbs` extension is appended automatically
+      context: {
+        verificationCode: verificationCode,
+      },
+    });
   }
 }
