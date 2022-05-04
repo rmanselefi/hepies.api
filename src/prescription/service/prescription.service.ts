@@ -222,12 +222,10 @@ export class PrescriptionService {
       relations: ['prescription', 'prescription_item'],
     });
     const now = moment(new Date()).format('MM/DD/YYYY');
-    console.log('====================================');
-    console.log(now);
-    console.log('====================================');
+    
     const filtered = result[0].prescription_item.filter((pre) => {
       console.log('====================================');
-      console.log(pre.createdAt);
+      console.log(moment(pre.createdAt).format('MM/DD/YYYY'));
       console.log('====================================');
       const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
       return pre.status !== 'Read' && diff <= 15;
