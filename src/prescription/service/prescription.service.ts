@@ -223,14 +223,13 @@ export class PrescriptionService {
     });
     const now = moment(new Date());
     
-    const filtered = result[0].prescription_item.filter((pre) => {
-      console.log('====================================');
-      console.log(moment(pre.createdAt).format('MM/DD/YYYY'));
-      console.log('====================================');
+    const filtered = result[0].prescription_item.filter((pre) => {      
       const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
       return pre.status !== 'Read' && diff <= 15;
     });
-
+console.log('====================================');
+console.log(filtered);
+console.log('====================================');
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
