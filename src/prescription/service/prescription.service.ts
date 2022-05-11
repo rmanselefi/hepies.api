@@ -227,9 +227,7 @@ export class PrescriptionService {
       const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
       return pre.status !== 'Read' && diff <= 15;
     });
-console.log('====================================');
-console.log(filtered);
-console.log('====================================');
+
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
@@ -244,7 +242,7 @@ console.log('====================================');
       relations: ['drug', 'patient', 'prescription'],
     });
 
-    const now = moment(new Date()).format('M/D/YYYY');
+    const now = moment(new Date());
     const filtered = result.filter((pre) => {
       const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
       return pre.status !== 'Read' && diff <= 15;
