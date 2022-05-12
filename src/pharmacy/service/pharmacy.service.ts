@@ -39,7 +39,7 @@ export class PharmacyService {
     return from(
       this.pharmacyRepo.find({
         where: { profession: id },
-        order: { drug_name: 'DESC' },
+        order: { drug_name: 'ASC' },
       }),
     );
   }
