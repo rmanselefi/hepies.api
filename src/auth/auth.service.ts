@@ -26,7 +26,7 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<User> {
     const user = await this.userRepo.findOne(
-      { username },
+      { username, active: 'true' },
       {
         relations: ['role', 'profession'],
       },
