@@ -15,6 +15,7 @@ import { User } from 'src/auth/user.interface';
 import { ProffesionalEntity } from '../../users/professional.entity';
 import { DrugEntity } from '../../drugs/drugs.entity';
 import { PrescriptionItemEntity } from '../entities/prescription_items.entity';
+import { PointsEntity } from 'src/points/points.entity';
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -31,6 +32,9 @@ export class PrescriptionService {
 
     @InjectRepository(PrescriptionItemEntity)
     private readonly itemsRepo: Repository<PrescriptionItemEntity>,
+
+    @InjectRepository(PointsEntity)
+    private readonly pointsRepo: Repository<PointsEntity>,
 
     @InjectRepository(PatientEntity)
     private readonly patientRepo: Repository<PatientEntity>,
@@ -222,8 +226,8 @@ export class PrescriptionService {
       relations: ['prescription', 'prescription_item'],
     });
     const now = moment(new Date());
-    
-    const filtered = result[0].prescription_item.filter((pre) => {      
+
+    const filtered = result[0].prescription_item.filter((pre) => {
       const diff = Math.abs(moment(pre.createdAt).diff(now, 'days'));
       return pre.status !== 'Read' && diff <= 15;
     });
@@ -289,8 +293,14 @@ export class PrescriptionService {
 
       const professional = await this.professionalRepo.findOne(accepter_id);
 
-      const newPoint = Number(professional.points) + Number(2);
-      const newOverAll = Number(professional.overall_points) + Number(2);
+      const points = await this.pointsRepo.find();
+      const pharmacyPoint = points.find((e) => e.when == 'Pharmacist').point;
+      const dxPoint = points.find((e) => e.when == 'DX').point;
+      const mrnPoint = points.find((e) => e.when == 'MRN').point;
+
+      const newPoint = Number(professional.points) + Number(pharmacyPoint);
+      const newOverAll =
+        Number(professional.overall_points) + Number(pharmacyPoint);
       this.professionalRepo.update(accepter_id, {
         points: newPoint.toFixed(2).toString(),
         overall_points: newOverAll.toFixed(2).toString(),
@@ -303,6 +313,7 @@ export class PrescriptionService {
 
       const writer_id = presItem.professionalid;
       const weight = presItem.patient.weight;
+      const mrn = presItem.patient.mrn;
       const pres = await this.prescriptionRepo.findOne({
         where: { id: presItem.prescription.id },
         relations: ['patient'],
@@ -321,19 +332,31 @@ export class PrescriptionService {
         });
       }
 
-      if ((diagnosis != null || diagnosis != '') && diagnosis.length >= 3) {
+      if (diagnosis != null || diagnosis != '') {
         const pnt = await this.professionalRepo.findOne(writer_id);
         const point = pnt.points == null ? 0 : pnt.points;
         const overall_point =
           pnt.overall_points == null ? 0 : pnt.overall_points;
-        const newPoint = Number(point) + Number(5);
-        const newOverAll = Number(overall_point) + Number(5);
+        const newPoint = Number(point) + Number(dxPoint);
+        const newOverAll = Number(overall_point) + Number(dxPoint);
         await this.professionalRepo.update(pnt.id, {
           points: newPoint.toString(),
           overall_points: newOverAll.toString,
         });
       }
 
+      if (mrn != null || mrn != '') {
+        const pnt = await this.professionalRepo.findOne(writer_id);
+        const point = pnt.points == null ? 0 : pnt.points;
+        const overall_point =
+          pnt.overall_points == null ? 0 : pnt.overall_points;
+        const newPoint = Number(point) + Number(mrnPoint);
+        const newOverAll = Number(overall_point) + Number(mrnPoint);
+        await this.professionalRepo.update(pnt.id, {
+          points: newPoint.toString(),
+          overall_points: newOverAll.toString,
+        });
+      }
       return this.itemsRepo.update(id, {
         status: 'Read',
         readby: name,

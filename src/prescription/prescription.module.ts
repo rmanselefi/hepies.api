@@ -13,6 +13,7 @@ import { DrugsModule } from '../drugs/drugs.module';
 import { DxEntity } from './entities/dx.entity';
 import { ProffesionalEntity } from '../users/professional.entity';
 import { PrescriptionItemEntity } from './entities/prescription_items.entity';
+import { PointsEntity } from 'src/points/points.entity';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { PrescriptionItemEntity } from './entities/prescription_items.entity';
       DxEntity,
       ProffesionalEntity,
       PrescriptionItemEntity,
+      PointsEntity
     ]),
     DrugsModule,
   ],

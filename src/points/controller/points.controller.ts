@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -25,7 +26,7 @@ export class PointsController {
   }
 
   @Get()
-  getPosts(): Promise<Points[]> {
+  getPoints(): Promise<Points[]> {
     return this.pointsService.findAllPoints();
   }
 
