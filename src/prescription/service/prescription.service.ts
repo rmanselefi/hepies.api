@@ -294,16 +294,19 @@ export class PrescriptionService {
       const professional = await this.professionalRepo.findOne(accepter_id);
 
       const points = await this.pointsRepo.find();
-      const pharmacyPoint = points.find((e) => e.when == 'Pharmacist').point;
-      const dxPoint = points.find((e) => e.when == 'DX').point;
-      const mrnPoint = points.find((e) => e.when == 'MRN').point;
+      const pharmacyPoint = points.find((e) => e.to == 'Pharmacist').point;
+      const doctorPoint = points.find((e) => e.to == 'Doctors').point;
+
+      const dxPoint = points.find((e) => e.to == 'DX').point;
+      const mrnPoint = points.find((e) => e.to == 'MRN').point;
+      const weightPoint = points.find((e) => e.to == 'Weight').point;
 
       const newPoint = Number(professional.points) + Number(pharmacyPoint);
-      const newOverAll =
+      const newOverAllPharmacy =
         Number(professional.overall_points) + Number(pharmacyPoint);
       this.professionalRepo.update(accepter_id, {
         points: newPoint.toFixed(2).toString(),
-        overall_points: newOverAll.toFixed(2).toString(),
+        overall_points: newOverAllPharmacy.toFixed(2).toString(),
       });
 
       const presItem = await this.itemsRepo.findOne({
@@ -319,13 +322,22 @@ export class PrescriptionService {
         relations: ['patient'],
       });
       const diagnosis = pres.diagnosis;
+      const writer = await this.professionalRepo.findOne(writer_id);
+      const point = writer.points == null ? 0 : writer.points;
+      const overall_point =
+        writer.overall_points == null ? 0 : writer.overall_points;
+      const writerNewPoint = Number(point) + Number(doctorPoint);
+      const newOverAll = Number(overall_point) + Number(doctorPoint);
+      this.professionalRepo.update(writer.id, {
+        points: writerNewPoint.toString(),
+        overall_points: newOverAll.toString(),
+      });
       if (weight != null || weight != '') {
-        const writer = await this.professionalRepo.findOne(writer_id);
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
           writer.overall_points == null ? 0 : writer.overall_points;
-        const writerNewPoint = Number(point) + Number(5);
-        const newOverAll = Number(overall_point) + Number(5);
+        const writerNewPoint = Number(point) + Number(weightPoint);
+        const newOverAll = Number(overall_point) + Number(weightPoint);
         this.professionalRepo.update(writer.id, {
           points: writerNewPoint.toString(),
           overall_points: newOverAll.toString(),
@@ -333,26 +345,24 @@ export class PrescriptionService {
       }
 
       if (diagnosis != null || diagnosis != '') {
-        const pnt = await this.professionalRepo.findOne(writer_id);
-        const point = pnt.points == null ? 0 : pnt.points;
+        const point = writer.points == null ? 0 : writer.points;
         const overall_point =
-          pnt.overall_points == null ? 0 : pnt.overall_points;
+          writer.overall_points == null ? 0 : writer.overall_points;
         const newPoint = Number(point) + Number(dxPoint);
         const newOverAll = Number(overall_point) + Number(dxPoint);
-        await this.professionalRepo.update(pnt.id, {
+        await this.professionalRepo.update(writer.id, {
           points: newPoint.toString(),
           overall_points: newOverAll.toString,
         });
       }
 
       if (mrn != null || mrn != '') {
-        const pnt = await this.professionalRepo.findOne(writer_id);
-        const point = pnt.points == null ? 0 : pnt.points;
+        const point = writer.points == null ? 0 : writer.points;
         const overall_point =
-          pnt.overall_points == null ? 0 : pnt.overall_points;
+          writer.overall_points == null ? 0 : writer.overall_points;
         const newPoint = Number(point) + Number(mrnPoint);
         const newOverAll = Number(overall_point) + Number(mrnPoint);
-        await this.professionalRepo.update(pnt.id, {
+        await this.professionalRepo.update(writer.id, {
           points: newPoint.toString(),
           overall_points: newOverAll.toString,
         });
