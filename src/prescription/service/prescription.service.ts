@@ -15,7 +15,7 @@ import { User } from 'src/auth/user.interface';
 import { ProffesionalEntity } from '../../users/professional.entity';
 import { DrugEntity } from '../../drugs/drugs.entity';
 import { PrescriptionItemEntity } from '../entities/prescription_items.entity';
-import { PointsEntity } from 'src/points/points.entity';
+import { PointsEntity } from '../../points/points.entity';
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -7,9 +7,10 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { GuidelinesService } from './guidelines.service';
-import { CreateGuidelineDto } from './dto/create-guideline.dto';
-import { UpdateGuidelineDto } from './dto/update-guideline.dto';
+import { CreateGuidelineDto } from '../dto/create-guideline.dto';
+import { UpdateGuidelineDto } from '../dto/update-guideline.dto';
+import { GuidelinesService } from '../services/guidelines.service';
+
 
 @Controller('guidelines')
 export class GuidelinesController {

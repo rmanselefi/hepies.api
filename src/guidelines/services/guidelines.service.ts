@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { CreateGuidelineDto } from './dto/create-guideline.dto';
-import { UpdateGuidelineDto } from './dto/update-guideline.dto';
-import { GuidelinesEntity } from './entities/guideline.entity';
+import { CreateGuidelineDto } from '../dto/create-guideline.dto';
+import { UpdateGuidelineDto } from '../dto/update-guideline.dto';
+import { GuidelinesEntity } from '../entities/guideline.entity';
+
 
 @Injectable()
 export class GuidelinesService {
