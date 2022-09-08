@@ -334,6 +334,9 @@ export class PrescriptionService {
         points: writerNewPoint.toString(),
         overall_points: newOverAll.toString(),
       });
+      console.log('====================weight================');
+      console.log(id);
+      console.log('=====================weight===============');
       if (weight != null || weight != '') {
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
@@ -345,7 +348,9 @@ export class PrescriptionService {
           overall_points: newOverAll.toString(),
         });
       }
-
+      console.log('====================diagnosis================');
+      console.log(id);
+      console.log('=====================diagnosis===============');
       if (diagnosis != null || diagnosis != '') {
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
@@ -357,7 +362,9 @@ export class PrescriptionService {
           overall_points: newOverAll.toString,
         });
       }
-
+console.log('====================mrn================');
+console.log(id);
+console.log('=====================mrn===============');
       if (mrn != null || mrn != '') {
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
