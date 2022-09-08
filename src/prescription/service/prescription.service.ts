@@ -357,21 +357,21 @@ export class PrescriptionService {
           writer.overall_points == null ? 0 : writer.overall_points;
         const newPoint = Number(point) + Number(dxPoint);
         const newOverAll = Number(overall_point) + Number(dxPoint);
-        await this.professionalRepo.update(writer.id, {
+        this.professionalRepo.update(writer.id, {
           points: newPoint.toString(),
           overall_points: newOverAll.toString,
         });
       }
-console.log('====================mrn================');
-console.log(id);
-console.log('=====================mrn===============');
+      console.log('====================mrn================');
+      console.log(id);
+      console.log('=====================mrn===============');
       if (mrn != null || mrn != '') {
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
           writer.overall_points == null ? 0 : writer.overall_points;
         const newPoint = Number(point) + Number(mrnPoint);
         const newOverAll = Number(overall_point) + Number(mrnPoint);
-        await this.professionalRepo.update(writer.id, {
+        this.professionalRepo.update(writer.id, {
           points: newPoint.toString(),
           overall_points: newOverAll.toString,
         });
