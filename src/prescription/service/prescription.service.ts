@@ -293,7 +293,7 @@ export class PrescriptionService {
 
       const professional = await this.professionalRepo.findOne(accepter_id);
       console.log(professional);
-      
+
       const points = await this.pointsRepo.find();
       const pharmacyPoint = points.find((e) => e.to == 'Pharmacist').point;
       const doctorPoint = points.find((e) => e.to == 'Doctors').point;
@@ -359,7 +359,7 @@ export class PrescriptionService {
         const newOverAll = Number(overall_point) + Number(dxPoint);
         this.professionalRepo.update(writer.id, {
           points: newPoint.toString(),
-          overall_points: newOverAll.toString,
+          overall_points: newOverAll.toString(),
         });
       }
       console.log('====================mrn================');
@@ -373,7 +373,7 @@ export class PrescriptionService {
         const newOverAll = Number(overall_point) + Number(mrnPoint);
         this.professionalRepo.update(writer.id, {
           points: newPoint.toString(),
-          overall_points: newOverAll.toString,
+          overall_points: newOverAll.toString(),
         });
       }
       console.log(id);
