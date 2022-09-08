@@ -26,7 +26,7 @@ export class PrescriptionController {
 
   @UseGuards(JwtGuard)
   @Get()
-  getAllUsers(): Observable<PrescriptionEntity[]> {
+  getAllPrescriptions(): Observable<PrescriptionItemEntity[]> {
     return this.prescriptionService.findAllPrescriptions();
   }
 

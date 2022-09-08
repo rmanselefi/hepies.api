@@ -182,9 +182,9 @@ export class PrescriptionService {
     return pres;
   }
 
-  findAllPrescriptions(): Observable<PrescriptionEntity[]> {
+  findAllPrescriptions(): Observable<PrescriptionItemEntity[]> {
     return from(
-      this.prescriptionRepo.find({
+      this.itemsRepo.find({
         relations: ['drug', 'patient'],
         order: { createdAt: 'DESC' },
       }),
