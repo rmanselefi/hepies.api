@@ -292,7 +292,8 @@ export class PrescriptionService {
       const user_id = user.id;
 
       const professional = await this.professionalRepo.findOne(accepter_id);
-
+      console.log(professional);
+      
       const points = await this.pointsRepo.find();
       const pharmacyPoint = points.find((e) => e.to == 'Pharmacist').point;
       const doctorPoint = points.find((e) => e.to == 'Doctors').point;
@@ -313,6 +314,7 @@ export class PrescriptionService {
         where: { id },
         relations: ['patient', 'prescription'],
       });
+      console.log(presItem);
 
       const writer_id = presItem.professionalid;
       const weight = presItem.patient.weight;
@@ -367,6 +369,7 @@ export class PrescriptionService {
           overall_points: newOverAll.toString,
         });
       }
+      console.log(id);
       return this.itemsRepo.update(id, {
         status: 'Read',
         readby: name,
