@@ -65,6 +65,11 @@ export class PrescriptionItemEntity {
 
   @Column({
     nullable: true,
+  })
+  amount: string;
+
+  @Column({
+    nullable: true,
     default: 'NotRead',
   })
   status: string;

@@ -148,6 +148,7 @@ export class PrescriptionService {
         strength,
         material_name,
         size,
+        amount,
         drug_name,
         type,
       } = presc;
@@ -172,6 +173,7 @@ export class PrescriptionService {
         strength,
         material_name,
         size,
+        amount,
         type,
         professional,
         professionalid: professionid,
