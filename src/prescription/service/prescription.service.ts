@@ -137,7 +137,9 @@ export class PrescriptionService {
 
     for (let index = 0; index < prescription.length; index++) {
       const presc = prescription[index];
-
+      console.log('====================================');
+      console.log(presc);
+      console.log('====================================');
       const {
         drug,
         frequency,
