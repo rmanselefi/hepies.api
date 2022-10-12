@@ -111,6 +111,19 @@ export class PrescriptionService {
         mrn,
         code: patient_code,
       });
+    } else {
+      patient = await this.patientRepo.update(patient_find.id, {
+        name,
+        age,
+        age_label,
+        fathername,
+        grandfathername,
+        phone,
+        sex,
+        weight,
+        mrn,
+        code: patient_code,
+      });
     }
     const patients = patient_find == null ? patient : patient_find;
 
@@ -338,7 +351,7 @@ export class PrescriptionService {
         points: writerNewPoint.toString(),
         overall_points: newOverAll.toString(),
       });
-     
+
       if (weight != null || weight != '') {
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
@@ -350,7 +363,7 @@ export class PrescriptionService {
           overall_points: newOverAll.toString(),
         });
       }
-      
+
       if (diagnosis != null || diagnosis != '') {
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
@@ -362,7 +375,7 @@ export class PrescriptionService {
           overall_points: newOverAll.toString(),
         });
       }
-      
+
       if (mrn != null || mrn != '') {
         const point = writer.points == null ? 0 : writer.points;
         const overall_point =
