@@ -41,8 +41,10 @@ export class PrescriptionEntity {
   })
   professionalid: number;
 
-  @CreateDateColumn()
-  createdAt;
+  @Column({
+    nullable: true,
+  })
+  createdAt: Date;
 
   @Column({
     nullable: true,

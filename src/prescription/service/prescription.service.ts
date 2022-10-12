@@ -132,7 +132,7 @@ export class PrescriptionService {
 
     const presc = prescription[0];
 
-    const { remark, type, professional, dx } = presc;
+    const { remark, type, professional, dx, createdAt } = presc;
     const { diagnosis } = dx;
     const pres = await this.prescriptionRepo.save({
       code,
@@ -142,6 +142,7 @@ export class PrescriptionService {
       professional,
       diagnosis,
       professionalid: professionid,
+      createdAt
     });
 
     if (diagnosis != null || diagnosis != '') {
@@ -169,6 +170,7 @@ export class PrescriptionService {
         amount,
         drug_name,
         type,
+        createdAt
       } = presc;
 
       // update drug prescription number
@@ -197,6 +199,7 @@ export class PrescriptionService {
         professionalid: professionid,
         prescription: pres,
         patient: patients,
+        createdAt
       });
     }
     return pres;
