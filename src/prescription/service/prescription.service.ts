@@ -90,6 +90,7 @@ export class PrescriptionService {
       weight,
       mrn,
       professionid,
+      remark,
     } = patientt;
 
     const patient_cod = await crypto.randomBytes(4).toString();
@@ -115,7 +116,6 @@ export class PrescriptionService {
         code: patient_code,
       });
     } else {
-      
       patient = await this.patientRepo.update(patient_find.id, {
         name,
         age,
@@ -128,7 +128,6 @@ export class PrescriptionService {
         mrn,
         code: patient_code,
       });
-     
     }
     const patients = patient_find == null ? patient : patient_find;
 
@@ -136,7 +135,7 @@ export class PrescriptionService {
     console.log('====================================');
     console.log(presc);
     console.log('====================================');
-    const { remark, type, professional, dx, createdAt } = presc;
+    const { type, professional, dx, createdAt } = presc;
     const { diagnosis } = dx;
     const pres = await this.prescriptionRepo.save({
       code,
@@ -158,7 +157,7 @@ export class PrescriptionService {
 
     for (let index = 0; index < prescription.length; index++) {
       const presc = prescription[index];
-     
+
       const {
         drug,
         frequency,
