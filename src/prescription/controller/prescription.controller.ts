@@ -106,7 +106,7 @@ export class PrescriptionController {
   ): Promise<boolean> {
     try {
       for (let index = 0; index < pres.output.length; index++) {
-        this.prescriptionService.acceptPrescription(pres[index], req.user, date);
+        this.prescriptionService.acceptPrescription(pres[index], req.user, pres.readDate);
       }
       return true;
     } catch (error) {
