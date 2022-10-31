@@ -106,7 +106,10 @@ export class PrescriptionController {
   ): Promise<boolean> {
     try {
       console.log('====================================');
-      console.log(pres);
+      console.log(pres.output);
+      console.log('====================================');
+      console.log('====================================');
+      console.log(pres['output']);
       console.log('====================================');
       for (let index = 0; index < pres['output'].length; index++) {
         this.prescriptionService.acceptPrescription(pres[index], req.user, pres['readDate']);
