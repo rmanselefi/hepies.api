@@ -308,7 +308,11 @@ export class PrescriptionService {
     });
   }
 
-  async acceptPrescription(id: number, user: User): Promise<UpdateResult> {
+  async acceptPrescription(
+    id: number,
+    user: User,
+    date: any,
+  ): Promise<UpdateResult> {
     try {
       const name =
         user.profession[0].name + ' ' + user.profession[0].fathername;
@@ -399,7 +403,7 @@ export class PrescriptionService {
         status: 'Read',
         readby: name,
         readbyid: user_id,
-        readDate: new Date(),
+        readDate: date,
       });
     } catch (e) {
       return e;

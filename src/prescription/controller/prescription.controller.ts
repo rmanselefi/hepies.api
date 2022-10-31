@@ -101,12 +101,12 @@ export class PrescriptionController {
   @UseGuards(JwtGuard)
   @Post('accept')
   async acceptPrescription(
-    @Body() pres: number[],
+    @Body() pres: any,
     @Request() req,
   ): Promise<boolean> {
     try {
-      for (let index = 0; index < pres.length; index++) {
-        this.prescriptionService.acceptPrescription(pres[index], req.user);
+      for (let index = 0; index < pres.output.length; index++) {
+        this.prescriptionService.acceptPrescription(pres[index], req.user, date);
       }
       return true;
     } catch (error) {
