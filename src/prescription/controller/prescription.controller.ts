@@ -108,10 +108,10 @@ export class PrescriptionController {
      
       for (let index = 0; index < pres['output'].length; index++) {
         console.log('====================================');
-        console.log(pres[index]);
+        console.log(pres['output'][index]);
         console.log('====================================');
         
-        this.prescriptionService.acceptPrescription(pres[index], req.user, pres['readDate']);
+        this.prescriptionService.acceptPrescription(pres['output'][index], req.user, pres['readDate']);
       }
       return true;
     } catch (error) {
