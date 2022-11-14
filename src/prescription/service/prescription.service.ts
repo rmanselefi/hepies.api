@@ -78,6 +78,7 @@ export class PrescriptionService {
     prescription: any,
     patientt: any,
     code: string,
+    createdAt: any,
   ): Promise<PrescriptionEntity> {
     const {
       age,
@@ -91,7 +92,7 @@ export class PrescriptionService {
       mrn,
       professionid,
       remark,
-      dx
+      dx,
     } = patientt;
 
     const patient_cod = await crypto.randomBytes(4).toString();
@@ -136,7 +137,7 @@ export class PrescriptionService {
     console.log('====================================');
     console.log(presc);
     console.log('====================================');
-    const { type, professional, createdAt } = presc;
+    const { type, professional } = presc;
     const { diagnosis } = dx;
     const pres = await this.prescriptionRepo.save({
       code,
@@ -257,7 +258,6 @@ export class PrescriptionService {
       return pre.status !== 'Read' && diff <= 15;
     });
 
-    
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
