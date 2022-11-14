@@ -173,7 +173,6 @@ export class PrescriptionService {
         amount,
         drug_name,
         type,
-        createdAt,
       } = presc;
 
       // update drug prescription number
