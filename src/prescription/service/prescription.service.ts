@@ -257,9 +257,13 @@ export class PrescriptionService {
       return pre.status !== 'Read' && diff <= 15;
     });
 
+    
     if (filtered.length == 0) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
+    console.log('====================================');
+    console.log(result);
+    console.log('====================================');
     return result;
   }
 
