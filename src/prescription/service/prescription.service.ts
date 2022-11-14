@@ -100,7 +100,7 @@ export class PrescriptionService {
     const patient_code = 'PATIENT' + patient_cod;
     const patient_find = await this.findPatient(phone);
     console.log('====================================');
-    console.log(patientt);
+    console.log(createdAt);
     console.log('====================================');
     let patient;
 
