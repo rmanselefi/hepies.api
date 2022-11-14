@@ -262,7 +262,7 @@ export class PrescriptionService {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
     console.log('====================================');
-    console.log(result);
+    console.log(result[0].prescription_item);
     console.log('====================================');
     return result;
   }
