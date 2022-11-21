@@ -116,9 +116,6 @@ export class PrescriptionService {
         code: patient_code,
       });
     } else {
-      console.log('====================================');
-      console.log(mrn);
-      console.log('====================================');
       patient = await this.patientRepo.update(patient_find.id, {
         name,
         age,
@@ -133,9 +130,7 @@ export class PrescriptionService {
       });
     }
     const patients = patient_find == null ? patient : patient_find;
-    console.log('==============rr======================');
-    console.log(patient);
-    console.log('===============rr=====================');
+
     const presc = prescription[0];
 
     const { type, professional } = presc;
@@ -175,9 +170,6 @@ export class PrescriptionService {
         drug_name,
         type,
       } = presc;
-      console.log('==============rr======================');
-      console.log(drug);
-      console.log('===============rr=====================');
 
       // update drug prescription number
       const drg = await this.drugRepo.findOne(drug);
@@ -208,9 +200,7 @@ export class PrescriptionService {
         createdAt,
       });
     }
-    console.log('====================================');
-    console.log('patients');
-    console.log('====================================');
+
     return pres;
   }
 
