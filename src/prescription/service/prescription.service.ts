@@ -99,8 +99,8 @@ export class PrescriptionService {
 
     const patient_code = 'PATIENT' + patient_cod;
     const patient_find = await this.findPatient(phone);
-   
-    let patient: any;
+
+    let patient: any = null;
 
     if (patient_find == null) {
       patient = await this.patientRepo.save({
@@ -131,12 +131,13 @@ export class PrescriptionService {
         mrn,
         code: patient_code,
       });
-     
     }
     const patients = patient_find == null ? patient : patient_find;
-
+    console.log('==============rr======================');
+    console.log(patient);
+    console.log('===============rr=====================');
     const presc = prescription[0];
-   
+
     const { type, professional } = presc;
     const { diagnosis } = dx;
     const pres = await this.prescriptionRepo.save({
@@ -156,9 +157,7 @@ export class PrescriptionService {
         patient: patient,
       });
     }
-    console.log('==============rr======================');
-    console.log(patients);
-    console.log('===============rr=====================');
+
     for (let index = 0; index < prescription.length; index++) {
       const presc = prescription[index];
 
