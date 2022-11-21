@@ -143,7 +143,7 @@ export class PrescriptionService {
     const { diagnosis } = dx;
     const pres = await this.prescriptionRepo.save({
       code,
-      patient: patients,
+      patient: patient,
       remark,
       type,
       professional,
@@ -155,7 +155,7 @@ export class PrescriptionService {
     if (diagnosis != null || diagnosis != '') {
       this.dxRepo.save({
         diagnosis,
-        patient: patients,
+        patient: patient,
       });
     }
 
@@ -202,7 +202,7 @@ export class PrescriptionService {
         professional,
         professionalid: professionid,
         prescription: pres,
-        patient: patients,
+        patient: patient,
         createdAt,
       });
     }
