@@ -116,6 +116,9 @@ export class PrescriptionService {
         code: patient_code,
       });
     } else {
+      console.log('====================================');
+      console.log(patient_find.id);
+      console.log('====================================');
       patient = await this.patientRepo.update(patient_find.id, {
         name,
         age,
@@ -128,9 +131,7 @@ export class PrescriptionService {
         mrn,
         code: patient_code,
       });
-      console.log('====================================');
-      console.log(patient);
-      console.log('====================================');
+     
     }
     const patients = patient_find == null ? patient : patient_find;
 
