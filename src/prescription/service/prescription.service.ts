@@ -137,7 +137,7 @@ export class PrescriptionService {
 
     const presc = prescription[0];
     console.log('====================================');
-    console.log(presc);
+    console.log(patients);
     console.log('====================================');
     const { type, professional } = presc;
     const { diagnosis } = dx;
