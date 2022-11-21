@@ -117,7 +117,7 @@ export class PrescriptionService {
       });
     } else {
       console.log('====================================');
-      console.log(patient_find.id);
+      console.log(mrn);
       console.log('====================================');
       patient = await this.patientRepo.update(patient_find.id, {
         name,
